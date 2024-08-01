@@ -1,0 +1,19 @@
+name: Deploy To Server
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to ${{ secrets.SSH_HOST }}
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{ secrets.SSH_USER }}
+        host: ${{ secrets.SSH_HOST }}
+        port: ${{ secrets.SSH_PORT }}
+        key: ${{ secrets.SSH_KEY }}
+        script:
+          cd /var/www/petrvurm_cz && ./server_deploy.sh
