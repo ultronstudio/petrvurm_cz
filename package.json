@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8001",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/themes": "^3.1.1",
     "next": "14.2.5",
+    "petrvurm-cz": "file:",
     "react": "^18",
     "react-dom": "^18"
   },
