@@ -41,9 +41,9 @@ export default function Kontakt() {
             </p>
           </div>
           <div className="w-full mt-4">
-            <div className="flex flex-row justify-center">
-              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center">
-                <h4 className="text-xl font-bold text-primary">One Page Web</h4>
+            <div className="flex flex-row gap-3 justify-center">
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+                <h4 className="text-xl font-bold text-primary">Jednostránkový web</h4>
                 <p className="mt-4">
                   Vhodný pro prezentaci vaší
                   <br />
@@ -63,12 +63,45 @@ export default function Kontakt() {
                     Na nejlevnějším hostingu
                   </li>
                   <li className="flex gap-3">
-                  <span className="text-[#70e000] font-bold">&#10003;</span>
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
                     Doména na rok v ceně (platí pro .cz, .sk, .eu)
                   </li>
                 </ul>
                 <div className="mt-6 font-bold text-xl">
                   <p>Cena: 5 000 Kč</p>
+                </div>
+              </Card>
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+                <h4 className="text-xl font-bold text-primary">Webová aplikace</h4>
+                <p className="mt-4">
+                  Vhodná pro větší projekty
+                  <br />
+                  s vlastním backendem.
+                </p>
+                <ul className="mt-4 text-left">
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    SEO optimalizace
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Responsivní design
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Vlastní backend
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Na výkonném hostingu
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Doména na rok v ceně (platí pro .cz, .sk, .eu)
+                  </li>
+                </ul>
+                <div className="mt-6 font-bold text-xl">
+                  <p>Cena: od 10 000 Kč</p>
                 </div>
               </Card>
             </div>
