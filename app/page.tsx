@@ -28,7 +28,7 @@ export default function Home() {
               className="transition-all duration-300 inline-flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-white hover:text-black focus:outline-none focus:ring-2"
               prefetch={false}
             >
-              Kontaktovat mě
+              Kontaktujte mě
             </Link>
           </div>
         </div>
