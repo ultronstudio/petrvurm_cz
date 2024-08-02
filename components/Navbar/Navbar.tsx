@@ -11,7 +11,7 @@ export default function Navbar() {
         </Link>
         <nav className="hidden space-x-4 md:flex">
           <Link href="/o-me" className="transition-colors duration-200 hover:text-primary" prefetch={false}>
-            O mě
+            O mně
           </Link>
           <Link href="/projekty" className="transition-colors duration-200 hover:text-primary" prefetch={false}>
             Projekty

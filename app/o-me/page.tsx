@@ -45,7 +45,7 @@ export default function Kontakt() {
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            O mě
+            O mně
           </h2>
         </div>
         <div className="flex flex-row">
