@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className + " p-[0.01px] bg-[#111113]"}>
         <Theme
           appearance="dark"
           accentColor="indigo"
@@ -31,7 +31,7 @@ export default function RootLayout({
           scaling="100%"
         >
           <Navbar />
-          <div className="flex flex-col min-h-screen bg-background text-foreground">
+          <div className="mt-[64px] flex flex-col min-h-screen bg-background text-foreground">
             <main className="flex-1">{children}</main>
           </div>
           <Footer />
