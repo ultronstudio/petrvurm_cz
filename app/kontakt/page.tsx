@@ -41,13 +41,11 @@ export default function Kontakt() {
             </p>
           </div>
           <div className="w-full mt-4">
-            <div className="flex flex-row gap-3 justify-center">
+            <div className="flex md:inline-grid flex-col md:grid-cols-3 gap-3 justify-center">
               <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
-                <h4 className="text-xl font-bold text-primary">Jednostránkový web</h4>
+                <h4 className="text-xl font-bold text-primary">One page web</h4>
                 <p className="mt-4">
-                  Vhodný pro prezentaci vaší
-                  <br />
-                  firmy nebo produktu.
+                  Vhodný pro prezentaci vaší firmy nebo produktu.
                 </p>
                 <ul className="mt-4 text-left">
                   <li className="flex gap-3">
@@ -71,14 +69,15 @@ export default function Kontakt() {
                   <p>Cena: 5 000 Kč</p>
                 </div>
               </Card>
+
               <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
-                <h4 className="text-xl font-bold text-primary">Webová aplikace</h4>
-                <p className="mt-4">
-                  Vhodná pro větší projekty
-                  <br />
-                  s vlastním backendem.
+                <h4 className="text-xl font-bold text-primary">
+                  Webová aplikace
+                </h4>
+                <p className="mt-6">
+                  Vhodné pro větší a komplexnější projekty.
                 </p>
-                <ul className="mt-4 text-left">
+                <ul className="mt-6 text-left">
                   <li className="flex gap-3">
                     <span className="text-[#70e000] font-bold">&#10003;</span>
                     SEO optimalizace
@@ -102,6 +101,76 @@ export default function Kontakt() {
                 </ul>
                 <div className="mt-6 font-bold text-xl">
                   <p>Cena: od 10 000 Kč</p>
+                </div>
+              </Card>
+
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+                <h4 className="text-xl font-bold text-primary">
+                  Základní e-shop
+                </h4>
+                <p className="mt-10">
+                  Pro začátek prodávání vašich produktů online.
+                </p>
+                <ul className="mt-10 text-left">
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    SEO optimalizace
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Responsivní design
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Jednoduchá administrace
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Platební brána GoPay na rok v ceně
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Doména na rok v ceně (platí pro .cz, .sk, .eu)
+                  </li>
+                </ul>
+                <div className="mt-6 font-bold text-xl">
+                  <p>Cena: od 20 000 Kč</p>
+                </div>
+              </Card>
+
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+                <h4 className="text-xl font-bold text-primary">
+                  Komplexní e-shop
+                </h4>
+                <p className="mt-4">Řešení s nekonečnou možností úprav.</p>
+                <ul className="mt-4 text-left">
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    SEO optimalizace
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Responsivní design
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Jednoduchá administrace
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Úpravy vzhledu a funkcí na míru
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Platební brána GoPay na rok v ceně
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-[#70e000] font-bold">&#10003;</span>
+                    Doména na rok v ceně (platí pro .cz, .sk, .eu)
+                  </li>
+                </ul>
+                <div className="mt-6 font-bold text-xl">
+                  <p>Cena: od 30 000 Kč</p>
                 </div>
               </Card>
             </div>
