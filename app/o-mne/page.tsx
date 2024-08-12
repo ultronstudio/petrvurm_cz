@@ -1,4 +1,17 @@
-import { HTML5Icon, CSS3Icon, JavaScriptIcon, TypeScriptIcon, ReactIcon, NextJsIcon, NodeJsIcon, LaravelIcon, LaravelLivewireIcon, MariaDbIcon } from "@/Icons/Icons";
+import {
+  HTML5Icon,
+  CSS3Icon,
+  JavaScriptIcon,
+  TypeScriptIcon,
+  ReactIcon,
+  NextJsIcon,
+  NodeJsIcon,
+  LaravelIcon,
+  LaravelLivewireIcon,
+  MariaDbIcon,
+  GitIcon,
+  SassIcon,
+} from "@/Icons/Icons";
 
 export default function Kontakt() {
   const getAge = (): number => {
@@ -119,7 +132,7 @@ export default function Kontakt() {
           </p>
           <h3 className="mt-3 text-xl font-bold">Technologie, jaké používám</h3>
           <div className="mt-2">
-            <div className="flex flex-wrap gap-2 font-bold">
+            <div className="flex flex-wrap gap-2 font-bold justify-center">
               <div className="bg-[#e34c26] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <HTML5Icon className="w-5 h-5 fill-white" />
                 <p>HTML5</p>
@@ -127,6 +140,10 @@ export default function Kontakt() {
               <div className="bg-[#264de4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <CSS3Icon className="w-5 h-5 fill-white" />
                 <p>CSS3</p>
+              </div>
+              <div className="bg-[#cc6699] text-[#fff] cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <SassIcon className="w-5 h-5 fill-[#fff]" />
+                <p>Sass</p>
               </div>
               <div className="bg-[#f0db4f] text-[#323330] cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <JavaScriptIcon className="w-5 h-5 fill-[#323330]" />
@@ -159,6 +176,10 @@ export default function Kontakt() {
               <div className="bg-[#00758f] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <MariaDbIcon className="w-5 h-5 fill-white" />
                 <p>MariaDB</p>
+              </div>
+              <div className="bg-[#F1502F] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <GitIcon className="w-5 h-5 fill-white" />
+                <p>Git</p>
               </div>
             </div>
           </div>
