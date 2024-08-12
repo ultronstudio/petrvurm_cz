@@ -137,13 +137,17 @@ export default function Projekty() {
   return (
     <section id="services" className="py-10">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-1">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Projekty
           </h2>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6 justify-center">
+        <p className="mt-0">
+          Na téhle stránce najdete projekty, na kterých jsem pracoval. Váš web bude jistě další, který můžeme společně realizovat.
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-6 mb-6 justify-center">
           {technologies.map((tech) => (
             <div
               key={tech.name}
