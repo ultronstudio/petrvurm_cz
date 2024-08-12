@@ -1,4 +1,5 @@
 import { Section, Container, Card } from "@radix-ui/themes";
+import Link from "next/link";
 
 interface CenikItemProps {
   title: string;
@@ -7,19 +8,27 @@ interface CenikItemProps {
   from?: boolean;
   featured?: boolean;
   price: number;
-};
+}
 
 function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
-  return new Intl.NumberFormat('cs-CZ', {
+  return new Intl.NumberFormat("cs-CZ", {
     ...options,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   }).format(number);
 }
 
-const CenikItem = ({ title, description, features, from, featured, price }: CenikItemProps) => {
-
+const CenikItem = ({
+  title,
+  description,
+  features,
+  from,
+  featured,
+  price,
+}: CenikItemProps) => {
   return (
-    <Card className={`p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between`}>
+    <Card
+      className={`p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between`}
+    >
       <h4 className="text-xl font-bold text-primary">{title}</h4>
       <p className="mt-4">{description}</p>
       <ul className="mt-4 text-left">
@@ -31,7 +40,15 @@ const CenikItem = ({ title, description, features, from, featured, price }: Ceni
         ))}
       </ul>
       <div className="mt-6 font-bold text-xl">
-        <p>Cena: {from ? `od ${formatNumber(price, {style: 'currency', currency: 'CZK'})}` : `${formatNumber(price, {style: 'currency', currency: 'CZK'})}`}</p>
+        <p>
+          Cena:{" "}
+          {from
+            ? `od ${formatNumber(price, {
+                style: "currency",
+                currency: "CZK",
+              })}`
+            : `${formatNumber(price, { style: "currency", currency: "CZK" })}`}
+        </p>
       </div>
     </Card>
   );
@@ -47,7 +64,7 @@ const cenikItems = [
       "Na nejlevnějším hostingu",
       "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
     ],
-    price: 5000,
+    price: 1000,
   },
   {
     title: "Webová aplikace",
@@ -60,7 +77,7 @@ const cenikItems = [
       "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
     ],
     from: true,
-    price: 10000,
+    price: 5000,
   },
   {
     title: "Základní e-shop",
@@ -73,7 +90,7 @@ const cenikItems = [
       "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
     ],
     from: true,
-    price: 20000,
+    price: 10000,
   },
   {
     title: "Komplexní e-shop",
@@ -87,8 +104,8 @@ const cenikItems = [
       "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
     ],
     from: true,
-    price: 30000,
-  }
+    price: 20000,
+  },
 ];
 
 export default function Kontakt() {
@@ -136,6 +153,19 @@ export default function Kontakt() {
               {cenikItems.map((item, index) => (
                 <CenikItem key={index} {...item} />
               ))}
+            </div>
+          </div>
+          <div className="w-full mt-4">
+            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Doplňkové služby
+            </h3>
+            <div className="grid grid-cols-2 mt-4">
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+                <h3 className="text-2xl font-bold">Prodloužení domény</h3>
+                <p className="mt-4">
+                  Prodloužení domény na další rok (platí pro .cz, .sk, .eu) podle aktuálních cen registrátora (<Link href="https://www.wedos.com/cs/" target="_blank" className="link">Wedos</Link>).
+                </p>
+              </Card>
             </div>
           </div>
         </div>
