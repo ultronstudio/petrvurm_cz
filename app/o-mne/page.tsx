@@ -12,6 +12,8 @@ import {
   GitIcon,
   SassIcon,
 } from "@/Icons/Icons";
+import { Card } from "@radix-ui/themes";
+import Link from "next/link";
 
 export default function Kontakt() {
   const getAge = (): number => {
@@ -114,6 +116,45 @@ export default function Kontakt() {
             className="hidden sticky top-0 sm:max-w-[310px] sm:max-h-[550px] md:block lg:block xl:block"
           />
         </div>
+        <section className="w-full mt-10">
+          <h2 className="mb-2 text-2xl font-bold">Navštěvované školy</h2>
+          <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
+              <div>
+                <h3 className="text-lg font-semibold">
+                  SPŠ, SOŠ a SOU, Hradec Králové
+                </h3>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  2021 - dosud
+                </p>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  Obor Informační technologie
+                </p>
+              </div>
+              <p className="mt-2">
+                <Link href="https://hradebni.cz" className="link" target="_blank" prefetch={false}>
+                  Navštívit web
+                </Link>
+              </p>
+            </Card>
+            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
+              <div>
+                <h3 className="text-lg font-semibold">ZŠ a MŠ Nechanice</h3>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  2012 - 2021
+                </p>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  Všeobecné vzdělání
+                </p>
+              </div>
+              <p className="mt-2">
+                <Link href="" className="link" target="_blank" prefetch={false}>
+                  Navštívit web
+                </Link>
+              </p>
+            </Card>
+          </div>
+        </section>
         {/* technologie */}
         <div className="mt-10 text-justify">
           <h2 className="mt-4 text-2xl font-bold">Co dělám teď</h2>
@@ -130,7 +171,7 @@ export default function Kontakt() {
             {yearsString} a {monthString} od doby, kdy jsem začal pracovat na
             FakeTube).
           </p>
-          <h3 className="mt-3 text-xl font-bold">Technologie, jaké používám</h3>
+          <h3 className="mt-6 text-xl font-bold">Technologie, jaké používám</h3>
           <div className="mt-2">
             <div className="flex flex-wrap gap-2 font-bold justify-center">
               <div className="bg-[#e34c26] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
