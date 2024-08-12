@@ -55,15 +55,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <section id="services" className="py-10">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex flex-row flex-auto gap-3">
-          <div className="w-[50%] max-w-[50%]">
+        <div className="flex flex-col md:flex-row gap-3">
+          <div className="w-[100%] max-w-[100%] md:w-[50%] md:max-w-[50%]">
             <img
               src={`${content.data.previewImage}`}
               alt={content.data.title}
               className="w-full h-96 object-cover rounded-lg"
             />
           </div>
-          <div className="w-[50%] max-w-[50%]">
+          <div className="w-[100%] max-w-[100%] md:w-[50%] md:max-w-[50%]">
             <h2 className="text-4xl">
               <strong>{content.data.title}</strong>
             </h2>
