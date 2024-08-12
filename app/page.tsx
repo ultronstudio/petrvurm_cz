@@ -112,11 +112,11 @@ export default function Home() {
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="p-0">
               <img
-                src="https://play-lh.googleusercontent.com/NHNwyXgyiTUCndaUGkNtRKMQgtuYCqHhCHsH-rD2dDi17lrSLZ_3SoDnv-fmuST0nt7b=w2560-h1440-rw"
+                src="/images/projekty/faketube.jpg"
                 width={1280}
                 height={720}
                 alt="FakeTube"
-                className="rounded-t-md object-cover aspect-auto"
+                className="rounded-t-sm object-cover aspect-auto"
               />
               <div className="p-4">
                 <p className="font-bold text-xl">FakeTube</p>
