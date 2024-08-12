@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             <img
               src={`${content.data.previewImage}`}
               alt={content.data.title}
-              className="w-full h-96 object-cover rounded-lg"
+              className="w-full aspect-video max-h-[720px] object-cover rounded-lg"
             />
           </div>
           <div className="w-[100%] max-w-[100%] md:w-[50%] md:max-w-[50%]">

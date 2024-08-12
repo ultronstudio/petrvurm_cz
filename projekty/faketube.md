@@ -1,12 +1,11 @@
 ---
 title: "FakeTube"
 description: "Stručný úvod do projektu FakeTube, jeho historie a hlavní funkce."
-previewImage: "https://via.placeholder.com/1280x720"
+previewImage: "/images/projekty/faketube.jpg"
 created: "20. prosince 2020"
 status: "<span style=\"color: #38b000;\">aktivní</span>"
 licence: "Všechna práva vyhrazena"
 ---
-
 FakeTube je online platforma, která umožňuje uživatelům sledovat videa a poslouchat hudbu, kterou mají rádi. Uživatelé mohou nahrávat originální obsah a sdílet ho s přáteli, rodinou a celým světem. Projekt je stále ve vývoji a některé funkce nemusí fungovat správně.
 
 #### Hlavní funkce
