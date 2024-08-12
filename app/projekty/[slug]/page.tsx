@@ -20,7 +20,7 @@ export interface PostData {
   content: string;
 }
 
-export async function getPostData(slug: string) {
+async function getPostData(slug: string) {
   const filePath = path.join(postsDirectory, `${slug}.md`);
   try {
     const fileContents = fs.readFileSync(filePath, "utf8");
