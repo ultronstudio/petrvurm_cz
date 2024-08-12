@@ -64,6 +64,7 @@ const cenikItems = [
       "Na nejlevnějším hostingu",
       "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
     ],
+    from: true,
     price: 1000,
   },
   {
