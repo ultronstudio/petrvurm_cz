@@ -37,3 +37,122 @@ body {
 .instagram-gradient {
   fill: url(#instagramGradient);
 }
+
+.markdown-body {
+  @apply mb-10
+}
+
+.markdown-body h1 {
+  @apply text-4xl font-bold my-4;
+}
+
+.markdown-body h2 {
+  @apply text-3xl font-bold my-3;
+}
+
+.markdown-body h3 {
+  @apply text-2xl font-bold my-2;
+}
+
+.markdown-body h4 {
+  @apply text-xl font-bold my-2;
+}
+
+.markdown-body h5 {
+  @apply text-lg font-bold my-1;
+}
+
+.markdown-body h6 {
+  @apply text-base font-bold my-1;
+}
+
+.markdown-body p {
+  @apply text-gray-400 my-4;
+}
+
+.markdown-body img {
+  display: inline-flex;
+}
+
+.markdown-body a {
+  @apply text-[#00b7ef] hover:underline;
+}
+
+
+.markdown-body ul {
+  @apply list-disc pl-6 mb-4 text-gray-400;
+}
+
+.markdown-body li {
+  @apply leading-relaxed;
+}
+
+.markdown-body blockquote {
+  @apply border-l-4 border-[#00b7ef] italic pl-4 py-2 mb-4;
+}
+
+.markdown-body table {
+  @apply w-full border-collapse border border-gray-300 my-4;
+}
+
+.markdown-body th {
+  @apply bg-[#00b7ef] text-white font-bold px-4 py-2;
+}
+
+.markdown-body th, .markdown-body td {
+  @apply border border-[#00b7ef] px-4 py-2;
+}
+
+.markdown-body ol {
+  @apply list-decimal pl-6 mb-4 text-gray-400;
+}
+
+.markdown-body pre {
+  @apply bg-black rounded-lg text-sm font-mono text-white p-4;
+}
+
+.markdown-body code:not(pre > code) {
+  @apply bg-black p-2 rounded-sm
+}
+
+
+pre:has(code) {
+  position: relative;
+}
+
+pre button.copy {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  height: 28px;
+  width: 28px;
+  padding: 0;
+  display: flex;
+
+  & span {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  & .ready {
+    background-image: url(/icons/copy.svg);
+  }
+
+  & .success {
+    display: none;
+    background-image: url(/icons/check.svg); 
+  }
+
+  &.copied {
+    & .success {
+      display: block;
+    }
+
+    & .ready {
+      display: none;
+    }
+  }
+}
