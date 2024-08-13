@@ -36,7 +36,7 @@ const projects = [
   },
   {
     title: "BressKamp",
-    description: "Webové portfolio německé společnosti BressKamp",
+    description: "Portfolio německé společnosti BressKamp",
     technologies: ["HTML5", "CSS3", "JavaScript", "PHP", "Git"],
     slug: "bresskamp",
   },
