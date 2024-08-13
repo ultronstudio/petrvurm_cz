@@ -1,6 +1,6 @@
 ---
 title: "BressKamp"
-description: "Webové portfolio německé společnosti BressKamp"
+description: "Portfolio německé společnosti BressKamp"
 previewImage: "/images/projekty/bresskamp.jpg"
 created: "20. prosince 2020"
 status: "<span style=\"color: #bfc000;\">dokončeno</span>"
