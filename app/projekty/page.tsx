@@ -14,6 +14,7 @@ import {
   MariaDbIcon,
   GitIcon,
   SassIcon,
+  PHPIcon,
 } from "@/Icons/Icons";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
@@ -21,7 +22,7 @@ import { Card } from "@radix-ui/themes";
 const projects = [
   {
     title: "FakeTube",
-    description: "Česká sociální síť pro sdílení videí.",
+    description: "Česká sociální síť pro sdílení videí",
     technologies: [
       "HTML5",
       "CSS3",
@@ -32,6 +33,12 @@ const projects = [
       "Git",
     ],
     slug: "faketube",
+  },
+  {
+    title: "BressKamp",
+    description: "Webové portfolio německé společnosti BressKamp",
+    technologies: ["HTML5", "CSS3", "JavaScript", "PHP", "Git"],
+    slug: "bresskamp",
   },
 ];
 
@@ -51,6 +58,7 @@ const technologies = [
     color: "#007acc",
     textColor: "#ffffff",
   },
+  { name: "PHP", icon: PHPIcon, color: "#777bb4", textColor: "#ffffff" },
   { name: "React", icon: ReactIcon, color: "#61dafb", textColor: "#323330" },
   { name: "Next.js", icon: NextJsIcon, color: "#ffffff", textColor: "#000000" },
   { name: "Node.js", icon: NodeJsIcon, color: "#339933", textColor: "#ffffff" },
@@ -144,7 +152,8 @@ export default function Projekty() {
         </div>
 
         <p className="mt-0">
-          Na téhle stránce najdete projekty, na kterých jsem pracoval. Váš web bude jistě další, který můžeme společně realizovat.
+          Na téhle stránce najdete projekty, na kterých jsem pracoval. Váš web
+          bude jistě další, který můžeme společně realizovat.
         </p>
 
         <div className="flex flex-wrap gap-2 mt-6 mb-6 justify-center">
@@ -184,12 +193,8 @@ export default function Projekty() {
 
               return (
                 <Link key={project.title} href={`/projekty/${project.slug}`}>
-                  <Card
-                    className="p-4 border rounded-lg shadow hover:bg-card-hover cursor-pointer"
-                  >
-                    <h3 className="text-xl font-bold mb-2">
-                      {project.title}
-                    </h3>
+                  <Card className="p-4 border rounded-lg shadow hover:bg-card-hover cursor-pointer">
+                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                     <p>{project.description}</p>
                     <div className="flex gap-2 mt-2 flex-wrap">
                       {visibleTechs.map((tech) => {

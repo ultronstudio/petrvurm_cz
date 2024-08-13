@@ -1,6 +1,6 @@
 ---
 title: "FakeTube"
-description: "Stručný úvod do projektu FakeTube, jeho historie a hlavní funkce."
+description: "Česká sociální síť pro sdílení videí"
 previewImage: "/images/projekty/faketube.jpg"
 created: "20. prosince 2020"
 status: "<span style=\"color: #38b000;\">aktivní</span>"

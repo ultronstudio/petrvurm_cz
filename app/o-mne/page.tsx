@@ -11,6 +11,7 @@ import {
   MariaDbIcon,
   GitIcon,
   SassIcon,
+  PHPIcon,
 } from "@/Icons/Icons";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
@@ -193,6 +194,10 @@ export default function Kontakt() {
               <div className="bg-[#007acc] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <TypeScriptIcon className="w-4 h-4 fill-white" />
                 <p>TypeScript</p>
+              </div>
+              <div className="bg-[#777bb4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <PHPIcon className="w-4 h-4 fill-white" />
+                <p>PHP</p>
               </div>
               <div className="bg-[#61dafb] text-[#323330] cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <ReactIcon className="w-5 h-5 fill-[#323330]" />
