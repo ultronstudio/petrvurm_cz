@@ -160,7 +160,7 @@ export default function Kontakt() {
             <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Doplňkové služby
             </h3>
-            <div className="grid grid-cols-2 mt-4">
+            <div className="grid grid-cols-2 mt-4 gap-4">
               <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
                 <h3 className="text-2xl font-bold">Prodloužení domény</h3>
                 <p className="mt-4">
