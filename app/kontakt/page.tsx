@@ -161,18 +161,18 @@ export default function Kontakt() {
               Doplňkové služby
             </h3>
             <div className="grid grid-cols-2 mt-4 gap-4">
-              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col">
                 <h3 className="text-2xl font-bold">Prodloužení domény</h3>
-                <p className="mt-4">
+                <p className="mt-4 text-justify">
                   Prodloužení domény na další rok (platí pro .cz, .sk, .eu) podle aktuálních cen registrátora (<Link href="https://www.wedos.com/cs/" target="_blank" className="link">Wedos</Link>).
                 </p>
               </Card>
-              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between">
+              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col">
                 <h3 className="text-2xl font-bold">Návrh webu</h3>
-                <p className="mt-4">
+                <p className="mt-4 text-justify">
                   Podle vašeho zadání vytvořím návrh webu v grafickém programu, který vám pomůže představit si výsledný vzhled. Pokud s návrhem budete spokojeni, vypracuji vám web podle něj.
                 </p>
-                <p className="mt-4">
+                <p className="mt-4 text-justify">
                   Cena za návrh webu je 500 Kč. Platí se pouze v případě, že se rozhodnete pro realizaci webu.
                 </p>
               </Card>
