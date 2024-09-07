@@ -9,4 +9,5 @@ licence: "Všechna práva vyhrazena"
 Jednoduchý one page web pro německou společnost BressKamp. Web je vytvořen s použitím volně dostupné placené šablony, upraven podle představ klienta a je optimalizován pro rychlost a SEO. Web je plně responzivní a je optimalizován pro všechny zařízení.
 
 ## Odkazy
-- [BressKamp](https://behaelterbau.cz)
+
+- [BressKamp](https://behaelterbau.cz "Navštívit BressKamp")

@@ -19,3 +19,7 @@ FakeTube je online platforma, která umožňuje uživatelům sledovat videa a po
 FakeTube jsem založil v roce 2020, když mi bylo 14 let. Chtěl jsem vytvořit platformu, kde by se lidé mohli setkat, sdílet své zájmy a bavit se. Od té doby se snažím projekt neustále zdokonalovat a přidávat nové funkce.
 
 Od založení prošel FakeTube mnoha změnami a vylepšeními. Díky podpoře komunity se mi podařilo vytvořit platformu, která je oblíbená mezi uživateli a stále se rozvíjí.
+
+## Odkazy
+
+- [FakeTube](https://faketube.cz "Navštívit FakeTube")
