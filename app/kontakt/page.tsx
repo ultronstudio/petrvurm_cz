@@ -123,7 +123,7 @@ export default function Kontakt() {
             <p>
               Pokud máte nějaký dotaz, nebo se chcete se mnou spojit, můžete mi
               napsat na email{" "}
-              <a href="mailto:kontakt@petrvurm.cz" className="text-blue-500">
+              <a href="mailto:kontakt@petrvurm.cz"  className="link">
                 kontakt@petrvurm.cz
               </a>
             </p>
