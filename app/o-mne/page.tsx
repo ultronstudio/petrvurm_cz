@@ -133,7 +133,7 @@ export default function Kontakt() {
                 </p>
               </div>
               <p className="mt-2">
-                <Link href="https://hradebni.cz" className="link" target="_blank" prefetch={false}>
+                <Link href="https://www.hradebni.cz" className="link" target="_blank" prefetch={false}>
                   Navštívit web
                 </Link>
               </p>
