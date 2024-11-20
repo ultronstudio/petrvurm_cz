@@ -116,7 +116,7 @@ export default function Home() {
                 width={1280}
                 height={720}
                 alt="FakeTube"
-                className="rounded-t-sm object-cover aspect-auto"
+                className="rounded-t-sm object-cover aspect-video"
               />
               <div className="p-4">
                 <p className="font-bold text-xl">FakeTube</p>
@@ -124,6 +124,29 @@ export default function Home() {
                 <div className="mt-4 gap-3">
                   <Link
                     href="/projekty/faketube"
+                    className="w-full transition-all justify-center duration-200 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md shadow-primary hover:bg-primary/80 hover:shadow-none"
+                    prefetch={false}
+                  >
+                    Zobrazit detaily
+                  </Link>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-0">
+            <img
+                src="/images/projekty/hophub.png"
+                width={1280}
+                height={720}
+                alt="HopHub"
+                className="rounded-t-sm object-cover aspect-video"
+              />
+              <div className="p-4">
+                <p className="font-bold text-xl">HopHub</p>
+                <p>Rozšíření pro internetový prohlížeč</p>
+                <div className="mt-4 gap-3">
+                  <Link
+                    href="/projekty/hophub"
                     className="w-full transition-all justify-center duration-200 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md shadow-primary hover:bg-primary/80 hover:shadow-none"
                     prefetch={false}
                   >
