@@ -40,6 +40,18 @@ const projects = [
     technologies: ["HTML5", "CSS3", "JavaScript", "PHP", "Git"],
     slug: "bresskamp",
   },
+  {
+    title: "HopHub",
+    description: "Rozšíření pro internetový prohlížeč",
+    technologies: ["HTML5", "CSS3", "Sass", "JavaScript", "Git"],
+    slug: "hophub",
+  },
+  {
+    title: "Petr Vurm",
+    description: "Profesní webové portfolio",
+    technologies: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Git"],
+    slug: "petrvurm"
+  }
 ];
 
 const technologies = [

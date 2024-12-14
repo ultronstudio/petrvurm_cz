@@ -5,6 +5,9 @@ import { Theme, Container, Section } from "@radix-ui/themes";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 
+// i18n
+import { useTranslation } from 'next-i18next';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
