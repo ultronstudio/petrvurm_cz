@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Theme, Container, Section } from "@radix-ui/themes";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-
-// i18n
-import { useTranslation } from 'next-i18next';
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Petr Vurm",
@@ -23,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " p-[0.01px] bg-[#111113]"}>
+      <body className="p-[0.01px] bg-[#111113]">
         <Theme
           appearance="dark"
           accentColor="indigo"
