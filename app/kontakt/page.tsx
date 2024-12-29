@@ -1,114 +1,6 @@
 import { Section, Container, Card } from "@radix-ui/themes";
 import Link from "next/link";
 
-interface CenikItemProps {
-  title: string;
-  description: string;
-  features: string[];
-  from?: boolean;
-  featured?: boolean;
-  price: number;
-}
-
-function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
-  return new Intl.NumberFormat("cs-CZ", {
-    ...options,
-    maximumFractionDigits: 0,
-  }).format(number);
-}
-
-const CenikItem = ({
-  title,
-  description,
-  features,
-  from,
-  featured,
-  price,
-}: CenikItemProps) => {
-  return (
-    <Card
-      className={`p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col justify-between`}
-    >
-      <h4 className="text-xl font-bold text-primary">{title}</h4>
-      <p className="mt-4">{description}</p>
-      <ul className="mt-4 text-left">
-        {features.map((feature) => (
-          <li className="flex gap-3" key={feature}>
-            <span className="text-[#70e000] font-bold">&#10003;</span>
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6 font-bold text-xl">
-        <p>
-          Cena:{" "}
-          {from
-            ? `od ${formatNumber(price, {
-                style: "currency",
-                currency: "CZK",
-              })}`
-            : `${formatNumber(price, { style: "currency", currency: "CZK" })}`}
-        </p>
-      </div>
-    </Card>
-  );
-};
-
-const cenikItems = [
-  {
-    title: "One page web",
-    description: "Vhodný pro prezentaci vaší firmy nebo produktu.",
-    features: [
-      "SEO optimalizace",
-      "Responsivní design",
-      "Na nejlevnějším hostingu",
-      "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
-    ],
-    from: true,
-    price: 1000,
-  },
-  {
-    title: "Webová aplikace",
-    description: "Vhodné pro větší a komplexnější projekty.",
-    features: [
-      "SEO optimalizace",
-      "Responsivní design",
-      "Vlastní backend",
-      "Na výkonném hostingu",
-      "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
-    ],
-    from: true,
-    price: 5000,
-  },
-  {
-    title: "Základní e-shop",
-    description: "Pro začátek prodávání vašich produktů online.",
-    features: [
-      "SEO optimalizace",
-      "Responsivní design",
-      "Jednoduchá administrace",
-      "Integrace platební brány GoPay",
-      "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
-    ],
-    from: true,
-    price: 10000,
-  },
-  {
-    title: "Komplexní e-shop",
-    description: "Řešení s nekonečnou možností úprav.",
-    features: [
-      "SEO optimalizace",
-      "Responsivní design",
-      "Jednoduchá administrace",
-      "Úpravy vzhledu a funkcí na míru",
-      "Integrace platební brány GoPay",
-      "Doména na rok v ceně (platí pro .cz, .sk, .eu)",
-    ],
-    from: true,
-    price: 20000,
-  },
-];
-
 export default function Kontakt() {
   return (
     <section id="services" className="py-10">
@@ -123,7 +15,7 @@ export default function Kontakt() {
             <p>
               Pokud máte nějaký dotaz, nebo se chcete se mnou spojit, můžete mi
               napsat na email{" "}
-              <a href="mailto:kontakt@petrvurm.cz"  className="link">
+              <a href="mailto:kontakt@petrvurm.cz" className="link">
                 kontakt@petrvurm.cz
               </a>
             </p>
@@ -132,52 +24,25 @@ export default function Kontakt() {
             </p>
           </div>
         </div>
-        {/* Ceník */}
-        <div className="mt-6">
-          <div className="w-full pr-0 md:pr-4 lg:pr-4 xl:pr-4 text-justify">
-            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              Ceník
-            </h3>
+        <div className="flex flex-row mt-6">
+          {/* Karta s odkazem a informacemi na kalkulačku */}
+          <Card className="w-full p-4 rounded-lg">
+            <h3 className="text-xl font-bold">Kalkulačka</h3>
+            <p className="mt-2">Kalkulačku můžete využít pro výpočet orientační ceny vašeho projektu. <a href="/kalkulacka" className="link">Přejít na kalkulačku</a></p>
+          </Card>
+          {/* Karta dalšími informacemi o mojí společnosti (IČ, bankovní spojení, další kontakty) */}
+          <Card className="w-full p-4 rounded-lg ml-4">
+            <h3 className="text-xl font-bold">Další informace</h3>
+            <p className="mt-2">IČ: 21180164</p>
+            <p className="mt-2">Číslo účtu: 7030514389/0800</p>
+            <p className="mt-2">IBAN: CZ4608000000007030514389</p>
             <p className="mt-2">
-              Stanovení konkrétní ceny za služby a za další činnosti, kterými se
-              zabývám, je různorodá. Každý projekt si žádá jiné množství času a
-              v řadě případů není možné projekt účtovat po hodinové sazbě.
+              <a href="mailto:kontakt@petrvurm.cz" className="link">kontakt@petrvurm.cz</a>
             </p>
             <p className="mt-2">
-              Cena za konkrétní projekty se liší podle zadání. Pro základní
-              cenovou představu mých služeb vám nabízím alespoň základní
-              orientační ceník:
+              <a href="tel:+420777416611" className="link">+420 777 416 611</a>
             </p>
-          </div>
-          <div className="w-full mt-4">
-            <div className="flex md:inline-grid flex-col md:grid-cols-3 gap-3 justify-center">
-              {cenikItems.map((item, index) => (
-                <CenikItem key={index} {...item} />
-              ))}
-            </div>
-          </div>
-          <div className="w-full mt-4">
-            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              Doplňkové služby
-            </h3>
-            <div className="grid grid-cols-2 mt-4 gap-4">
-              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col">
-                <h3 className="text-2xl font-bold">Prodloužení domény</h3>
-                <p className="mt-4 text-justify">
-                  Prodloužení domény na další rok (platí pro .cz, .sk, .eu) podle aktuálních cen registrátora (<Link href="https://www.wedos.com/cs/" target="_blank" className="link">Wedos</Link>).
-                </p>
-              </Card>
-              <Card className="p-6 xl:p-10 lg:p-8 shadow-md rounded-lg text-center flex flex-col">
-                <h3 className="text-2xl font-bold">Návrh webu</h3>
-                <p className="mt-4 text-justify">
-                  Podle vašeho zadání vytvořím návrh webu v grafickém programu, který vám pomůže představit si výsledný vzhled. Pokud s návrhem budete spokojeni, vypracuji vám web podle něj.
-                </p>
-                <p className="mt-4 text-justify">
-                  Cena za návrh webu je 500 Kč. Platí se pouze v případě, že se rozhodnete pro realizaci webu.
-                </p>
-              </Card>
-            </div>
-          </div>
+          </Card>
         </div>
       </div>
     </section>

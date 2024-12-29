@@ -19,138 +19,137 @@ function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
 }
 
 const cenikItems = [
-  // Main Services
+  // Hlavní služby
   {
-    title: "SEO optimalizace",
-    description: "Optimalizace webu pro vyhledávače, zlepšení viditelnosti a SEO analýza.",
+    title: "Zlepšení pozice ve vyhledávačích (SEO)",
+    description: "Pomohu vašemu webu získat lepší pozici ve vyhledávačích.",
     features: [
-      "SEO analýza",
-      "Optimalizace klíčových slov",
-      "Vylepšení viditelnosti",
+      "Analýza aktuální situace webu",
+      "Úprava textů a klíčových slov",
+      "Zvýšení viditelnosti ve vyhledávačích",
     ],
     price: 8000,
     type: "main",
   },
   {
-    title: "Front-end vývoj",
-    description: "Tvorba front-endu s moderními JavaScriptovými frameworky a responzivním designem.",
+    title: "Tvorba moderního designu webu",
+    description: "Navrhnu atraktivní a přehledný vzhled pro váš web.",
     features: [
-      "Responsive design",
-      "Modern JavaScript frameworky",
-      "Zobrazení na všech zařízeních",
+      "Responzivní design pro všechna zařízení",
+      "Rychlé načítání stránek",
+      "Moderní technologie",
     ],
     price: 12000,
     type: "main",
   },
   {
-    title: "E-commerce řešení",
-    description: "Funkční e-shop s platebními branami, správou objednávek a zákaznickou podporou.",
+    title: "Vytvoření internetového obchodu",
+    description: "Kompletní řešení pro prodej online.",
     features: [
-      "Kompletní e-commerce řešení",
-      "Platební brány",
-      "Rozhraní pro správu obchodu",
+      "Funkční e-shop",
+      "Online platby",
+      "Systém pro správu objednávek",
     ],
     price: 20000,
     type: "main",
   },
   {
-    title: "Back-end vývoj",
-    description: "Tvorba back-endu s databází, API a server-side skriptováním.",
+    title: "Technické zajištění fungování webu",
+    description: "Zajistím, že váš web bude technicky spolehlivý.",
     features: [
-      "Integrace databází",
-      "API pro komunikaci",
-      "Server-side skriptování",
+      "Vytvoření a správa databází",
+      "Napojení na další aplikace",
+      "Spolehlivý provoz na serveru",
     ],
     price: 18000,
     type: "main",
   },
   {
-    title: "Full-stack vývoj",
-    description: "Full-stack řešení od front-endu po back-end s integrovanými databázemi a API a dalšími funkcemi.",
+    title: "Kompletní tvorba webu na míru",
+    description: "Postarám se o vše od návrhu až po spuštění webu.",
     features: [
-      "Front-end a back-end vývoj",
-      "Integrace databází, API a službami třetích stran",
-      "Kompletní řešení pro webové aplikace",
+      "Návrh vzhledu i funkčnosti",
+      "Technické zajištění",
+      "Napojení na externí systémy",
     ],
     price: 30000,
     type: "main",
   },
 
-  // Additional Services (sorted by price)
+  // Další služby
   {
-    title: "Integrace platebních bran",
-    description: "Integrace platebních bran do mnou vytvořených webů a aplikací.",
+    title: "Přidání platební brány",
+    description: "Umožněte zákazníkům platit online.",
     features: [
-      "Popora pro hlavní platební brány (GoPay, Comgate, Stripe)",
+      "Podpora platebních bran (GoPay, Comgate, Stripe)",
       "Zabezpečené platby",
-      "Včetně rozhraní pro správu a evidenci provozu brány",
+      "Snadná správa plateb",
     ],
     price: 2000,
     type: "additional",
   },
   {
-    title: "Roční doména a hosting",
-    description: "Registrace domény a hosting na rok",
+    title: "Registrace domény a hostingu na rok",
+    description: "Zajistím webovou adresu a místo na serveru.",
     features: [
-      "Registrace domény (cz, com, net, eu, sk)",
-      "Hosting webu na rok",
-      "Podpora a správa domény a hostingu",
+      "Registrace domény (např. .cz, .com, atd.)",
+      "Hosting na spolehlivém serveru",
+      "Správa domény a hostingu",
     ],
     price: 2500,
     type: "additional",
   },
   {
-    title: "Sociální sítě a integrace",
-    description: "Integrace obsahu sociálních sítí s webovou stránkou a opačně.",
+    title: "Propojení se sociálními sítěmi",
+    description: "Zajistím sdílení mezi webem a sociálními sítěmi.",
     features: [
-      "Podpora pro Facebook, YouTube, LinkedIn, Instagram",
-      "Sdílení obsahu z webu na sociální sítě a ze sítí na web",
-      "Automatické aktualizace a synchronizace obsahu",
+      "Podpora Facebooku, Instagramu, YouTube apod.",
+      "Automatické aktualizace obsahu",
+      "Synchronizace příspěvků",
     ],
     price: 2500,
     type: "additional",
   },
   {
-    title: "Oprava a údržba webu",
-    description: "Správa webu, opravy chyb, kontrola zabezpečení a aktualizace.",
+    title: "Údržba a opravy webu",
+    description: "Postarám se o váš web, aby fungoval bez problémů.",
     features: [
-      "Aktualizace webu",
-      "Opravy chyb",
-      "Bezpečnostní kontroly",
-      "Zálohování a obnova dat",
+      "Pravidelné aktualizace",
+      "Opravy případných chyb",
+      "Zabezpečení a zálohování",
     ],
     price: 4000,
     type: "additional",
   },
   {
-    title: "Roční technická podpora",
-    description: "ROční technická podpora a školení pro správu a údržbu webu nebo aplikace.",
+    title: "Technická podpora na rok",
+    description: "Pomohu vám s webem po celý rok.",
     features: [
-      "Technická podpora po telefonu nebo e-mailem",
-      "Školení pro správu a údržbu webu",
-      "Dokumentace a návody pro uživatele",
+      "Telefonická a e-mailová podpora",
+      "Školení pro správu webu",
+      "Podrobné návody",
     ],
     price: 5000,
     type: "additional",
   },
   {
-    title: "Optimalizace rychlosti webu",
-    description: "Optimalizace rychlosti načítání webu a zlepšení výkonu.",
+    title: "Zrychlení načítání webu",
+    description: "Zlepším rychlost a výkon vašeho webu.",
     features: [
-      "Úprava zdrojových kódů webu",
-      "Cache a optimalizace obrázků",
-      "Minifikace a komprese souborů",
+      "Optimalizace kódu a obrázků",
+      "Nastavení cache",
+      "Zmenšení velikosti souborů",
     ],
     price: 5000,
     type: "additional",
   },
   {
-    title: "Nasazení webu na server",
-    description: "Sestavení a nasazení webu na server s konfigurací a zabezpečením.",
+    title: "Spuštění webu na serveru",
+    description: "Postarám se o vše potřebné ke spuštění webu.",
     features: [
-      "Konfigurace serveru a databáze",
-      "Zabezpečení a šifrování dat",
-      "Testování a kontrola funkčnosti",
+      "Nastavení serveru a webu",
+      "Zabezpečení všech dat",
+      "Testování funkčnosti",
     ],
     price: 7000,
     type: "additional",
@@ -196,7 +195,7 @@ export default function Kalkulacka() {
                   className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform ${selectedServices.includes(item.title)
                     ? "bg-primary text-black scale-105"
                     : "hover:shadow-xl"
-                  }`}
+                    }`}
                   onClick={() => handleCardClick(item.title)}  // Přidání/odebrání služby po kliknutí
                 >
                   <h4 className={`text-xl font-semibold mt-4 ${selectedServices.includes(item.title) ? "text-black" : "text-white"}`}>
@@ -217,7 +216,7 @@ export default function Kalkulacka() {
                   </ul>
                   <p className="mt-6 font-bold text-center text-xl">
                     <span className={`${selectedServices.includes(item.title) ? "text-black" : "text-primary"}`}>
-                      {formatNumber(item.price, { style: "currency", currency: "CZK" })}
+                      od&nbsp;{formatNumber(item.price, { style: "currency", currency: "CZK" })}
                     </span>
                   </p>
                 </Card>
@@ -237,7 +236,7 @@ export default function Kalkulacka() {
                   className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform ${selectedServices.includes(item.title)
                     ? "bg-primary text-black scale-105"
                     : "hover:shadow-xl"
-                  }`}
+                    }`}
                   onClick={() => handleCardClick(item.title)}  // Přidání/odebrání služby po kliknutí
                 >
                   <h4 className={`text-xl font-semibold mt-4 ${selectedServices.includes(item.title) ? "text-black" : "text-white"}`}>
@@ -258,7 +257,7 @@ export default function Kalkulacka() {
                   </ul>
                   <p className="mt-6 font-bold text-center text-xl">
                     <span className={`${selectedServices.includes(item.title) ? "text-black" : "text-primary"}`}>
-                      {formatNumber(item.price, { style: "currency", currency: "CZK" })}
+                      od&nbsp;{formatNumber(item.price, { style: "currency", currency: "CZK" })}
                     </span>
                   </p>
                 </Card>
@@ -271,7 +270,7 @@ export default function Kalkulacka() {
       <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px]">
         <h3 className="text-2xl font-semibold">Celková cena</h3>
         <p className="text-3xl mt-4 text-primary font-bold">
-          {formatNumber(calculatePrice(), { style: "currency", currency: "CZK" })}
+          {selectedServices.length === 0 ? "0 Kč" : "od " + formatNumber(calculatePrice(), { style: "currency", currency: "CZK" })}
         </p>
       </div>
     </div>
