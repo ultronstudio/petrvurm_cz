@@ -52,7 +52,7 @@ export interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const slug = await params.slug; // Vyřeší případný Promise
+  const slug = params.slug; // Není potřeba await
   const content = await getPostData(slug);
 
   if (content == null) {
