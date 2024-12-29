@@ -47,12 +47,13 @@ async function getPostData(slug: string) {
 
 export interface PageProps {
   params: {
-    slug: string;
+    slug: string | Promise<string>;
   };
 }
 
 export default async function Page({ params }: PageProps) {
-  const content = await getPostData(params.slug);
+  const slug = await params.slug; // Vyřeší případný Promise
+  const content = await getPostData(slug);
 
   if (content == null) {
     return notFound();
