@@ -45,7 +45,13 @@ async function getPostData(slug: string) {
   }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const content = await getPostData(params.slug);
 
   if (content == null) {
