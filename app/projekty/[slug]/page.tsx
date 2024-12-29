@@ -45,14 +45,12 @@ async function getPostData(slug: string) {
   }
 }
 
-export interface PageProps {
-  params: {
-    slug: string; // Žádné Promise, pouze string
-  };
-}
-
-export default async function Page({ params }: PageProps) {
-  const slug = params.slug; // Není potřeba await
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const slug = (await params).slug;
   const content = await getPostData(slug);
 
   if (content == null) {
