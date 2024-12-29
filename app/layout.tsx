@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   title: "Petr Vurm",
   description:
     "Tvořím internetové stránky na míru, poskytuji kompletní webový servis, vytvářím desktopové aplikace pro jednotlivce a firmy, pořádám kurzy a workshopy.",
+    openGraph: {
+      title: "Petr Vurm",
+      description:
+        "Tvořím internetové stránky na míru, poskytuji kompletní webový servis, vytvářím desktopové aplikace pro jednotlivce a firmy, pořádám kurzy a workshopy.",
+      type: "website"
+    }
 };
 
 export default function RootLayout({
