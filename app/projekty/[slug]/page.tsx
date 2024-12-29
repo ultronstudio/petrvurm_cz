@@ -28,14 +28,14 @@ async function getPostData(slug: string) {
 
     return {
       filename: `${slug}.md`,
-      data: { ...data } as {
-        title: string;
-        description: string;
-        previewImage: string;
-        created: string;
-        updated: string;
-        status: string;
-        licence: string;
+      data: {
+        title: data.title || "",
+        description: data.description || "",
+        previewImage: data.previewImage || "",
+        created: data.created || "",
+        updated: data.updated || "",
+        status: data.status || "",
+        licence: data.licence || "",
       },
       content,
     };
@@ -47,7 +47,7 @@ async function getPostData(slug: string) {
 
 export interface PageProps {
   params: {
-    slug: string | Promise<string>;
+    slug: string; // Žádné Promise, pouze string
   };
 }
 
