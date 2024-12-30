@@ -9,6 +9,7 @@ interface CenikItemProps {
   features: string[];
   price: number;
   type?: "main" | "additional"; // Typ služby (hlavní nebo doplňková)
+  isOffered?: boolean;  // Zda je služba aktuálně nabízena
 }
 
 function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
@@ -30,6 +31,7 @@ const cenikItems = [
     ],
     price: 8000,
     type: "main",
+    isOffered: true
   },
   {
     title: "Tvorba moderního designu webu",
@@ -41,6 +43,7 @@ const cenikItems = [
     ],
     price: 12000,
     type: "main",
+    isOffered: false
   },
   {
     title: "Vytvoření internetového obchodu",
@@ -52,6 +55,7 @@ const cenikItems = [
     ],
     price: 20000,
     type: "main",
+    isOffered: false
   },
   {
     title: "Technické zajištění fungování webu",
@@ -63,6 +67,7 @@ const cenikItems = [
     ],
     price: 18000,
     type: "main",
+    isOffered: false
   },
   {
     title: "Kompletní tvorba webu na míru",
@@ -74,6 +79,7 @@ const cenikItems = [
     ],
     price: 30000,
     type: "main",
+    isOffered: true
   },
 
   // Další služby
@@ -87,6 +93,7 @@ const cenikItems = [
     ],
     price: 2000,
     type: "additional",
+    isOffered: true
   },
   {
     title: "Registrace domény a hostingu na rok",
@@ -98,6 +105,7 @@ const cenikItems = [
     ],
     price: 2500,
     type: "additional",
+    isOffered: true
   },
   {
     title: "Propojení se sociálními sítěmi",
@@ -109,6 +117,7 @@ const cenikItems = [
     ],
     price: 2500,
     type: "additional",
+    isOffered: false
   },
   {
     title: "Údržba a opravy webu",
@@ -120,6 +129,7 @@ const cenikItems = [
     ],
     price: 4000,
     type: "additional",
+    isOffered: true
   },
   {
     title: "Technická podpora na rok",
@@ -131,6 +141,7 @@ const cenikItems = [
     ],
     price: 5000,
     type: "additional",
+    isOffered: true
   },
   {
     title: "Zrychlení načítání webu",
@@ -142,6 +153,7 @@ const cenikItems = [
     ],
     price: 5000,
     type: "additional",
+    isOffered: true
   },
   {
     title: "Spuštění webu na serveru",
@@ -153,6 +165,7 @@ const cenikItems = [
     ],
     price: 7000,
     type: "additional",
+    isOffered: true
   },
 ];
 
@@ -160,11 +173,27 @@ export default function Kalkulacka() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const handleCardClick = (service: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((s) => s !== service)  // Odebere službu, pokud je již vybraná
-        : [...prev, service]  // Přidá službu, pokud není vybraná
-    );
+    const isMainCompleteService = service === "Kompletní tvorba webu na míru";
+
+    setSelectedServices((prev) => {
+      if (isMainCompleteService) {
+        // Pokud vybíráme "Kompletní tvorba webu na míru", odebereme pouze doplňkové služby
+        return prev.includes(service)
+          ? prev.filter((s) => s !== service) // Odebrat kompletní službu
+          : [service, ...prev.filter((s) => cenikItems.find((item) => item.title === s)?.type === "main")]; // Přidat a ponechat hlavní služby
+      }
+
+      // Pokud je již vybrána "Kompletní tvorba webu na míru", nedovolit doplňkové služby
+      if (prev.includes("Kompletní tvorba webu na míru")) {
+        const isAdditionalService = cenikItems.find((item) => item.title === service)?.type === "additional";
+        if (isAdditionalService) return prev;
+      }
+
+      // Jinak přidat/odebrat vybranou službu
+      return prev.includes(service)
+        ? prev.filter((s) => s !== service) // Odebere službu
+        : [...prev, service]; // Přidá službu
+    });
   };
 
   const calculatePrice = () => {
@@ -183,20 +212,19 @@ export default function Kalkulacka() {
           Vyberte služby, které chcete, a kalkulačka vám spočítá cenu.
         </p>
 
-        {/* Sekce pro hlavní služby */}
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">Hlavní služby</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cenikItems
-              .filter(item => item.type === "main")
+              .filter(item => item.type === "main" && item.isOffered) // Přidáno `&& item.isOffered`
               .map((item) => (
                 <Card
                   key={item.title}
-                  className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform ${selectedServices.includes(item.title)
+                  className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${selectedServices.includes(item.title)
                     ? "bg-primary text-black scale-105"
                     : "hover:shadow-xl"
                     }`}
-                  onClick={() => handleCardClick(item.title)}  // Přidání/odebrání služby po kliknutí
+                  onClick={() => handleCardClick(item.title)}
                 >
                   <h4 className={`text-xl font-semibold mt-4 ${selectedServices.includes(item.title) ? "text-black" : "text-white"}`}>
                     {item.title}
@@ -229,15 +257,17 @@ export default function Kalkulacka() {
           <h2 className="text-2xl font-semibold text-white mb-4">Doplňkové služby</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {cenikItems
-              .filter(item => item.type === "additional")
+              .filter(item => item.type === "additional" && item.isOffered) // Přidáno `&& item.isOffered`
               .map((item) => (
                 <Card
                   key={item.title}
-                  className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform ${selectedServices.includes(item.title)
+                  className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${selectedServices.includes(item.title)
                     ? "bg-primary text-black scale-105"
-                    : "hover:shadow-xl"
+                    : selectedServices.includes("Kompletní tvorba webu na míru")
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:shadow-xl"
                     }`}
-                  onClick={() => handleCardClick(item.title)}  // Přidání/odebrání služby po kliknutí
+                  onClick={() => !selectedServices.includes("Kompletní tvorba webu na míru") && handleCardClick(item.title)}
                 >
                   <h4 className={`text-xl font-semibold mt-4 ${selectedServices.includes(item.title) ? "text-black" : "text-white"}`}>
                     {item.title}
