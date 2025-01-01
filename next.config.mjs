@@ -12,12 +12,7 @@ const nextConfig = {
   // Pokud používáte obrázky, povolte tento plugin
   images: {
     domains: ["petrvurm.cz"], // Nahraďte doménami, ze kterých chcete načítat obrázky
-  },
-
-  i18n: {
-    locales: ['en', 'cs'], // Zde jazyky, které podporovat (např. angličtina a čeština)
-    defaultLocale: 'cs', // Výchozí jazyk
-  },
+  }
 };
 
 const mdxConfig = withMDX({

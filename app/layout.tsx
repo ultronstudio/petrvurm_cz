@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="cs">
       <body className="p-[0.01px] bg-[#111113]">
         <Theme
           appearance="dark"
