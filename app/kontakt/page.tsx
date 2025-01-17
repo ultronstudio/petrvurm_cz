@@ -2,6 +2,26 @@ import { Section, Container, Card } from "@radix-ui/themes";
 import Link from "next/link";
 
 export default function Kontakt() {
+  // Reklamy na WEDOS
+  const reklamy = [
+    { title: "WEDOS", url: "https://www.wedos.com/cs/?ap=Er80JB" },
+    { title: "WEDOS Global", url: "https://www.wedos.com/cs/global/?ap=Er80JB" },
+    { title: "WEDOS NIS2", url: "https://wedos.global/cs/nis2/?ap=Er80JB" },
+    { title: "WEDOS webhosting", url: "https://www.wedos.com/cs/webhosting/?ap=Er80JB" },
+    { title: "WEDOS Webhosting Managed Server (WMS)", url: "https://www.wedos.com/cs/wms/?ap=Er80JB" },
+    { title: "WEDOS WebSite", url: "https://www.wedos.com/cs/website/?ap=Er80JB" },
+    { title: "WEDOS mailhosting", url: "https://www.wedos.com/cs/mailhosting/?ap=Er80JB" },
+    { title: "WEDOS domény", url: "https://www.wedos.com/cs/domeny/?ap=Er80JB" },
+    { title: "WEDOS Cloud", url: "https://www.wedos.com/cs/cloud/?ap=Er80JB" },
+    { title: "WEDOS virtuální servery", url: "https://www.wedos.com/cs/vps-on/?ap=Er80JB" },
+    { title: "WEDOS dedikované servery", url: "https://www.wedos.com/cs/dedikovane-servery/?ap=Er80JB" },
+    { title: "WEDOS Cloud Disk (CD)", url: "https://www.wedos.com/cs/cd/?ap=Er80JB" },
+    { title: "WEDOS Disk", url: "https://www.wedos.com/cs/wedos-disk/?ap=Er80JB" }
+  ];
+
+  // Náhodný výběr reklamy
+  const randomAd = reklamy[Math.floor(Math.random() * reklamy.length)];
+
   return (
     <section id="services" className="py-10">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
@@ -42,6 +62,18 @@ export default function Kontakt() {
             <p className="mt-2">
               <a href="tel:+420777416611" className="link">+420 777 416 611</a>
             </p>
+          </Card>
+        </div>
+        <div className="flex flex-row mt-6 mb-0">
+          <Card className="w-full rounded-lg shadow-lg bg-gradient-to-r from-purple-500 to-indigo-500">
+          <Link href={randomAd.url} passHref>
+            <h3 className="text-sm font-bold mb-2">Reklamní partnerství</h3>
+            <div className="w-full p-2">
+              <p className="mt-2 text-lg">
+                {randomAd.title != "WEDOS" ? `${randomAd.title} se slevou! Klikněte zde pro více informací.`: "WEDOS - webhosting, domény a servery slevou! Klikněte zde pro více informací."}
+              </p>
+            </div>
+          </Link>
           </Card>
         </div>
       </div>
