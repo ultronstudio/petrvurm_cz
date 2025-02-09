@@ -29,7 +29,7 @@ const cenikItems = [
       "Úprava textů a klíčových slov",
       "Zvýšení viditelnosti ve vyhledávačích",
     ],
-    price: 8000,
+    price: 4000,
     type: "main",
     isOffered: true
   },
@@ -41,7 +41,7 @@ const cenikItems = [
       "Rychlé načítání stránek",
       "Moderní technologie",
     ],
-    price: 12000,
+    price: 6000,
     type: "main",
     isOffered: false
   },
@@ -53,19 +53,7 @@ const cenikItems = [
       "Online platby",
       "Systém pro správu objednávek",
     ],
-    price: 20000,
-    type: "main",
-    isOffered: false
-  },
-  {
-    title: "Technické zajištění fungování webu",
-    description: "Zajistím, že váš web bude technicky spolehlivý.",
-    features: [
-      "Vytvoření a správa databází",
-      "Napojení na další aplikace",
-      "Spolehlivý provoz na serveru",
-    ],
-    price: 18000,
+    price: 10000,
     type: "main",
     isOffered: false
   },
@@ -77,7 +65,7 @@ const cenikItems = [
       "Technické zajištění",
       "Napojení na externí systémy",
     ],
-    price: 30000,
+    price: 15000,
     type: "main",
     isOffered: true
   },
@@ -91,19 +79,19 @@ const cenikItems = [
       "Zabezpečené platby",
       "Snadná správa plateb",
     ],
-    price: 2000,
+    price: 1000,
     type: "additional",
     isOffered: true
   },
   {
-    title: "Registrace domény a hostingu na rok",
+    title: "Registrace domény a hosting na rok",
     description: "Zajistím webovou adresu a místo na serveru.",
     features: [
       "Registrace domény (např. .cz, .com, atd.)",
       "Hosting na spolehlivém serveru",
       "Správa domény a hostingu",
     ],
-    price: 2500,
+    price: 1500,
     type: "additional",
     isOffered: true
   },
@@ -115,7 +103,7 @@ const cenikItems = [
       "Automatické aktualizace obsahu",
       "Synchronizace příspěvků",
     ],
-    price: 2500,
+    price: 2000,
     type: "additional",
     isOffered: false
   },
@@ -127,7 +115,7 @@ const cenikItems = [
       "Opravy případných chyb",
       "Zabezpečení a zálohování",
     ],
-    price: 4000,
+    price: 2000,
     type: "additional",
     isOffered: true
   },
@@ -139,7 +127,7 @@ const cenikItems = [
       "Školení pro správu webu",
       "Podrobné návody",
     ],
-    price: 5000,
+    price: 2500,
     type: "additional",
     isOffered: true
   },
@@ -151,7 +139,7 @@ const cenikItems = [
       "Nastavení cache",
       "Zmenšení velikosti souborů",
     ],
-    price: 5000,
+    price: 2500,
     type: "additional",
     isOffered: true
   },
@@ -163,7 +151,7 @@ const cenikItems = [
       "Zabezpečení všech dat",
       "Testování funkčnosti",
     ],
-    price: 7000,
+    price: 3500,
     type: "additional",
     isOffered: true
   },
@@ -203,6 +191,17 @@ export default function Kalkulacka() {
     }, 0);
   };
 
+  const generateMailtoLink = () => {
+    const subject = encodeURIComponent("Zájem o Vaše služby");
+    const body = encodeURIComponent(
+      `Dobrý den,\nmám zájem o následující služby:\n\n${selectedServices
+        .map((service) => `- ${service}`)
+        .join("\n")}\n\nRád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a těším se na odpověď.`
+    );
+
+    return `mailto:kontakt@petrvurm.cz?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="container mx-auto max-w-8xl px-4 md:px-6 py-10 rounded-lg shadow-xl flex">
       {/* Karty se službami */}
@@ -212,6 +211,7 @@ export default function Kalkulacka() {
           Vyberte služby, které chcete, a kalkulačka vám spočítá cenu.
         </p>
 
+        {/* Sekce pro hlavní služby */}
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">Hlavní služby</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -302,6 +302,12 @@ export default function Kalkulacka() {
         <p className="text-3xl mt-4 text-primary font-bold">
           {selectedServices.length === 0 ? "0 Kč" : "od " + formatNumber(calculatePrice(), { style: "currency", currency: "CZK" })}
         </p>
+
+        {selectedServices.length > 0 && (
+          <a href={generateMailtoLink()} className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/70 hover:text-white focus:outline-none focus:ring-2 mt-2">
+            Nezávazně kontaktovat
+          </a>
+        )}
       </div>
     </div>
   );
