@@ -157,7 +157,7 @@ const cenikItems = [
   },
 ];
 
-export default function Kalkulacka() {
+export default function KalkulackaWeb() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const handleCardClick = (service: string) => {
@@ -203,10 +203,10 @@ export default function Kalkulacka() {
   };
 
   return (
-    <div className="container mx-auto max-w-8xl px-4 md:px-6 py-10 rounded-lg shadow-xl flex">
+    <div className="container mx-auto max-w-8xl px-4 md:px-6 py-10 flex">
       {/* Karty se službami */}
       <div className="flex-1 mr-8">
-        <h1 className="text-3xl font-bold mb-8 text-center text-primary">Kalkulátor služeb</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center text-primary">Kalkulátor služeb ohledně tvorby a údržby webu</h1>
         <p className="text-lg mb-6 text-center text-white">
           Vyberte služby, které chcete, a kalkulačka vám spočítá cenu.
         </p>
