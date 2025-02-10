@@ -413,7 +413,7 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
               {/* Slider pro počet hodin/lekcí/účastníků */}
               {selectedServices.length > 0 && (
                 <section className="mb-8">
-                  <div className="flex justify-between mt-2">
+                  <div className="flex justify-between">
                     <h3 className="text-md text-white mb-2">
                       {pricePerWhat === "hod"
                         ? "Počet hodin"
@@ -434,12 +434,10 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                   />
                 </section>
               )}
-            </div>
-            <div>
               {selectedServices.length > 0 && (
                 <a
                   href={generateMailtoLink()}
-                  className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/70 hover:text-white focus:outline-none focus:ring-2 mt-2"
+                  className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/70 hover:text-white focus:outline-none focus:ring-2"
                 >
                   Kontaktovat mě
                 </a>
