@@ -296,8 +296,8 @@ export default function KalkulackaWeb() {
         </section>
       </div>
 
-      {/* Sticky panel pro celkovou cenu */}
-      <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px]">
+      {/* Sticky panel pro celkovou cenu - desktop */}
+      <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px] block xs:hidden sm:hidden md:hidden lg:hidden xl:block">
         <h3 className="text-2xl font-semibold">Celková cena</h3>
         <p className="text-3xl mt-4 text-primary font-bold">
           {selectedServices.length === 0 ? "0 Kč" : "od " + formatNumber(calculatePrice(), { style: "currency", currency: "CZK" })}
@@ -309,6 +309,26 @@ export default function KalkulackaWeb() {
           </a>
         )}
       </div>
+
+      {/* Sticky panel pro celkovou cenu - mobil */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#111113] p-4 block xl:hidden">
+        <div className="flex flex-row justify-between items-center">
+          <div>
+          <h3 className="text-2xl font-semibold">Celková cena</h3>
+        <p className="text-3xl mt-4 text-primary font-bold">
+          {selectedServices.length === 0 ? "0 Kč" : "od " + formatNumber(calculatePrice(), { style: "currency", currency: "CZK" })}
+        </p>
+          </div>
+          <div>
+
+          {selectedServices.length > 0 && (
+          <a href={generateMailtoLink()} className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/70 hover:text-white focus:outline-none focus:ring-2 mt-2">
+            Nezávazně kontaktovat
+          </a>
+        )}
+          </div>
+        </div>
+        </div>
     </div>
   );
 }

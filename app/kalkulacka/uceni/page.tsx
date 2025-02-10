@@ -125,16 +125,10 @@ export default function KalkulackaUceni() {
           if (selectedItem) {
             return `- ${service} (${
               selectedItem.pricePerWhat === "hod"
-                ? `v počtu ${quantity} ${
-                    quantity === 1 ? "hodina" : "hodin"
-                  }`
+                ? `v počtu ${quantity} ${quantity === 1 ? "hodina" : "hodin"}`
                 : selectedItem.pricePerWhat === "lekce"
-                ? `v počtu ${quantity} ${
-                    quantity === 1 ? "lekce" : "lekcí"
-                  }`
-                : `v počtu ${quantity} ${
-                    quantity === 1 ? "osoba" : "osoby"
-                  }`
+                ? `v počtu ${quantity} ${quantity === 1 ? "lekce" : "lekcí"}`
+                : `v počtu ${quantity} ${quantity === 1 ? "osoba" : "osoby"}`
             } za ${formatNumber(selectedItem.basePrice * quantity, {
               style: "currency",
               currency: "CZK",
@@ -155,7 +149,7 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
       <div className="flex">
         <div className="flex-1 mr-8">
           <h1 className="text-3xl font-bold mb-8 text-center text-primary">
-            Kalkulátor doučování, školení a kurzů
+            Kalkulátor doučování{skoleniItems.length > 0 && ", školení"}{kurzyItems.length > 0 && ", kurzů"}
           </h1>
           <p className="text-lg mb-6 text-center text-white">
             Vyberte služby, které chcete, a kalkulačka vám spočítá cenu.
@@ -177,7 +171,11 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                         : "hover:shadow-xl"
                     }`}
                     onClick={() =>
-                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                      handleCardClick(
+                        item.title,
+                        item.pricePerWhat,
+                        item.maxCapacity
+                      )
                     }
                   >
                     <h4
@@ -235,7 +233,11 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                         : "hover:shadow-xl"
                     }`}
                     onClick={() =>
-                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                      handleCardClick(
+                        item.title,
+                        item.pricePerWhat,
+                        item.maxCapacity
+                      )
                     }
                   >
                     <h4
@@ -291,7 +293,11 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                         : "hover:shadow-xl"
                     }`}
                     onClick={() =>
-                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                      handleCardClick(
+                        item.title,
+                        item.pricePerWhat,
+                        item.maxCapacity
+                      )
                     }
                   >
                     <h4
@@ -329,9 +335,7 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                     </p>
                     {/* Badge pro minimální počet účastníků, pokud je definován */}
                     {item.minParticipants && (
-                      <div
-                        className="absolute top-2 right-2 px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded-full z-10"
-                      >
+                      <div className="absolute top-2 right-2 px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded-full z-10">
                         Minimálně {item.minParticipants} účastníků
                       </div>
                     )}
@@ -342,8 +346,8 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
           )}
         </div>
 
-        {/* Sticky panel pro celkovou cenu */}
-        <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px]">
+        {/* Sticky panel pro celkovou cenu - desktop */}
+        <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px] block xs:hidden sm:hidden md:hidden lg:hidden xl:block">
           <h3 className="text-2xl font-semibold">Celková cena</h3>
           <p className="text-3xl mt-4 text-primary font-bold">
             {selectedServices.length === 0
@@ -390,15 +394,70 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
             </a>
           )}
         </div>
+
+        {/* Sticky panel pro celkovou cenu - mobil */}
+        <div className="fixed bottom-0 left-0 right-0 bg-[#111113] p-4 block xl:hidden">
+          <div className="flex flex-row justify-between items-center">
+            <div>
+              <h3 className="text-2xl font-semibold">Celková cena</h3>
+              <p className="text-3xl mt-4 text-primary font-bold">
+                {selectedServices.length === 0
+                  ? "0 Kč"
+                  : formatNumber(calculatePrice(), {
+                      style: "currency",
+                      currency: "CZK",
+                    })}
+              </p>
+            </div>
+            <div>
+              {/* Slider pro počet hodin/lekcí/účastníků */}
+              {selectedServices.length > 0 && (
+                <section className="mb-8">
+                  <div className="flex justify-between mt-2">
+                    <h3 className="text-md text-white mb-2">
+                      {pricePerWhat === "hod"
+                        ? "Počet hodin"
+                        : pricePerWhat === "lekce"
+                        ? "Počet lekcí"
+                        : "Počet osob"}
+                    </h3>
+                    <span>{quantity}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max={maxCapacity}
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
+                    className="w-full accent-primary"
+                    placeholder="Počet"
+                  />
+                </section>
+              )}
+            </div>
+            <div>
+              {selectedServices.length > 0 && (
+                <a
+                  href={generateMailtoLink()}
+                  className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/70 hover:text-white focus:outline-none focus:ring-2 mt-2"
+                >
+                  Kontaktovat mě
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
       <div
-        className="p-4 border-yellow-500 border text-sm rounded-lg text-yellow-500"
+        className="p-4 border-yellow-500 border text-sm rounded-lg text-yellow-500 mb-4"
         role="alert"
       >
         <p>
           Ceny kurzů jsou stanoveny pevně. Platba probíhá buď online na účet,
           nebo hotově osobně. Platbu je nutné provést předem, aby byla rezervace
-          potvrzena.{kurzyItems.length > 0 && "Kurzy mají stanovenou minimální kapacitu účastníků, což je nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného minima, celková částka bude vrácena."}
+          potvrzena.
+          {kurzyItems.length > 0 &&
+            "Kurzy mají stanovenou minimální kapacitu účastníků, což je nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného minima, celková částka bude vrácena."}
         </p>
       </div>
     </div>
