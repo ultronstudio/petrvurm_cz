@@ -86,7 +86,7 @@ export default function Kontakt() {
               obyčejných webových stránek.
             </p>
             <p className="mt-3">
-              Bohužel v polovimě školního roku (tedy v&nbsp;roce 2018) se
+              Bohužel v polovině školního roku (tedy v&nbsp;roce 2018) se
               kroužek zrušil a já jsem se rozhodl pokračovat v učení tvorby
               webových stránek sám. Začal jsem se více učit HTML, CSS a
               JavaScript a postupně jsem se tak dostal k&nbsp;vývoji webových
