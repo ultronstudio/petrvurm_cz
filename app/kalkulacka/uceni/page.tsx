@@ -147,7 +147,7 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
   return (
     <div className="container mx-auto max-w-8xl px-4 md:px-6 py-10">
       <div className="flex">
-        <div className="flex-1 mr-8">
+        <div className="flex-1 xl:mr-8">
           <h1 className="text-3xl font-bold mb-8 text-center text-primary">
             Kalkulátor doučování{skoleniItems.length > 0 && ", školení"}{kurzyItems.length > 0 && ", kurzů"}
           </h1>
@@ -347,7 +347,7 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
         </div>
 
         {/* Sticky panel pro celkovou cenu - desktop */}
-        <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px] block xs:hidden sm:hidden md:hidden lg:hidden xl:block">
+        <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px] hidden xl:block">
           <h3 className="text-2xl font-semibold">Celková cena</h3>
           <p className="text-3xl mt-4 text-primary font-bold">
             {selectedServices.length === 0
