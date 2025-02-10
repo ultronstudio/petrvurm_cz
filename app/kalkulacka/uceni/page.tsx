@@ -8,10 +8,10 @@ interface CenikItemProps {
   description: string;
   basePrice: number; // Základní cena za jednu hodinu (45 minut)
   isOffered?: boolean; // Zda je služba aktuálně nabízena
-  type: "doucovani" | "skoleni" | "kurz"; // Typ služby (doučování, školení, kurz),
+  type: "doucovani" | "skoleni" | "kurz"; // Typ služby (doučování, školení, kurz)
   pricePerWhat: "hod" | "lekce" | "osoba"; // Cena za co (hodinu, jednu lekci, celý kurz)
-  maxCapacity: number; // Maximální kapacita pro doučování/školení/kurz (jedná se o počet hodin, lekci nebo osob kurzu, které lze objednat najednou)
-  minParticipants?: number; // Kolik je potřeba objednat (např. minimální počet osob pro kurz - kvůli pronájmu prostor apod.)
+  maxCapacity: number; // Maximální kapacita (počet hodin, lekcí nebo osob, které lze objednat najednou)
+  minParticipants?: number; // Např. minimální počet osob pro kurz
 }
 
 function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
@@ -65,11 +65,22 @@ const cenikItems: CenikItemProps[] = [
 
 export default function KalkulackaUceni() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [quantity, setQuantity] = useState<number>(1); // Počet hodin/lekcí
+  const [quantity, setQuantity] = useState<number>(1); // Počet hodin/lekcí/účastníků
   const [pricePerWhat, setPricePerWhat] = useState<"hod" | "lekce" | "osoba">(
     "hod"
   );
   const [maxCapacity, setMaxCapacity] = useState<number>(1);
+
+  // Předem si připravíme filtrovaná pole pro každou sekci
+  const doucovaniItems = cenikItems.filter(
+    (item) => item.type === "doucovani" && item.isOffered
+  );
+  const skoleniItems = cenikItems.filter(
+    (item) => item.type === "skoleni" && item.isOffered
+  );
+  const kurzyItems = cenikItems.filter(
+    (item) => item.type === "kurz" && item.isOffered
+  );
 
   const handleCardClick = (
     service: string,
@@ -78,7 +89,7 @@ export default function KalkulackaUceni() {
   ) => {
     // Nastavíme cenu a typ pro aktuálně vybranou službu
     setSelectedServices([service]);
-    setPricePerWhat(pricePer); // Při výběru služby nastavíme cenu podle toho, co je specifikováno
+    setPricePerWhat(pricePer); // Při výběru služby nastavíme cenu podle specifikace
     setMaxCapacity(
       cenikItems.find((item) => item.title === service)?.maxCapacity || 1
     );
@@ -88,7 +99,7 @@ export default function KalkulackaUceni() {
     return selectedServices.reduce((total, service) => {
       const selectedItem = cenikItems.find((item) => item.title === service);
       if (selectedItem) {
-        // Když máme službu, vynásobíme základní cenu odpovídajícím počtem
+        // Vynásobíme základní cenu počtem hodin/lekcí/účastníků
         return total + selectedItem.basePrice * quantity;
       }
       return total;
@@ -98,12 +109,12 @@ export default function KalkulackaUceni() {
   const generateMailtoLink = () => {
     const subject = encodeURIComponent("Zájem o Vaše služby");
 
-    // Format the message with detailed service information and pricing
+    // Formátování zprávy s detailními informacemi o službě a ceně
     const body = encodeURIComponent(
       `Dobrý den,\nMám zájem o následující ${
-        pricePerWhat == "hod"
+        pricePerWhat === "hod"
           ? "doučování"
-          : pricePerWhat == "lekce"
+          : pricePerWhat === "lekce"
           ? "školení"
           : "kurz"
       }:\n\n${selectedServices
@@ -112,31 +123,18 @@ export default function KalkulackaUceni() {
             (item) => item.title === service
           );
           if (selectedItem) {
-            // Add service description with price per unit and quantity
             return `- ${service} (${
               selectedItem.pricePerWhat === "hod"
                 ? `v počtu ${quantity} ${
-                    quantity === 1
-                      ? "hodiny"
-                      : quantity === 2 || quantity == 3 || quantity == 4
-                      ? "hodin"
-                      : "hodin"
-                  }` // pluralization
+                    quantity === 1 ? "hodina" : "hodin"
+                  }`
                 : selectedItem.pricePerWhat === "lekce"
                 ? `v počtu ${quantity} ${
-                    quantity === 1
-                      ? "lekce"
-                      : quantity === 2 || quantity == 3 || quantity == 4
-                      ? "lekcí"
-                      : "lekci"
-                  }` // pluralization
+                    quantity === 1 ? "lekce" : "lekcí"
+                  }`
                 : `v počtu ${quantity} ${
-                    quantity === 1
-                      ? "osoba"
-                      : quantity === 2 || quantity == 3 || quantity == 4
-                      ? "osoby"
-                      : "osob"
-                  }` // pluralization
+                    quantity === 1 ? "osoba" : "osoby"
+                  }`
             } za ${formatNumber(selectedItem.basePrice * quantity, {
               style: "currency",
               currency: "CZK",
@@ -145,8 +143,8 @@ export default function KalkulackaUceni() {
           return `- ${service}`;
         })
         .join("\n\n")}
-        
-  Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a těším se na odpověď.`
+
+Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a těším se na odpověď.`
     );
 
     return `mailto:kontakt@petrvurm.cz?subject=${subject}&body=${body}`;
@@ -164,223 +162,184 @@ export default function KalkulackaUceni() {
           </p>
 
           {/* Sekce pro doučování */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Doučování
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cenikItems.filter(
-                (item) => item.type === "doucovani" && item.isOffered
-              ).length === 0 ? (
-                <p className="text-md text-red-500">
-                  V tuto chvíli nemám žádné doučování v nabídce.
-                </p>
-              ) : (
-                cenikItems
-                  .filter((item) => item.type === "doucovani" && item.isOffered)
-                  .map((item) => (
-                    <Card
-                      key={item.title}
-                      className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+          {doucovaniItems.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold text-white mb-4">
+                Doučování
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {doucovaniItems.map((item) => (
+                  <Card
+                    key={item.title}
+                    className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+                      selectedServices.includes(item.title)
+                        ? "bg-primary text-black scale-105"
+                        : "hover:shadow-xl"
+                    }`}
+                    onClick={() =>
+                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                    }
+                  >
+                    <h4
+                      className={`text-xl font-semibold mt-4 ${
                         selectedServices.includes(item.title)
-                          ? "bg-primary text-black scale-105"
-                          : "hover:shadow-xl"
+                          ? "text-black"
+                          : "text-white"
                       }`}
-                      onClick={() =>
-                        handleCardClick(
-                          item.title,
-                          item.pricePerWhat,
-                          item.maxCapacity
-                        )
-                      }
                     >
-                      <h4
-                        className={`text-xl font-semibold mt-4 ${
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`mt-2 text-sm ${
+                        selectedServices.includes(item.title)
+                          ? "text-black"
+                          : "text-white"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                    <p className="mt-6 font-bold text-center text-xl">
+                      <span
+                        className={`${
                           selectedServices.includes(item.title)
                             ? "text-black"
-                            : "text-white"
+                            : "text-primary"
                         }`}
                       >
-                        {item.title}
-                      </h4>
-                      <p
-                        className={`mt-2 text-sm ${
-                          selectedServices.includes(item.title)
-                            ? "text-black"
-                            : "text-white"
-                        }`}
-                      >
-                        {item.description}
-                      </p>
-                      <p className="mt-6 font-bold text-center text-xl">
-                        <span
-                          className={`${
-                            selectedServices.includes(item.title)
-                              ? "text-black"
-                              : "text-primary"
-                          }`}
-                        >
-                          {formatNumber(item.basePrice, {
-                            style: "currency",
-                            currency: "CZK",
-                          })}
-                          <small className="text-xs">
-                            /{item.pricePerWhat}
-                          </small>
-                        </span>
-                      </p>
-                    </Card>
-                  ))
-              )}
-            </div>
-          </section>
+                        {formatNumber(item.basePrice, {
+                          style: "currency",
+                          currency: "CZK",
+                        })}
+                        <small className="text-xs">/{item.pricePerWhat}</small>
+                      </span>
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Sekce pro školení */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-white mb-4">Školení</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cenikItems.filter(
-                (item) => item.type === "skoleni" && item.isOffered
-              ).length === 0 ? (
-                <p className="text-md text-red-500">
-                  V tuto chvíli nemám žádné školení v nabídce.
-                </p>
-              ) : (
-                cenikItems
-                  .filter((item) => item.type === "skoleni" && item.isOffered)
-                  .map((item) => (
-                    <Card
-                      key={item.title}
-                      className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+          {skoleniItems.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold text-white mb-4">
+                Školení
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {skoleniItems.map((item) => (
+                  <Card
+                    key={item.title}
+                    className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+                      selectedServices.includes(item.title)
+                        ? "bg-primary text-black scale-105"
+                        : "hover:shadow-xl"
+                    }`}
+                    onClick={() =>
+                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                    }
+                  >
+                    <h4
+                      className={`text-xl font-semibold mt-4 ${
                         selectedServices.includes(item.title)
-                          ? "bg-primary text-black scale-105"
-                          : "hover:shadow-xl"
+                          ? "text-black"
+                          : "text-white"
                       }`}
-                      onClick={() =>
-                        handleCardClick(
-                          item.title,
-                          item.pricePerWhat,
-                          item.maxCapacity
-                        )
-                      }
                     >
-                      <h4
-                        className={`text-xl font-semibold mt-4 ${
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`mt-2 text-sm ${
+                        selectedServices.includes(item.title)
+                          ? "text-black"
+                          : "text-white"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                    <p className="mt-6 font-bold text-center text-xl">
+                      <span
+                        className={`${
                           selectedServices.includes(item.title)
                             ? "text-black"
-                            : "text-white"
+                            : "text-primary"
                         }`}
                       >
-                        {item.title}
-                      </h4>
-                      <p
-                        className={`mt-2 text-sm ${
-                          selectedServices.includes(item.title)
-                            ? "text-black"
-                            : "text-white"
-                        }`}
-                      >
-                        {item.description}
-                      </p>
-                      <p className="mt-6 font-bold text-center text-xl">
-                        <span
-                          className={`${
-                            selectedServices.includes(item.title)
-                              ? "text-black"
-                              : "text-primary"
-                          }`}
-                        >
-                          {formatNumber(item.basePrice, {
-                            style: "currency",
-                            currency: "CZK",
-                          })}
-                          <small className="text-xs">
-                            /{item.pricePerWhat}
-                          </small>
-                        </span>
-                      </p>
-                    </Card>
-                  ))
-              )}
-            </div>
-          </section>
+                        {formatNumber(item.basePrice, {
+                          style: "currency",
+                          currency: "CZK",
+                        })}
+                        <small className="text-xs">/{item.pricePerWhat}</small>
+                      </span>
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Sekce pro kurzy */}
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-white mb-4">Kurzy</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cenikItems.filter(
-                (item) => item.type === "kurz" && item.isOffered
-              ).length === 0 ? (
-                <p className="text-md text-red-500">
-                  V tuto chvíli nemám žádné kurzy v nabídce.
-                </p>
-              ) : (
-                cenikItems
-                  .filter((item) => item.type === "kurz" && item.isOffered)
-                  .map((item) => (
-                    <Card
-                      key={item.title}
-                      className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+          {kurzyItems.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold text-white mb-4">Kurzy</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {kurzyItems.map((item) => (
+                  <Card
+                    key={item.title}
+                    className={`p-6 shadow-lg rounded-lg transition-all duration-300 ease-in-out transform cursor-pointer ${
+                      selectedServices.includes(item.title)
+                        ? "bg-primary text-black scale-105"
+                        : "hover:shadow-xl"
+                    }`}
+                    onClick={() =>
+                      handleCardClick(item.title, item.pricePerWhat, item.maxCapacity)
+                    }
+                  >
+                    <h4
+                      className={`text-xl font-semibold mt-4 ${
                         selectedServices.includes(item.title)
-                          ? "bg-primary text-black scale-105"
-                          : "hover:shadow-xl"
+                          ? "text-black"
+                          : "text-white"
                       }`}
-                      onClick={() =>
-                        handleCardClick(
-                          item.title,
-                          item.pricePerWhat,
-                          item.maxCapacity
-                        )
-                      }
                     >
-                      <h4
-                        className={`text-xl font-semibold mt-4 ${
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`mt-2 text-sm ${
+                        selectedServices.includes(item.title)
+                          ? "text-black"
+                          : "text-white"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                    <p className="mt-6 font-bold text-center text-xl">
+                      <span
+                        className={`${
                           selectedServices.includes(item.title)
                             ? "text-black"
-                            : "text-white"
+                            : "text-primary"
                         }`}
                       >
-                        {item.title}
-                      </h4>
-                      <p
-                        className={`mt-2 text-sm ${
-                          selectedServices.includes(item.title)
-                            ? "text-black"
-                            : "text-white"
-                        }`}
-                      >
-                        {item.description}
-                      </p>
-                      <p className="mt-6 font-bold text-center text-xl">
-                        <span
-                          className={`${
-                            selectedServices.includes(item.title)
-                              ? "text-black"
-                              : "text-primary"
-                          }`}
-                        >
-                          {formatNumber(item.basePrice, {
-                            style: "currency",
-                            currency: "CZK",
-                          })}
-                          <small className="text-xs">
-                            /{item.pricePerWhat}
-                          </small>
-                        </span>
-                      </p>
-
-                      {/* Badge pro minimální počet účastníků */}
+                        {formatNumber(item.basePrice, {
+                          style: "currency",
+                          currency: "CZK",
+                        })}
+                        <small className="text-xs">/{item.pricePerWhat}</small>
+                      </span>
+                    </p>
+                    {/* Badge pro minimální počet účastníků, pokud je definován */}
+                    {item.minParticipants && (
                       <div
                         className="absolute top-2 right-2 px-3 py-1 text-xs font-semibold text-white bg-red-500 rounded-full z-10"
                       >
                         Minimálně {item.minParticipants} účastníků
                       </div>
-                    </Card>
-                  ))
-              )}
-            </div>
-          </section>
+                    )}
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
 
         {/* Sticky panel pro celkovou cenu */}
@@ -396,7 +355,7 @@ export default function KalkulackaUceni() {
           </p>
 
           <div className="mt-2">
-            {/* Slider pro počet hodin/lekcí */}
+            {/* Slider pro počet hodin/lekcí/účastníků */}
             {selectedServices.length > 0 && (
               <section className="mb-8">
                 <div className="flex justify-between mt-2">
@@ -439,9 +398,7 @@ export default function KalkulackaUceni() {
         <p>
           Ceny kurzů jsou stanoveny pevně. Platba probíhá buď online na účet,
           nebo hotově osobně. Platbu je nutné provést předem, aby byla rezervace
-          potvrzena. Kurzy mají stanovenou minimální kapacitu účastníků, což je
-          nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného
-          minima, celková částka bude vrácena.
+          potvrzena.{kurzyItems.length > 0 && "Kurzy mají stanovenou minimální kapacitu účastníků, což je nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného minima, celková částka bude vrácena."}
         </p>
       </div>
     </div>
