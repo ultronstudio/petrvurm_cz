@@ -12,6 +12,7 @@ import {
   GitIcon,
   SassIcon,
   PHPIcon,
+  ApiIcon,
 } from "@/Icons/Icons";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
@@ -64,6 +65,8 @@ export default function Kontakt() {
             O mně
           </h2>
         </div>
+
+        {/* úvodní text */}
         <div className="flex flex-row">
           <div className="w-full pr-0 md:pr-4 lg:pr-4 xl:pr-4 text-justify">
             {/* úvodní text s počítadlem roků */}
@@ -117,10 +120,12 @@ export default function Kontakt() {
             className="hidden sticky top-0 sm:max-w-[310px] sm:max-h-[550px] md:block lg:block xl:block"
           />
         </div>
-        <section className="w-full mt-10">
+
+        {/* navštěvované školy */}
+        <div className="w-full mt-10">
           <h2 className="mb-2 text-2xl font-bold">Navštěvované školy</h2>
           <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
+            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
               <div>
                 <h3 className="text-lg font-semibold">
                   SPŠ, SOŠ a SOU, Hradec Králové
@@ -133,7 +138,12 @@ export default function Kontakt() {
                 </p>
               </div>
               <p className="mt-2">
-                <Link href="https://www.hradebni.cz" className="link" target="_blank" prefetch={false}>
+                <Link
+                  href="https://www.hradebni.cz"
+                  className="link"
+                  target="_blank"
+                  prefetch={false}
+                >
                   Navštívit web
                 </Link>
               </p>
@@ -149,15 +159,44 @@ export default function Kontakt() {
                 </p>
               </div>
               <p className="mt-2">
-                <Link href="https://www.zsnechanice.cz" className="link" target="_blank" prefetch={false}>
+                <Link
+                  href="https://www.zsnechanice.cz"
+                  className="link"
+                  target="_blank"
+                  prefetch={false}
+                >
                   Navštívit web
                 </Link>
               </p>
             </Card>
           </div>
-        </section>
-        {/* technologie */}
-        <div className="mt-10 text-justify">
+        </div>
+
+        {/* získané certifikáty */}
+        <div className="w-full mt-10">
+          <h2 className="mb-2 text-2xl font-bold">Získané certifikáty</h2>
+          <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
+              <div>
+                <h3 className="text-lg font-semibold">DofE - bronzová úroveň</h3>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  20. 11. 2024
+                </p>
+                <p className="text-sm mt-1 text-muted-foreground">
+                  Uděleno organizací <Link href="https://dofe.cz" className="link" target="_blank" prefetch={false}>DofE ČR</Link> dne 13. 2. 2025
+                </p>
+              </div>
+              <p className="mt-2">
+                <Link href="/docs/certificates/dofe/bronze.pdf" className="link" target="_blank" prefetch={false}>
+                  Zobrazit certifikát
+                </Link>
+              </p>
+            </Card>
+          </div>
+        </div>
+
+        {/* technologie a co dělám teď */}
+        <div className="w-full mt-10 text-justify">
           <h2 className="mt-4 text-2xl font-bold">Co dělám teď</h2>
           <p>
             Od té doby jsem se začal více věnovat vývoji webových aplikací a
@@ -226,6 +265,10 @@ export default function Kontakt() {
               <div className="bg-[#F1502F] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <GitIcon className="w-5 h-5 fill-white" />
                 <p>Git</p>
+              </div>
+              <div className="bg-[#2f2f2f] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <ApiIcon className="w-5 h-5 fill-white" />
+                <p>API</p>
               </div>
             </div>
           </div>
