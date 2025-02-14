@@ -185,7 +185,7 @@ export default function Projekty() {
                 <Link key={project.title} href={`/projekty/${project.slug}`}>
                   <Card className="p-4 border rounded-lg shadow hover:bg-card-hover cursor-pointer">
                     <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-justify">{project.description}</p>
+                    <p className="text-justify truncate">{project.description}</p>
                     <div className="flex gap-2 mt-2 flex-wrap">
                       {visibleTechs.map((tech) => {
                         const techDetails = techMap.get(tech);
