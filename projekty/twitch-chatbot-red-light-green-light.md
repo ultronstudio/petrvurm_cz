@@ -2,7 +2,7 @@
 title: "Twitch Game: Red Light, Green Light"
 description: "Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Hra na oliheň (<i>Squid Game</i>)) na streamu v chatu"
 previewImage: "/images/projekty/twitch-chatbot-red-light-green-light.png"
-created: "20. prosince 2020"
+created: "10. února 2025"
 status: "<span style=\"color: #bfc000;\">dokončeno</span>"
 licence: "Apache License 2.0"
 ---
