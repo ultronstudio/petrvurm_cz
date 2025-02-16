@@ -23,4 +23,4 @@ Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z
 
 ## Odkazy
 
-- [GitHub repo](https://github.com/ultronstudio/twitch-chatbot-red-light-green-light "Navštívit GitHub repozitář")
+- [GitHub](https://github.com/ultronstudio/twitch-chatbot-red-light-green-light "Navštívit GitHub repozitář")
