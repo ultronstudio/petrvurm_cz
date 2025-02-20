@@ -211,6 +211,9 @@ export default function Kontakt() {
             {yearsString} a {monthString} od doby, kdy jsem začal pracovat na
             FakeTube).
           </p>
+          <p className="mt-3">
+            V roce 2023 jsem založil na střední škole <Link className="link" rel="noopener" href="https://sspt.petrvurm.cz" target="_blank" style={{fontWeight: "bold"}}>ŠSPT</Link> (školní studentský programátorský tým), kde vytváříme aplikace a weby pro školu, školní projekty, akce, soutěže a další. Díky tomu jsem se naučil spolupracovat s ostatními programátory, řešit problémy a vytvářet kvalitní a moderní weby a aplikace. V rámci činnosti ŠSPT jsme vytvořili už <b className="text-primary cursor-pointer">2 projekty</b>.
+          </p>
           <h3 className="mt-6 text-xl font-bold">Technologie, jaké používám</h3>
           <div className="mt-2">
             <div className="flex flex-wrap gap-2 font-bold justify-center">
