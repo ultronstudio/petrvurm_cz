@@ -13,6 +13,7 @@ import {
   SassIcon,
   PHPIcon,
   ApiIcon,
+  CSharpIcon,
 } from "@/Icons/Icons";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
@@ -178,16 +179,32 @@ export default function Kontakt() {
           <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
             <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
               <div>
-                <h3 className="text-lg font-semibold">DofE - bronzová úroveň</h3>
+                <h3 className="text-lg font-semibold">
+                  DofE - bronzová úroveň
+                </h3>
                 <p className="text-sm mt-1 text-muted-foreground">
                   20. 11. 2024
                 </p>
                 <p className="text-sm mt-1 text-muted-foreground">
-                  Uděleno organizací <Link href="https://dofe.cz" className="link" target="_blank" prefetch={false}>DofE ČR</Link> dne 13. 2. 2025
+                  Uděleno organizací{" "}
+                  <Link
+                    href="https://dofe.cz"
+                    className="link"
+                    target="_blank"
+                    prefetch={false}
+                  >
+                    DofE ČR
+                  </Link>{" "}
+                  dne 13. 2. 2025
                 </p>
               </div>
               <p className="mt-2">
-                <Link href="/docs/certificates/dofe/bronze.pdf" className="link" target="_blank" prefetch={false}>
+                <Link
+                  href="/docs/certificates/dofe/bronze.pdf"
+                  className="link"
+                  target="_blank"
+                  prefetch={false}
+                >
                   Zobrazit certifikát
                 </Link>
               </p>
@@ -212,7 +229,22 @@ export default function Kontakt() {
             FakeTube).
           </p>
           <p className="mt-3">
-            V roce 2023 jsem založil na střední škole <Link className="link" rel="noopener" href="https://sspt.petrvurm.cz" target="_blank" style={{fontWeight: "bold"}}>ŠSPT</Link> (školní studentský programátorský tým), kde vytváříme aplikace a weby pro školu, školní projekty, akce, soutěže a další. Díky tomu jsem se naučil spolupracovat s ostatními programátory, řešit problémy a vytvářet kvalitní a moderní weby a aplikace. V rámci činnosti ŠSPT jsme vytvořili už <b className="text-primary cursor-pointer">2 projekty</b>.
+            V roce 2023 jsem založil na střední škole{" "}
+            <Link
+              className="link"
+              rel="noopener"
+              href="https://sspt.petrvurm.cz"
+              target="_blank"
+              style={{ fontWeight: "bold" }}
+            >
+              ŠSPT
+            </Link>{" "}
+            (školní studentský programátorský tým), kde vytváříme aplikace a
+            weby pro školu, školní projekty, akce, soutěže a další. Díky tomu
+            jsem se naučil spolupracovat s ostatními programátory, řešit
+            problémy a vytvářet kvalitní a moderní weby a aplikace. V rámci
+            činnosti ŠSPT jsme vytvořili už{" "}
+            <b className="text-primary cursor-pointer">2 projekty</b>.
           </p>
           <h3 className="mt-6 text-xl font-bold">Technologie, jaké používám</h3>
           <div className="mt-2">
@@ -272,6 +304,13 @@ export default function Kontakt() {
               <div className="bg-[#2f2f2f] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <ApiIcon className="w-5 h-5 fill-white" />
                 <p>API</p>
+              </div>
+              <div className="bg-[#239120] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <CSharpIcon className="w-5 h-5 fill-white" />
+                <p>C#</p>
+              </div>
+              <div className="bg-[#512bd4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                <p>.NET</p>
               </div>
             </div>
           </div>

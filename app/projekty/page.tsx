@@ -16,6 +16,7 @@ import {
   SassIcon,
   PHPIcon,
   ApiIcon,
+  CSharpIcon
 } from "@/Icons/Icons";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
@@ -58,6 +59,12 @@ const projects = [
     description: "Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Squid Game) na streamu v chatu",
     technologies: ["JavaScript", "Node.js", "Git", "API"],
     slug: "twitch-chatbot-red-light-green-light"
+  },
+  {
+    title: "Ivan",
+    description: "Nástroj, který zjednodušuje tvorbu zasedacího pořádku pro celostátní matematickou soutěž.",
+    technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
+    slug: "sspt-ivan"
   }
 ];
 
@@ -76,6 +83,9 @@ const technologies = [
   { name: "MariaDB", icon: MariaDbIcon, color: "#00758f", textColor: "#ffffff" },
   { name: "Git", icon: GitIcon, color: "#F1502F", textColor: "#ffffff" },
   { name: "API", icon: ApiIcon, color: "#2f2f2f", textColor: "#ffffff" },
+  {name: "C#", icon: CSharpIcon, color: "#239120", textColor: "#ffffff"},
+  {name: ".NET", color: "#512bd4", textColor: "#ffffff"},
+
 ];
 
 export default function Projekty() {
@@ -164,7 +174,7 @@ export default function Projekty() {
               }}
               onClick={() => handleTechClick(tech.name)}
             >
-              <tech.icon className="w-5 h-5 fill-current" />
+              {tech.icon && (<tech.icon className="w-5 h-5 fill-current" />)}
               <p>{tech.name}</p>
             </div>
           ))}
