@@ -26,4 +26,4 @@ Speciální poděkování patří také panu učitelům za jejich pomoc a podpor
 ## Odkazy
 
 - [Veřejná stránka projektu](https://sspt.petrvurm.cz/ivan/ "Navštívit veřejnou stránku projektu")
-- [SPŠ, SOŠ a SOU, Hraec Králové](https://www.hradebni.cz/ "Navštívit web SPŠ, SOŠ a SOU, Hradec Králové")
+- [SPŠ, SOŠ a SOU, Hradec Králové](https://www.hradebni.cz/ "Navštívit web SPŠ, SOŠ a SOU, Hradec Králové")
