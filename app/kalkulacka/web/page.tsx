@@ -23,7 +23,7 @@ const cenikItems = [
   // Hlavní služby
   {
     title: "Tvorba jednoduchého portfolia nebo vizitky",
-    description: "Vytvořím jednoduchý web, který bude reprezentovat vaši osobu nebo firmu. Odpovídá na otázky kdo jste, co děláte a jak vás kontaktovat.",
+    description: "Vytvořím jednoduchý web, který bude reprezentovat vaši osobu nebo firmu.",
     features: [
       "Jednoduchý a moderní design",
       "Základní informace o vás nebo vaší firmě",
