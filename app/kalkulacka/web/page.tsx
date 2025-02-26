@@ -22,6 +22,17 @@ function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
 const cenikItems = [
   // Hlavní služby
   {
+    title: "Tvorba jednoduchého portfolia nebo vizitky",
+    description: "Vytvořím jednoduchý web, který bude reprezentovat vaši osobu nebo firmu. Odpovídá na otázky kdo jste, co děláte a jak vás kontaktovat.",
+    features: [
+      "Jednoduchý a moderní design",
+      "Základní informace o vás nebo vaší firmě",
+      "Kontaktní formulář s odesláním na e-mail",
+    ],
+    price: 3000,
+    type: "main",
+  },
+  {
     title: "Zlepšení pozice ve vyhledávačích (SEO)",
     description: "Pomohu vašemu webu získat lepší pozici ve vyhledávačích.",
     features: [
