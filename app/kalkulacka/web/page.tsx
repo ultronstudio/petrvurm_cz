@@ -22,7 +22,7 @@ function formatNumber(number: number, options: Intl.NumberFormatOptions = {}) {
 const cenikItems = [
   // Hlavní služby
   {
-    title: "Tvorba jednoduchého portfolia nebo vizitky",
+    title: "Tvorba jednoduchého portfolia",
     description: "Vytvořím jednoduchý web, který bude reprezentovat vaši osobu nebo firmu.",
     features: [
       "Jednoduchý a moderní design",
