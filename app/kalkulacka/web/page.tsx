@@ -31,6 +31,7 @@ const cenikItems = [
     ],
     price: 3000,
     type: "main",
+    isOffered: true
   },
   {
     title: "Zlepšení pozice ve vyhledávačích (SEO)",
