@@ -1,10 +1,10 @@
 ---
 title: "MeGen"
 description: "Webová aplikace pro generování memů pomocí umělé inteligence."
-previewImage: "/images/megen_screenshot.png"
-created: "2024"
-status: "<span style=\"color: #00bf00;\">aktivní</span>"
-licence: "MIT License"
+previewImage: "/images/projekty/megen.jpg"
+created: "12. března 2025"
+status: "<span style=\"color: #38b000;\">aktivní</span>"
+licence: "Všechna práva vyhrazena"
 ---
 
 MeGen je webová aplikace, která využívá umělou inteligenci pro snadné generování zábavných memů. Uživatelé mohou rychle a jednoduše vytvářet originální memy na základě zadaných textů a obrázků.
