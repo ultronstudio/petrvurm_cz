@@ -155,6 +155,29 @@ export default function Home() {
                 </div>
               </div>
             </Card>
+
+            <Card className="p-0">
+            <img
+                src="/images/projekty/megen.jpg"
+                width={1280}
+                height={720}
+                alt="MeGen"
+                className="rounded-t-sm object-cover aspect-video"
+              />
+              <div className="p-4">
+                <p className="font-bold text-xl">MeGen</p>
+                <p>Webová aplikace pro generování memů pomocí umělé inteligence.</p>
+                <div className="mt-4 gap-3">
+                  <Link
+                    href="/projekty/megen"
+                    className="w-full transition-all justify-center duration-200 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md shadow-primary hover:bg-primary/80 hover:shadow-none"
+                    prefetch={false}
+                  >
+                    Zobrazit detaily
+                  </Link>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
