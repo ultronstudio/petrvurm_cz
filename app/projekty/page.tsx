@@ -15,6 +15,8 @@ import {
   GitIcon,
   SassIcon,
   PHPIcon,
+  ApiIcon,
+  CSharpIcon
 } from "@/Icons/Icons";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
@@ -51,6 +53,18 @@ const projects = [
     description: "Profesní webové portfolio",
     technologies: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Git"],
     slug: "petrvurm"
+  },
+  {
+    title: "Twitch Game: Red Light, Green Light",
+    description: "Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Squid Game) na streamu v chatu",
+    technologies: ["JavaScript", "Node.js", "Git", "API"],
+    slug: "twitch-chatbot-red-light-green-light"
+  },
+  {
+    title: "Ivan",
+    description: "Nástroj, který zjednodušuje tvorbu zasedacího pořádku pro celostátní matematickou soutěž.",
+    technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
+    slug: "sspt-ivan"
   }
 ];
 
@@ -58,46 +72,20 @@ const technologies = [
   { name: "HTML5", icon: HTML5Icon, color: "#e34c26", textColor: "#ffffff" },
   { name: "CSS3", icon: CSS3Icon, color: "#264de4", textColor: "#ffffff" },
   { name: "Sass", icon: SassIcon, color: "#cc6699", textColor: "#ffffff" },
-  {
-    name: "JavaScript",
-    icon: JavaScriptIcon,
-    color: "#f0db4f",
-    textColor: "#323330",
-  },
-  {
-    name: "TypeScript",
-    icon: TypeScriptIcon,
-    color: "#007acc",
-    textColor: "#ffffff",
-  },
+  { name: "JavaScript", icon: JavaScriptIcon, color: "#f0db4f", textColor: "#323330" },
+  { name: "TypeScript", icon: TypeScriptIcon, color: "#007acc", textColor: "#ffffff" },
   { name: "PHP", icon: PHPIcon, color: "#777bb4", textColor: "#ffffff" },
   { name: "React", icon: ReactIcon, color: "#61dafb", textColor: "#323330" },
   { name: "Next.js", icon: NextJsIcon, color: "#ffffff", textColor: "#000000" },
   { name: "Node.js", icon: NodeJsIcon, color: "#339933", textColor: "#ffffff" },
-  {
-    name: "Laravel",
-    icon: LaravelIcon,
-    color: "#F05340",
-    textColor: "#ffffff",
-  },
-  {
-    name: "Laravel Livewire",
-    icon: LaravelLivewireIcon,
-    color: "#FB70A9",
-    textColor: "#ffffff",
-  },
-  {
-    name: "MariaDB",
-    icon: MariaDbIcon,
-    color: "#00758f",
-    textColor: "#ffffff",
-  },
-  {
-    name: "Git",
-    icon: GitIcon,
-    color: "#F1502F",
-    textColor: "#ffffff",
-  },
+  { name: "Laravel", icon: LaravelIcon, color: "#F05340", textColor: "#ffffff" },
+  { name: "Laravel Livewire", icon: LaravelLivewireIcon, color: "#FB70A9", textColor: "#ffffff" },
+  { name: "MariaDB", icon: MariaDbIcon, color: "#00758f", textColor: "#ffffff" },
+  { name: "Git", icon: GitIcon, color: "#F1502F", textColor: "#ffffff" },
+  { name: "API", icon: ApiIcon, color: "#2f2f2f", textColor: "#ffffff" },
+  {name: "C#", icon: CSharpIcon, color: "#239120", textColor: "#ffffff"},
+  {name: ".NET", color: "#512bd4", textColor: "#ffffff"},
+
 ];
 
 export default function Projekty() {
@@ -186,7 +174,7 @@ export default function Projekty() {
               }}
               onClick={() => handleTechClick(tech.name)}
             >
-              <tech.icon className="w-5 h-5 fill-current" />
+              {tech.icon && (<tech.icon className="w-5 h-5 fill-current" />)}
               <p>{tech.name}</p>
             </div>
           ))}
@@ -207,7 +195,7 @@ export default function Projekty() {
                 <Link key={project.title} href={`/projekty/${project.slug}`}>
                   <Card className="p-4 border rounded-lg shadow hover:bg-card-hover cursor-pointer">
                     <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p>{project.description}</p>
+                    <p className="text-justify truncate">{project.description}</p>
                     <div className="flex gap-2 mt-2 flex-wrap">
                       {visibleTechs.map((tech) => {
                         const techDetails = techMap.get(tech);

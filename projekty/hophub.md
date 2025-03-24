@@ -3,7 +3,7 @@ title: "Hophub"
 description: "Rozšíření pro internetový prohlížeč"
 previewImage: "/images/projekty/hophub.png"
 created: "31. července 2024"
-status: "<span style=\"color: #38b000;\">aktivní</span>"
+status: "<span style=\"color: #bfc000;\">dokončeno</span>"
 licence: "Apache License 2.0"
 ---
 HopHub je **ÚŽASNÉ** rozšíření, které stylizuje vzhled webu GitHub tak, aby vypadala jako vaše oblíbená stránka pro dospělé.
