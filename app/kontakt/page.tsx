@@ -89,18 +89,8 @@ export default function Kontakt() {
           {/* Karta s odkazem a informacemi na kalkulačku */}
           <Card className="w-full p-4 rounded-lg">
             <h3 className="text-xl font-bold">Kalkulačka</h3>
-<<<<<<< HEAD
-            <p className="mt-2">
-              Kalkulačku můžete využít pro výpočet orientační ceny vašeho
-              projektu.{" "}
-              <a href="/kalkulacka" className="link">
-                Přejít na kalkulačku
-              </a>
-            </p>
-=======
             <p className="mt-2"><b>Kalkulačku služeb</b> můžete využít pro výpočet orientační ceny vašeho projektu. <a href="/kalkulacka/web" className="link">Přejít na kalkulačku</a></p>
             <p className="mt-2">Pokud máte zájem o <b>doučování nebo konzultace z oblasti IT</b>, můžete využít <a href="/kalkulacka/uceni" className="link">kalkulačku doučování</a>.</p>
->>>>>>> f467fdce03adb9e34eae2cc8a6eaccdbcf8d5828
           </Card>
           {/* Karta dalšími informacemi o mojí společnosti (IČ, bankovní spojení, další kontakty) */}
           <Card className="w-full p-4 rounded-lg ml-4">
