@@ -65,6 +65,12 @@ const projects = [
     description: "Nástroj, který zjednodušuje tvorbu zasedacího pořádku pro celostátní matematickou soutěž.",
     technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
     slug: "sspt-ivan"
+  },
+  {
+    title: "MeGen",
+    description: "Webová aplikace pro generování memů pomocí umělé inteligence.",
+    technologies: ["JavaScript", "Node.js", "Git", "API", "CSS3", "HTML5"],
+    slug: "megen"
   }
 ];
 
