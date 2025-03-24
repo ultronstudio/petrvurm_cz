@@ -166,7 +166,7 @@ export default function Home() {
               />
               <div className="p-4">
                 <p className="font-bold text-xl">MeGen</p>
-                <p>Webová aplikace pro generování memů pomocí umělé inteligence.</p>
+                <p>Generování memů pomocí AI</p>
                 <div className="mt-4 gap-3">
                   <Link
                     href="/projekty/megen"
