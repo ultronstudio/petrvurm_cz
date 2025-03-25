@@ -66,6 +66,7 @@ const cenikItems: CenikItemProps[] = [
 export default function KalkulackaUceni() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [quantity, setQuantity] = useState<number>(1); // Počet hodin/lekcí/účastníků
+  var [sleva, setSleva] = useState<number>(0); // Počet hodin/lekcí/účastníků
   const [pricePerWhat, setPricePerWhat] = useState<"hod" | "lekce" | "osoba">(
     "hod"
   );
@@ -99,8 +100,10 @@ export default function KalkulackaUceni() {
     return selectedServices.reduce((total, service) => {
       const selectedItem = cenikItems.find((item) => item.title === service);
       if (selectedItem) {
-        // Vynásobíme základní cenu počtem hodin/lekcí/účastníků
-        return total + selectedItem.basePrice * quantity;
+        // sleva 10% za 2 a více hodin/lekce/osoby
+        sleva = quantity >= 2 ? 0.9 : 1;
+
+        return total + selectedItem.basePrice * quantity * sleva;
       }
       return total;
     }, 0);
@@ -129,7 +132,7 @@ export default function KalkulackaUceni() {
                 : selectedItem.pricePerWhat === "lekce"
                 ? `v počtu ${quantity} ${quantity === 1 ? "lekce" : "lekcí"}`
                 : `v počtu ${quantity} ${quantity === 1 ? "osoba" : "osoby"}`
-            } za ${formatNumber(selectedItem.basePrice * quantity, {
+            } za ${formatNumber(selectedItem.basePrice * quantity * sleva, {
               style: "currency",
               currency: "CZK",
             })})`;
@@ -149,7 +152,8 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
       <div className="flex">
         <div className="flex-1 xl:mr-8">
           <h1 className="text-3xl font-bold mb-8 text-center text-primary">
-            Kalkulátor doučování{skoleniItems.length > 0 && ", školení"}{kurzyItems.length > 0 && ", kurzů"}
+            Kalkulátor doučování{skoleniItems.length > 0 && ", školení"}
+            {kurzyItems.length > 0 && ", kurzů"}
           </h1>
           <p className="text-lg mb-6 text-center text-white">
             Vyberte služby, které chcete, a kalkulačka vám spočítá cenu.
@@ -344,18 +348,40 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
               </div>
             </section>
           )}
+
+          <div
+            className="p-4 border-yellow-500 border text-sm rounded-lg text-yellow-500 mb-4"
+            role="alert"
+          >
+            <p>
+              Ceny kurzů jsou stanoveny pevně. Platba probíhá buď online na
+              účet, nebo hotově osobně. Platbu je nutné provést předem, aby byla
+              rezervace potvrzena.
+              {kurzyItems.length > 0 &&
+                "Kurzy mají stanovenou minimální kapacitu účastníků, což je nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného minima, celková částka bude vrácena."}
+            </p>
+          </div>
         </div>
 
         {/* Sticky panel pro celkovou cenu - desktop */}
         <div className="sticky top-24 w-80 p-6 rounded-lg h-[120px] hidden xl:block">
           <h3 className="text-2xl font-semibold">Celková cena</h3>
-          <p className="text-3xl mt-4 text-primary font-bold">
+          <p className="text-3xl mt-4 text-primary font-bold" title={"Celková cena" + (quantity >= 2 ? " s 10% slevou" : "")}>
             {selectedServices.length === 0
               ? "0 Kč"
               : formatNumber(calculatePrice(), {
                   style: "currency",
                   currency: "CZK",
                 })}
+
+            {quantity >= 2 && (
+              <span className="text-md text-red-600 line-through ml-2" title="Cena před slevou">
+                {formatNumber(calculatePrice() / 0.9, {
+                  style: "currency",
+                  currency: "CZK",
+                })}
+              </span>
+            )}
           </p>
 
           <div className="mt-2">
@@ -408,6 +434,16 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
                       currency: "CZK",
                     })}
               </p>
+              {quantity >= 2 && (
+                <p className="text-xs text-white mt-2">
+                  Sleva 10 % za 2 a více{" "}
+                  {pricePerWhat === "hod"
+                    ? "hodiny"
+                    : pricePerWhat === "lekce"
+                    ? "lekce"
+                    : "osoby"}
+                </p>
+              )}
             </div>
             <div>
               {/* Slider pro počet hodin/lekcí/účastníků */}
@@ -445,18 +481,6 @@ Rád bych se dozvěděl více informací o cenách a podmínkách. Děkuji a tě
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="p-4 border-yellow-500 border text-sm rounded-lg text-yellow-500 mb-4"
-        role="alert"
-      >
-        <p>
-          Ceny kurzů jsou stanoveny pevně. Platba probíhá buď online na účet,
-          nebo hotově osobně. Platbu je nutné provést předem, aby byla rezervace
-          potvrzena.
-          {kurzyItems.length > 0 &&
-            "Kurzy mají stanovenou minimální kapacitu účastníků, což je nutné z důvodu pronájmu prostor. Pokud se kurz nenaplní do stanoveného minima, celková částka bude vrácena."}
-        </p>
       </div>
     </div>
   );
