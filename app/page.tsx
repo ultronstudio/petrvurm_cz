@@ -41,7 +41,7 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 Kompletní tvorba webů
               </h3>
@@ -50,7 +50,7 @@ export default function Home() {
                 webu podle vašich požadavků a mnohem víc.
               </p>
             </Card>
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 Webové aplikace na míru
               </h3>
@@ -59,7 +59,7 @@ export default function Home() {
                 statických webů nebo potřebujete nějaké speciální řešení.
               </p>
             </Card>
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 Servis a údržba webů
               </h3>
@@ -69,7 +69,7 @@ export default function Home() {
                 servis vašeho webu.
               </p>
             </Card>
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 SEO poradenství
               </h3>
@@ -79,7 +79,7 @@ export default function Home() {
                 návštěvníky a vyhledávače.
               </p>
             </Card>
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 Kurzy pro všechny
               </h3>
@@ -88,7 +88,7 @@ export default function Home() {
                 na kterých se mohou něco nového naučit nejen začátečníci.
               </p>
             </Card>
-            <Card className="p-6 hover:cursor-pointer scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
+            <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
               <h3 className="text-xl font-bold text-primary">
                 Desktopová řešení
               </h3>
