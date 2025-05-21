@@ -1,0 +1,258 @@
+@font-face {
+  font-family: "Mister Earl CZ";
+  src: url("fonts/MisterEarlCZ.otf") format("opentype");
+}
+
+body {
+  font-family: sans-serif;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0;
+}
+
+h1 {
+  color: #cd3434;
+  font-size: 5rem;
+  text-align: center;
+  font-family: "Mister Earl CZ", sans-serif;
+  margin: 0;
+}
+
+select {
+  font-size: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  height: 50px;
+  z-index: 2;
+  color: #000;
+  background: #FFF;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.sublink,
+.sublink:hover,
+.nonlink {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer
+}
+
+a,
+.sublink u {
+  color: #156994;
+  text-decoration: underline;
+}
+
+a:hover,
+.sublink:hover u {
+  color: #B9151C
+}
+
+.nonlink:hover {
+  text-decoration: underline;
+  color: #000
+}
+
+.tlacitko,
+button.tlacitko {
+  color: #FFF;
+  background: #C00;
+  background: linear-gradient(135deg, #F00, #C00, #800);
+  padding: 0.5em 1.5em;
+  border-radius: 0.5em;
+  text-decoration: none;
+  box-shadow: 0.25em 0.25em 0.75em rgba(255, 255, 255, 0.333) inset, -0.25em -0.25em 0.75em rgba(0, 0, 0, 0.333) inset;
+  display: inline-block;
+  transition: 0.25s background-image, 0.2s box-shadow, 0.2s text-shadow, 0.2s padding linear;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: Candara, "Trebuchet MS", sans-serif;
+  vertical-align: top;
+  position: relative;
+  overflow: visible;
+  border: 0;
+  font-size: 140%;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.tlacitko:hover:active {
+  padding: 0.6em 1.4em 0.4em 1.6em;
+  box-shadow: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.333) inset, -0.25em -0.25em 0.75em rgba(255, 255, 255, 0.333) inset;
+}
+
+.tlacitko:hover,
+button.tlacitko:hover {
+  background: #C30;
+  background: linear-gradient(135deg, #F00, #B00, #600);
+  color: #FFF;
+  text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.75)
+}
+
+#menu {
+  margin: 1rem;
+}
+
+#menu button {
+  padding: 0.6rem 1rem;
+  margin: 0.5rem;
+}
+
+#menu button:hover {
+  background-color: #b02a2a;
+}
+
+#hud {
+  margin: 1rem;
+  font-size: 1.2rem;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 1rem;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.card.matched {
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.back {
+  cursor: pointer;
+}
+
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  backface-visibility: hidden;
+}
+
+.front {
+  transform: rotateY(180deg);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+  animation: popIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.win-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#winStats {
+  text-align: center;
+}
+
+#restartBtn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#toMainMenuBtn {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
