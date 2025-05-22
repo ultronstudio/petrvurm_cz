@@ -12,6 +12,7 @@ const timer = document.getElementById("timer");
 const hud = document.getElementById("hud");
 const menu = document.getElementById("menu");
 const difficultySelect = document.getElementById("difficultySelect");
+const bgMusic = document.getElementById("backgroundMusic");
 
 const startBtn = document.getElementById("startBtn");
 const infoBtn = document.getElementById("infoBtn");
@@ -23,16 +24,42 @@ const winStats = document.getElementById("winStats");
 const restartBtn = document.getElementById("restartBtn");
 const toMainMenuBtn = document.getElementById("toMainMenuBtn");
 
-startBtn.addEventListener("click", startNewGame);
-infoBtn.addEventListener("click", () => modal.style.display = "block");
+let musicStarted = false;
+
+function ensureMusicPlaying() {
+  if (!musicStarted) {
+    bgMusic.volume = 0.5;
+    bgMusic.loop = true;
+    bgMusic.muted = false;
+    bgMusic.play().catch((e) => console.warn("Hudba zablokována:", e));
+    musicStarted = true;
+  }
+}
+
+document.addEventListener("click", () => {
+  ensureMusicPlaying();
+}, { once: true }); // spustí se jen jednou
+
+startBtn.addEventListener("click", () => {
+  startNewGame();
+});
+
+infoBtn.addEventListener("click", () => {
+  ensureMusicPlaying();
+  modal.style.display = "block";
+});
+
 closeModal.addEventListener("click", () => modal.style.display = "none");
+
 window.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
+
 restartBtn.addEventListener("click", () => {
   winModal.style.display = "none";
   startNewGame();
 });
+
 toMainMenuBtn.addEventListener("click", () => {
   winModal.style.display = "none";
   menu.style.display = "block";
@@ -48,6 +75,10 @@ toMainMenuBtn.addEventListener("click", () => {
   timer.textContent = "Čas: 0 s";
   difficultySelect.selectedIndex = 0;
   totalPairs = 0;
+
+  if(!musicStarted) {
+    ensureMusicPlaying();
+  }
 });
 
 function generateCards() {
@@ -63,10 +94,10 @@ function startNewGame() {
   const selectedValue = parseInt(difficultySelect.value);
 
   if (isNaN(selectedValue)) {
-  alert("Nejprve vyber obtížnost!");
-  return;
-}
-totalPairs = selectedValue;
+    alert("Nejprve vyber obtížnost!");
+    return;
+  }
+  totalPairs = selectedValue;
 
   clearInterval(interval);
   cards = generateCards();
@@ -81,6 +112,10 @@ totalPairs = selectedValue;
   board.innerHTML = "";
   buildBoard();
   startTimer();
+
+  if(!musicStarted) {
+    ensureMusicPlaying();
+  }
 }
 
 function startTimer() {
@@ -125,6 +160,7 @@ function flipCard(card, index) {
   if (card.classList.contains("flipped") || flipped.length === 2) return;
   card.classList.add("flipped");
   flipped.push({ element: card, image: cards[index] });
+  playSound("flipSound");
 
   if (flipped.length === 2) {
     attempts++;
@@ -144,12 +180,36 @@ function flipCard(card, index) {
         a.element.classList.remove("flipped");
         b.element.classList.remove("flipped");
         flipped = [];
+        playSound("flipSound");
       }, 1000);
     }
   }
 }
 
 function showWinModal() {
+  playSound("winSound");
+  stopBackgroundMusic();
   winStats.textContent = `Dokončeno za ${time} sekund a ${attempts} pokusů.`;
   winModal.style.display = "block";
+}
+
+function playSound(id) {
+  const sound = document.getElementById(id);
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play();
+  }
+}
+
+function playBackgroundMusic() {
+  ensureMusicPlaying();
+}
+
+function stopBackgroundMusic() {
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+  musicStarted = false;
+  bgMusic.muted = true;
+  bgMusic.volume = 0;
+  bgMusic.loop = false;
 }

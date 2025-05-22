@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="cs">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alíkovo pexeso</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="img/ikona.ico" type="image/x-icon" />
-</head>
-<body>
-  <h1>Alíkovo pexeso</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alíkovo pexeso</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="img/ikona.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <h1>Alíkovo pexeso</h1>
 
-  <select id="difficultySelect">
-  <option selected disabled>Vyber obtížnost</option>
-  <option value="4">Lehká (4 páry)</option>
-  <option value="6">Střední (6 párů)</option>
-  <option value="8">Těžká (8 párů)</option>
-</select>
+    <select id="difficultySelect">
+      <option selected disabled>Vyber obtížnost</option>
+      <option value="4">Lehká (4 páry)</option>
+      <option value="6">Střední (6 párů)</option>
+      <option value="8">Těžká (8 párů)</option>
+    </select>
 
-  <div id="menu">
-    <button class="tlacitko" id="startBtn">Nová hra</button>
-    <button class="tlacitko" id="infoBtn">O hře</button>
-  </div>
-
-  <div id="hud" style="display:none;">
-    <span id="score">Pokusy: 0</span> |
-    <span id="timer">Čas: 0 s</span>
-  </div>
-
-  <div class="board" id="board"></div>
-
-  <!-- Info modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" id="closeModal">&times;</span>
-      <h2>O hře</h2>
-      <p style="text-align: justify;">Toto je jednoduché pexeso vytvořené pro Alík.cz. Cílem hry je najít všechny páry karet co nejrychleji.</p>
-      <hr style="border: 1px solid #ccc; margin: 10px 0;" />
-      <div style="text-align: center;">Vytvořil <a href="https://www.alik.cz/u/ultron01" target="_blank">ultron01</a></div>
+    <div id="menu">
+      <button class="tlacitko" id="startBtn">Nová hra</button>
+      <button class="tlacitko" id="infoBtn">O hře</button>
     </div>
-  </div>
 
-  <!-- Výherní modal -->
-  <div id="winModal" class="modal">
-    <div class="modal-content">
-      <h2>🎉 Vyhrál jsi!</h2>
-      <p id="winStats"></p>
-      <div class="win-buttons">
-        <button class="tlacitko" id="restartBtn">Hrát znovu</button>
-      <button class="tlacitko" id="toMainMenuBtn">Hlavní menu</button>
+    <div id="hud" style="display: none">
+      <span id="score">Pokusy: 0</span> |
+      <span id="timer">Čas: 0 s</span>
+    </div>
+
+    <div class="board" id="board"></div>
+
+    <!-- Info modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>O hře</h2>
+        <p style="text-align: justify">
+          Toto je jednoduché pexeso vytvořené pro web Alík.cz. Cílem hry je najít
+          všechny páry karet co nejrychleji.
+        </p>
+        <hr style="border: 1px solid #ccc; margin: 10px 0" />
+        <div style="text-align: center">
+          Hru vytvořil <a href="https://www.alik.cz/u/ultron01" target="_blank">ultron01</a><br/>Autorem hudby v pozadí je <a href="https://cs.wikipedia.org/wiki/Kevin_MacLeod" target="_blank">Kevin MacLeod</a>
+        </div>
       </div>
     </div>
-  </div>
-  
 
-  <script src="script.js"></script>
-</body>
+    <!-- Výherní modal -->
+    <div id="winModal" class="modal">
+      <div class="modal-content">
+        <h2>🎉 Vyhrál jsi!</h2>
+        <p id="winStats"></p>
+        <div class="win-buttons">
+          <button class="tlacitko" id="restartBtn">Hrát znovu</button>
+          <button class="tlacitko" id="toMainMenuBtn">Hlavní menu</button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="flipSound" src="sounds/card-flip.mp3"></audio>
+    <audio id="backgroundMusic" src="music/background.mp3" muted loop></audio>
+    <audio id="winSound" src="sounds/victory.mp3"></audio>
+
+    <script src="script.js"></script>
+  </body>
 </html>
