@@ -15,11 +15,29 @@
       <option value="4">Lehká (4 páry)</option>
       <option value="6">Střední (6 párů)</option>
       <option value="8">Těžká (8 párů)</option>
+      <option value="12">Pokročilá (12 párů)</option>
+      <option value="16">Náročná (16 párů)</option>
+      <option value="20">Expert (20 párů)</option>
+      <option value="26">Mistr paměti (26 párů)</option>
+      <option value="30">Nadlidská (30 párů)</option>
+      <option value="34">Šílená (34 párů)</option>
     </select>
 
-    <div id="menu">
-      <button class="tlacitko" id="startBtn">Nová hra</button>
-      <button class="tlacitko" id="infoBtn">O hře</button>
+    <div id="menu" class="menu-wrapper">
+      <div class="menu-row">
+        <button class="tlacitko" id="startBtn">Nová hra</button>
+        <button class="tlacitko" id="infoBtn">O hře</button>
+      </div>
+      <div class="menu-row">
+        <label class="flipcheck" for="toggleMusicBtn">
+          <input type="checkbox" id="toggleMusicBtn" />
+          Hudba: <span data-flip="Vypnuto"><span>Zapnuto</span></span>
+        </label>
+        <label class="flipcheck" for="toggleSoundsBtn">
+          <input type="checkbox" id="toggleSoundsBtn" />
+          Zvuky: <span data-flip="Vypnuto"><span>Zapnuto</span></span>
+        </label>
+      </div>
     </div>
 
     <div id="hud" style="display: none">
@@ -35,12 +53,17 @@
         <span class="close" id="closeModal">&times;</span>
         <h2>O hře</h2>
         <p style="text-align: justify">
-          Toto je jednoduché pexeso vytvořené pro web Alík.cz. Cílem hry je najít
-          všechny páry karet co nejrychleji.
+          Toto je jednoduché pexeso vytvořené pro web Alík.cz. Cílem hry je
+          najít všechny páry karet co nejrychleji.
         </p>
         <hr style="border: 1px solid #ccc; margin: 10px 0" />
         <div style="text-align: center">
-          Hru vytvořil <a href="https://www.alik.cz/u/ultron01" target="_blank">ultron01</a><br/>Autorem hudby v pozadí je <a href="https://cs.wikipedia.org/wiki/Kevin_MacLeod" target="_blank">Kevin MacLeod</a>
+          Hru vytvořil
+          <a href="https://www.alik.cz/u/ultron01" target="_blank">ultron01</a
+          ><br />Autorem hudby v pozadí je
+          <a href="https://cs.wikipedia.org/wiki/Kevin_MacLeod" target="_blank"
+            >Kevin MacLeod</a
+          >
         </div>
       </div>
     </div>
@@ -58,8 +81,9 @@
     </div>
 
     <audio id="flipSound" src="sounds/card-flip.mp3"></audio>
-    <audio id="backgroundMusic" src="music/background.mp3" muted loop></audio>
+    <audio id="backgroundMusic" src="music/background.mp3"></audio>
     <audio id="winSound" src="sounds/victory.mp3"></audio>
+    <audio id="switchToggle" src="sounds/switch.mp3"></audio>
 
     <script src="script.js"></script>
   </body>

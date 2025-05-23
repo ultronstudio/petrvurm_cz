@@ -5,6 +5,7 @@ let attempts = 0;
 let time = 0;
 let interval;
 let totalPairs = 0;
+const maxPairs = 34; // Počet párů karet v systému (indexováno od nuly) - každý tato karta může tvořit pár s další stejnou kartou. celkem je to 34 párů (68 karet)
 
 const board = document.getElementById("board");
 const score = document.getElementById("score");
@@ -23,8 +24,74 @@ const winModal = document.getElementById("winModal");
 const winStats = document.getElementById("winStats");
 const restartBtn = document.getElementById("restartBtn");
 const toMainMenuBtn = document.getElementById("toMainMenuBtn");
+const toggleMusicBtn = document.getElementById("toggleMusicBtn");
+const toggleSoundsBtn = document.getElementById("toggleSoundsBtn");
 
 let musicStarted = false;
+let musicEnabled = true;
+let soundEnabled = true;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const storedMusicEnabled = localStorage.getItem("musicEnabled");
+  const storedSoundEnabled = localStorage.getItem("soundEnabled");
+  
+  if(storedMusicEnabled == null) {
+    musicEnabled = storedMusicEnabled === "true";
+    localStorage.setItem("musicEnabled", musicEnabled);
+  }
+
+  if(storedSoundEnabled == null) {
+    soundEnabled = storedSoundEnabled === "true";
+    localStorage.setItem("soundEnabled", soundEnabled);
+  }
+
+  musicEnabled = storedMusicEnabled == "true";
+  soundEnabled = storedSoundEnabled == "true";
+
+  toggleMusicBtn.checked = musicEnabled;
+  toggleSoundsBtn.checked = soundEnabled;
+
+  bgMusic.muted = !musicEnabled;
+
+  updateToggleText("toggleMusicBtn", musicEnabled);
+  updateToggleText("toggleSoundsBtn", soundEnabled);
+});
+
+toggleMusicBtn.addEventListener("change", () => {
+  musicEnabled = toggleMusicBtn.checked;
+  localStorage.setItem("musicEnabled", musicEnabled);
+
+  if (musicEnabled) {
+    bgMusic.muted = false;
+    ensureMusicPlaying();
+  } else {
+    bgMusic.muted = true;
+    stopBackgroundMusic();
+  }
+
+  updateToggleText("toggleMusicBtn", musicEnabled);
+});
+
+toggleSoundsBtn.addEventListener("change", () => {
+  soundEnabled = toggleSoundsBtn.checked;
+  localStorage.setItem("soundEnabled", soundEnabled);
+
+  updateToggleText("toggleSoundsBtn", soundEnabled);
+});
+
+function updateToggleText(id, isEnabled) {
+  const label = document.querySelector(`label[for="${id}"]`) || document.getElementById(id)?.closest("label");
+  if (!label) return;
+
+  const span = label.querySelector("span[data-flip]");
+  if (span) {
+    span.innerHTML = isEnabled ? "<span>Zapnuto</span>" : span.dataset.flip;
+  }
+
+  if(soundEnabled) {
+    playSound("switchToggle");
+  }
+}
 
 function ensureMusicPlaying() {
   if (!musicStarted) {
@@ -37,7 +104,16 @@ function ensureMusicPlaying() {
 }
 
 document.addEventListener("click", () => {
-  ensureMusicPlaying();
+  if (localStorage.getItem("musicEnabled") == "false") {
+    bgMusic.muted = true;
+    toggleMusicBtn.textContent = "Hudba: Vypnuto";
+  } else if (localStorage.getItem("musicEnabled") == "true") {
+    bgMusic.muted = false;
+    toggleMusicBtn.textContent = "Hudba: Zapnuto";
+    ensureMusicPlaying();
+  } else {
+    console.error("Nastavení hudby není platné.");
+  }
 }, { once: true }); // spustí se jen jednou
 
 startBtn.addEventListener("click", () => {
@@ -76,18 +152,22 @@ toMainMenuBtn.addEventListener("click", () => {
   difficultySelect.selectedIndex = 0;
   totalPairs = 0;
 
-  if(!musicStarted) {
+  if (!musicStarted && musicEnabled) {
     ensureMusicPlaying();
   }
 });
 
 function generateCards() {
+  const allIndices = Array.from({ length: maxPairs }, (_, i) => i);
+  const selectedIndices = shuffleArray(allIndices).slice(0, totalPairs);
+
   const newCards = [];
-  for (let i = 0; i < totalPairs; i++) {
+  selectedIndices.forEach(i => {
     const path = "img/front_" + i + ".png";
     newCards.push(path, path);
-  }
-  return newCards.sort(() => 0.5 - Math.random());
+  });
+
+  return shuffleArray(newCards); // Náhodně rozmístí dvojice
 }
 
 function startNewGame() {
@@ -97,6 +177,12 @@ function startNewGame() {
     alert("Nejprve vyber obtížnost!");
     return;
   }
+
+  if (selectedValue > maxPairs) {
+    alert("Jejda! Hra umožňuje maximálně " + maxPairs + " párů karet, ale ty jsi vybral " + selectedValue + "!");
+    return;
+  }
+
   totalPairs = selectedValue;
 
   clearInterval(interval);
@@ -109,13 +195,21 @@ function startNewGame() {
   timer.textContent = "Čas: 0 s";
   hud.style.display = "block";
   menu.style.display = "none";
-  board.innerHTML = "";
   buildBoard();
   startTimer();
+  hideDifficultySelect();
 
-  if(!musicStarted) {
+  if (!musicStarted && musicEnabled) {
     ensureMusicPlaying();
   }
+}
+
+function hideDifficultySelect() {
+  difficultySelect.style.display = "none";
+}
+
+function showDifficultySelect() {
+  difficultySelect.style.display = "block";
 }
 
 function startTimer() {
@@ -149,6 +243,16 @@ function createCard(image, index) {
 }
 
 function buildBoard() {
+  board.innerHTML = "";
+
+  // Nastav počet sloupců podle počtu párů (karet / 2)
+  let columns = 4;
+  if (totalPairs > 8) columns = 8;
+  if (totalPairs > 16) columns = 10;
+  if (totalPairs > 26) columns = 14;
+
+  board.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
+
   cards.forEach((img, i) => {
     const card = createCard(img, i);
     board.appendChild(card);
@@ -160,7 +264,10 @@ function flipCard(card, index) {
   if (card.classList.contains("flipped") || flipped.length === 2) return;
   card.classList.add("flipped");
   flipped.push({ element: card, image: cards[index] });
-  playSound("flipSound");
+
+  if (soundEnabled) {
+    playSound("flipSound");
+  }
 
   if (flipped.length === 2) {
     attempts++;
@@ -180,20 +287,28 @@ function flipCard(card, index) {
         a.element.classList.remove("flipped");
         b.element.classList.remove("flipped");
         flipped = [];
-        playSound("flipSound");
+
+        if (soundEnabled) {
+          playSound("flipSound");
+        }
       }, 1000);
     }
   }
 }
 
 function showWinModal() {
-  playSound("winSound");
+  if(soundEnabled) {
+    playSound("winSound");
+  }
   stopBackgroundMusic();
   winStats.textContent = `Dokončeno za ${time} sekund a ${attempts} pokusů.`;
   winModal.style.display = "block";
+
+  showDifficultySelect();
 }
 
 function playSound(id) {
+  if (!soundEnabled) return;
   const sound = document.getElementById(id);
   if (sound) {
     sound.currentTime = 0;
@@ -212,4 +327,13 @@ function stopBackgroundMusic() {
   bgMusic.muted = true;
   bgMusic.volume = 0;
   bgMusic.loop = false;
+}
+
+function shuffleArray(array) {
+  const copy = array.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
