@@ -121,7 +121,10 @@ startBtn.addEventListener("click", () => {
 });
 
 infoBtn.addEventListener("click", () => {
-  ensureMusicPlaying();
+  if (!musicStarted && musicEnabled) {
+    ensureMusicPlaying();
+  }
+
   modal.style.display = "block";
 });
 
@@ -300,7 +303,11 @@ function showWinModal() {
   if(soundEnabled) {
     playSound("winSound");
   }
-  stopBackgroundMusic();
+
+  if(musicEnabled) {
+    stopBackgroundMusic();
+  }
+
   winStats.textContent = `Dokončeno za ${time} sekund a ${attempts} pokusů.`;
   winModal.style.display = "block";
 
