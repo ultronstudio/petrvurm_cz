@@ -1,0 +1,12 @@
+Pravidla
+- V této hře (která se skoro tváří jako soutěž) si trénuješ paměť a hledáš stejné dvojice obrázků.
+- Cílem je najít všechny páry kartiček co nejrychleji a s co nejmenším počtem pokusů.
+- Můžeš si zvolit obtížnost – čím těžší, tím víc kartiček a větší výzva.
+- Zvládneš si zapamatovat, co bylo kde, když se ti kartičky začnou míchat pod rukama?
+
+Ovládání
+- Klikni na libovolné dvě kartičky – pokud jsou stejné, zůstanou odkryté.
+- Když se netrefíš, kartičky se po chvilce otočí zpátky.
+- Počet pokusů se počítá, stejně jako čas – takže pozor na zbytečné klikání!
+- Vybrat si můžeš z několika obtížností podle počtu párů.
+- Hra se ovládá myší (nebo prstem, pokud hraješ na mobilu).
