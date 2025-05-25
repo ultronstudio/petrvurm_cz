@@ -252,7 +252,7 @@ function buildBoard() {
   let columns = 4;
   if (totalPairs > 8) columns = 8;
   if (totalPairs > 16) columns = 10;
-  if (totalPairs > 26) columns = 14;
+  if (totalPairs > 25) columns = 14;
 
   board.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
 
