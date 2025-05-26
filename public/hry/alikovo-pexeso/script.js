@@ -5,7 +5,7 @@ let attempts = 0;
 let time = 0;
 let interval;
 let totalPairs = 0;
-const maxPairs = 34; // Počet párů karet v systému (indexováno od nuly) - každý tato karta může tvořit pár s další stejnou kartou. celkem je to 34 párů (68 karet)
+const maxPairs = 25; // Počet párů karet v systému (indexováno od nuly) - každý tato karta může tvořit pár s další stejnou kartou. celkem je to 34 párů (68 karet)
 
 const board = document.getElementById("board");
 const score = document.getElementById("score");
@@ -161,16 +161,15 @@ toMainMenuBtn.addEventListener("click", () => {
 });
 
 function generateCards() {
-  const allIndices = Array.from({ length: maxPairs }, (_, i) => i);
+  const allIndices = Array.from({ length: maxPairs }, (_, i) => i + 1); // indexy 1–maxPairs
   const selectedIndices = shuffleArray(allIndices).slice(0, totalPairs);
 
   const newCards = [];
   selectedIndices.forEach(i => {
-    const path = "img/front_" + i + ".png";
-    newCards.push(path, path);
+    newCards.push(i, i); // každý index dvakrát (pár)
   });
 
-  return shuffleArray(newCards); // Náhodně rozmístí dvojice
+  return shuffleArray(newCards);
 }
 
 function startNewGame() {
@@ -222,25 +221,24 @@ function startTimer() {
   }, 1000);
 }
 
-function createCard(image, index) {
+function createCard(spriteIndex, index) {
   const card = document.createElement("div");
   card.classList.add("card");
+  card.dataset.index = spriteIndex;
 
   const inner = document.createElement("div");
   inner.classList.add("inner");
-  inner.dataset.index = index;
 
   const front = document.createElement("div");
   front.classList.add("front");
-  front.style.backgroundImage = `url('${image}')`;
 
   const back = document.createElement("div");
   back.classList.add("back");
-  back.style.backgroundImage = "url('img/back.png')";
 
   inner.appendChild(front);
   inner.appendChild(back);
   card.appendChild(inner);
+
   card.addEventListener("click", () => flipCard(card, index));
   return card;
 }
@@ -248,16 +246,22 @@ function createCard(image, index) {
 function buildBoard() {
   board.innerHTML = "";
 
-  // Nastav počet sloupců podle počtu párů (karet / 2)
-  let columns = 4;
-  if (totalPairs > 8) columns = 8;
-  if (totalPairs > 16) columns = 10;
-  if (totalPairs > 25) columns = 14;
+  let columns;
+  const isMobile = window.innerWidth <= 480;
+
+  if (isMobile) {
+    columns = 2;
+  } else {
+    columns = totalPairs <= 4 ? 4 :
+              totalPairs <= 8 ? 6 :
+              totalPairs <= 14 ? 7 :
+              totalPairs <= 24 ? 8 : 10;
+  }
 
   board.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
 
-  cards.forEach((img, i) => {
-    const card = createCard(img, i);
+  cards.forEach((spriteIndex, i) => {
+    const card = createCard(spriteIndex, i);
     board.appendChild(card);
   });
 }
@@ -265,22 +269,23 @@ function buildBoard() {
 function flipCard(card, index) {
   const inner = card.querySelector(".inner");
   if (card.classList.contains("flipped") || flipped.length === 2) return;
-  card.classList.add("flipped");
-  flipped.push({ element: card, image: cards[index] });
 
-  if (soundEnabled) {
-    playSound("flipSound");
-  }
+  card.classList.add("flipped");
+
+  flipped.push({ element: card, index: cards[index] });
+
+  if (soundEnabled) playSound("flipSound");
 
   if (flipped.length === 2) {
     attempts++;
     score.textContent = "Pokusy: " + attempts;
     const [a, b] = flipped;
-    if (a.image === b.image) {
+    if (a.index === b.index) {
       a.element.classList.add("matched");
       b.element.classList.add("matched");
       matched += 2;
       flipped = [];
+
       if (matched === cards.length) {
         clearInterval(interval);
         showWinModal();
@@ -291,9 +296,7 @@ function flipCard(card, index) {
         b.element.classList.remove("flipped");
         flipped = [];
 
-        if (soundEnabled) {
-          playSound("flipSound");
-        }
+        if (soundEnabled) playSound("flipSound");
       }, 1000);
     }
   }
