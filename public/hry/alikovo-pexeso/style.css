@@ -189,7 +189,7 @@ button.tlacitko:hover {
 
 .card .front,
 .card .back {
-  background-image: url('img/sprite.webp');
+  background-image: url('img/sprite.png');
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-origin: content-box;
