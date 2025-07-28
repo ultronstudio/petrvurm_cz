@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Metadata -->
+    <meta
+      name="description"
+      content="Zahraj si zábavné online pexeso s Alíkem! Najdi všechny páry obrázků co nejrychleji."
+    />
+    <meta name="author" content="ultron01" />
+    <meta
+      name="keywords"
+      content="pexeso, hra, paměť, Alík, děti, online, zdarma, ultron01, česká hra, webgame"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/ikona.ico" type="image/x-icon" />
+
+    <!-- Styl -->
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Alíkovo pexeso</title>
+
+    <!-- preload img/sprite.png for performance -->
+    <link
+      rel="preload"
+      as="image"
+      href="img/sprite.png"
+      type="image/png"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h1>Alíkovo pexeso</h1>
+
+    <select id="difficultySelect">
+      <option selected disabled>Vyber obtížnost</option>
+      <option value="4">Lehká (4 páry)</option>
+      <option value="8">Střední (8 párů)</option>
+      <option value="14">Pokročilá (14 párů)</option>
+      <option value="25">Expert (25 párů)</option>
+    </select>
+
+    <div id="menu" class="menu-wrapper">
+      <div class="menu-row">
+        <button class="tlacitko" id="startBtn">Nová hra</button>
+        <button class="tlacitko" id="infoBtn">O hře</button>
+      </div>
+      <div class="menu-row">
+        <label class="flipcheck" for="toggleMusicBtn">
+          <input type="checkbox" id="toggleMusicBtn" />
+          Hudba: <span data-flip="Vypnuto"><span>Zapnuto</span></span>
+        </label>
+        <label class="flipcheck" for="toggleSoundsBtn">
+          <input type="checkbox" id="toggleSoundsBtn" />
+          Zvuky: <span data-flip="Vypnuto"><span>Zapnuto</span></span>
+        </label>
+      </div>
+    </div>
+
+    <div id="hud" style="display: none">
+      <span id="score">Pokusy: 0</span> |
+      <span id="timer">Čas: 0 s</span>
+    </div>
+
+    <div class="board" id="board"></div>
+
+    <!-- Info modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>O hře</h2>
+        <p style="text-align: justify">
+          Toto je jednoduché pexeso vytvořené pro web Alík.cz. Cílem hry je
+          najít všechny páry karet co nejrychleji.
+        </p>
+        <hr style="border: 1px solid #ccc; margin: 10px 0" />
+        <div style="text-align: center">
+          Hru vytvořil
+          <a href="https://www.alik.cz/u/ultron01" target="_blank">ultron01</a
+          ><br />Autorem hudby v pozadí je
+          <a href="https://cs.wikipedia.org/wiki/Kevin_MacLeod" target="_blank"
+            >Kevin MacLeod</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Výherní modal -->
+    <div id="winModal" class="modal">
+      <div class="modal-content">
+        <h2>🎉 Vyhrál jsi!</h2>
+        <p id="winStats"></p>
+        <div class="win-buttons">
+          <button class="tlacitko" id="restartBtn">Hrát znovu</button>
+          <button class="tlacitko" id="toMainMenuBtn">Hlavní menu</button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="flipSound" src="sounds/card-flip.mp3"></audio>
+    <audio id="backgroundMusic" src="music/background.mp3"></audio>
+    <audio id="winSound" src="sounds/victory.mp3"></audio>
+    <audio id="switchToggle" src="sounds/switch.mp3"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
