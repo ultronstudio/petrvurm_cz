@@ -16,7 +16,7 @@ import {
   SassIcon,
   PHPIcon,
   ApiIcon,
-  CSharpIcon
+  CSharpIcon, TailwindIcon
 } from "@/Icons/Icons";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
@@ -65,6 +65,12 @@ const projects = [
     description: "Nástroj, který zjednodušuje tvorbu zasedacího pořádku pro celostátní matematickou soutěž.",
     technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
     slug: "sspt-ivan"
+  },
+  {
+    title: "Gomegle",
+    description: "Webová aplikace pro náhodný živý chat s ostatními lidmi",
+    technologies: ["HTML5", "CSS3", "JavaScript", "Laravel", "Laravel Livewire", "MariaDB", "Node.js", "Git", "Tailwind CSS"],
+    slug: "gomegle"
   }
 ];
 
@@ -83,9 +89,9 @@ const technologies = [
   { name: "MariaDB", icon: MariaDbIcon, color: "#00758f", textColor: "#ffffff" },
   { name: "Git", icon: GitIcon, color: "#F1502F", textColor: "#ffffff" },
   { name: "API", icon: ApiIcon, color: "#2f2f2f", textColor: "#ffffff" },
-  {name: "C#", icon: CSharpIcon, color: "#239120", textColor: "#ffffff"},
-  {name: ".NET", color: "#512bd4", textColor: "#ffffff"},
-
+  { name: "C#", icon: CSharpIcon, color: "#239120", textColor: "#ffffff"},
+  { name: ".NET", color: "#512bd4", textColor: "#ffffff"},
+  { name: "Tailwind CSS", icon: TailwindIcon, color: "#44a8b3", textColor: "#ffffff"}
 ];
 
 export default function Projekty() {

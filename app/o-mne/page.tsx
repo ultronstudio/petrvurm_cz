@@ -14,6 +14,7 @@ import {
   PHPIcon,
   ApiIcon,
   CSharpIcon,
+  TailwindIcon,
 } from "@/Icons/Icons";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
@@ -312,6 +313,10 @@ export default function Kontakt() {
               <div className="bg-[#512bd4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
                 <p>.NET</p>
               </div>
+                <div className="bg-[#44a8b3] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
+                  <TailwindIcon className="w-5 h-5 fill-white" />
+                    <p>Tailwind CSS</p>
+                </div>
             </div>
           </div>
         </div>
