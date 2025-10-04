@@ -1,3 +1,9 @@
+"use client";
+
+import Link from "next/link";
+import { Card } from "@radix-ui/themes";
+import { motion } from "framer-motion";
+import { GraduationCap, Award, Briefcase, Clock } from "lucide-react";
 import {
   HTML5Icon,
   CSS3Icon,
@@ -16,310 +22,189 @@ import {
   CSharpIcon,
   TailwindIcon,
 } from "@/Icons/Icons";
-import { Card } from "@radix-ui/themes";
-import Link from "next/link";
 
-export default function Kontakt() {
-  const getAge = (): number => {
-    const today = new Date();
-    const birthDate = new Date(2005, 9, 25);
-    const ageInMilliseconds = today.getTime() - birthDate.getTime();
-    const millisecondsInOneYear = 365.25 * 24 * 60 * 60 * 1000; // zohlednění přestupných roků
-    return ageInMilliseconds / millisecondsInOneYear;
-  };
+function getAge() {
+  const today = new Date();
+  const birthDate = new Date(2005, 9, 25); // 0‑based měsíc → 9 = říjen
+  const diff = today.getTime() - birthDate.getTime();
+  const years = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
+  return years;
+}
 
-  const getFakeTubeAge = (): { years: number; months: number } => {
-    const today = new Date();
-    const fakeTubeCreated = new Date(2020, 12, 28);
-    const ageInMilliseconds = today.getTime() - fakeTubeCreated.getTime();
+function getFakeTubeAge() {
+  // Oprava: měsíc je 0‑based → 11 = prosinec
+  const created = new Date(2020, 11, 28);
+  const today = new Date();
+  let years = today.getFullYear() - created.getFullYear();
+  let months = today.getMonth() - created.getMonth();
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+  return { years, months };
+}
 
-    const ageDate = new Date(ageInMilliseconds);
-    let years = ageDate.getUTCFullYear() - 1970; // because the epoch is 1970
-    let months = ageDate.getUTCMonth();
+const techs = [
+  { name: "HTML5", color: "#e34c26", text: "#fff", Icon: HTML5Icon },
+  { name: "CSS3", color: "#264de4", text: "#fff", Icon: CSS3Icon },
+  { name: "Sass", color: "#cc6699", text: "#fff", Icon: SassIcon },
+  { name: "JavaScript", color: "#f0db4f", text: "#323330", Icon: JavaScriptIcon },
+  { name: "TypeScript", color: "#007acc", text: "#fff", Icon: TypeScriptIcon },
+  { name: "PHP", color: "#777bb4", text: "#fff", Icon: PHPIcon },
+  { name: "React", color: "#61dafb", text: "#111", Icon: ReactIcon },
+  { name: "Next.js", color: "#fff", text: "#000", Icon: NextJsIcon },
+  { name: "Node.js", color: "#339933", text: "#fff", Icon: NodeJsIcon },
+  { name: "Laravel", color: "#F05340", text: "#fff", Icon: LaravelIcon },
+  { name: "Livewire", color: "#FB70A9", text: "#fff", Icon: LaravelLivewireIcon },
+  { name: "MariaDB", color: "#00758f", text: "#fff", Icon: MariaDbIcon },
+  { name: "Git", color: "#F1502F", text: "#fff", Icon: GitIcon },
+  { name: "API", color: "#2f2f2f", text: "#fff", Icon: ApiIcon },
+  { name: "C#", color: "#239120", text: "#fff", Icon: CSharpIcon },
+  { name: "Tailwind CSS", color: "#44a8b3", text: "#fff", Icon: TailwindIcon },
+];
 
-    if (months >= 12) {
-      years += 1;
-      months -= 12;
-    }
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
+};
 
-    return { years, months };
-  };
-
+export default function OMne() {
+  const age = getAge();
   const { years, months } = getFakeTubeAge();
-  const yearsString =
-    years === 1
-      ? "1 rok"
-      : years > 1 && years < 5
-      ? `${years} roky`
-      : `${years} let`;
-  const monthString =
-    months === 1
-      ? "1 měsíc"
-      : months > 1 && months < 5
-      ? `${months} měsíce`
-      : `${months} měsíců`;
+
+  const yearsLabel = years === 1 ? "1 rok" : years > 1 && years < 5 ? `${years} roky` : `${years} let`;
+  const monthsLabel = months === 1 ? "1 měsíc" : months > 1 && months < 5 ? `${months} měsíce` : `${months} měsíců`;
+
+  // const avatarImage = "/images/portrait.jpg"; // produkce
+  const avatarImage = null; // vývoj
 
   return (
-    <section id="services" className="py-10">
-      <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            O mně
-          </h2>
-        </div>
+    <section className="relative py-12">
+      {/* gradient background */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
 
-        {/* úvodní text */}
-        <div className="flex flex-row">
-          <div className="w-full pr-0 md:pr-4 lg:pr-4 xl:pr-4 text-justify">
-            {/* úvodní text s počítadlem roků */}
-            <p>
-              Ahoj, jmenuji se Petr Vurm, je mi {Math.floor(getAge())}&nbsp;let
-              a jsem full-stack web developer, programátor a student střední
-              průmyslové školy v Hradci Králové.
-            </p>
-            <p className="mt-3">
-              Věnuji se tvorbě webů více než 7 let a během této doby jsem
-              vystřídal mnoho projektů a technologií. Mým cílem je vytvářet
-              kvalitní a moderní webové stránky a aplikace, které budou splňovat
-              požadavky zákazníků a budou mít přidanou hodnotu.
-            </p>
-            <h2 className="mt-4 text-2xl font-bold">Jak to začalo</h2>
-            <p>
-              S weby jsem začal v&nbsp;roce 2017, kdy jsem začal ve škole
-              docházet na kroužek tvorby webových stránek, kde jsem se naučil
-              základní potřebné věci pro tvorbu jednoduchých a prakticky
-              obyčejných webových stránek.
-            </p>
-            <p className="mt-3">
-              Bohužel v polovině školního roku (tedy v&nbsp;roce 2018) se
-              kroužek zrušil a já jsem se rozhodl pokračovat v učení tvorby
-              webových stránek sám. Začal jsem se více učit HTML, CSS a
-              JavaScript a postupně jsem se tak dostal k&nbsp;vývoji webových
-              aplikací.
-            </p>
-            <p className="mt-3">
-              Ještě dřív, než jsem vytvořil web, který by se dal nazývat
-              aplikací, předcházela tomu pandemie koronaviru. Jelikož jsem z
-              důvodu, abych se mohl učit tvořit webové stránky, nemohl v době
-              pandemie dojíždět do hradecké knihovny, kde jsem na místních
-              počítačích v poznámkovém bloku psal své první kódy, z počátku jsem
-              se učil z&nbsp;knih, které jsem už měl doma. A proč z knih a ne z
-              internetu? Protože jsem neměl internet. Tedy, respektive jsem měl,
-              ale neměl jsem zařízení, na kterém bych mohl internet používat -
-              ani mobil, ani počítač či notebook.
-            </p>
-            <p className="mt-3">
-              Až v&nbsp;roce 2020 mi darovala ředitelka základní školy notebook,
-              díky kterému jsem se dopoledne mohl účastnit online výuky a
-              odpoledne se učit tvořit webové stránky. A tak jsem vytvořil svou
-              první webovou aplikaci (podle návodu samozřejmě) - jednoduchý
-              blog.
-            </p>
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        {/* HERO */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+          <div>
+            <motion.h1 variants={fadeUp} initial="hidden" animate="show" className="text-3xl md:text-5xl font-extrabold tracking-tight">
+              O mně
+            </motion.h1>
+            <motion.p variants={fadeUp} custom={1} initial="hidden" animate="show" className="mt-3 text-white/80 text-sm md:text-base leading-7">
+              Jmenuji se Petr Vurm. Je mi {age} let a působím jako full‑stack vývojář webových aplikací. Kombinuji
+              moderní frontendové technologie s robustním backendem a dbám na čistý kód, bezpečnost a udržitelnost.
+            </motion.p>
+
+            {/* KPI karty */}
+            <motion.div variants={fadeUp} custom={2} initial="hidden" animate="show" className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
+                <div className="text-3xl font-extrabold text-primary">{years + (months > 0 ? 1 : 0)}+</div>
+                <div className="text-xs text-white/70">let praxe s weby</div>
+              </Card>
+              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
+                <div className="text-3xl font-extrabold text-primary">{yearsLabel}</div>
+                <div className="text-xs text-white/70">vývoje FakeTube</div>
+              </Card>
+              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
+                <div className="text-3xl font-extrabold text-primary">10+</div>
+                <div className="text-xs text-white/70">menších projektů</div>
+              </Card>
+              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
+                <div className="text-3xl font-extrabold text-primary">24/7</div>
+                <div className="text-xs text-white/70">důraz na provoz</div>
+              </Card>
+            </motion.div>
           </div>
-          <img
-            src="https://placehold.co/720x1280/00b7ef/FFFFFF/png?text=720x1280&font=Roboto"
-            alt="Fotka Mě"
-            className="hidden sticky top-0 sm:max-w-[310px] sm:max-h-[550px] md:block lg:block xl:block"
+
+          {/* PORTRAIT */}
+          <motion.img
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            src={avatarImage || "https://www.gravatar.com/avatar/?d=mp&s=360"}
+            alt="Petr Vurm"
+            className="mx-auto aspect-[3/4] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/10 object-cover shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
           />
         </div>
 
-        {/* navštěvované školy */}
-        <div className="w-full mt-10">
-          <h2 className="mb-2 text-2xl font-bold">Navštěvované školy</h2>
-          <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
-              <div>
-                <h3 className="text-lg font-semibold">
-                  SPŠ, SOŠ a SOU, Hradec Králové
-                </h3>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  2021 - dosud
-                </p>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  Obor Informační technologie
-                </p>
-              </div>
-              <p className="mt-2">
-                <Link
-                  href="https://www.hradebni.cz"
-                  className="link"
-                  target="_blank"
-                  prefetch={false}
-                >
-                  Navštívit web
-                </Link>
-              </p>
-            </Card>
-            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
-              <div>
-                <h3 className="text-lg font-semibold">ZŠ a MŠ Nechanice</h3>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  2012 - 2021
-                </p>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  Všeobecné vzdělání
-                </p>
-              </div>
-              <p className="mt-2">
-                <Link
-                  href="https://www.zsnechanice.cz"
-                  className="link"
-                  target="_blank"
-                  prefetch={false}
-                >
-                  Navštívit web
-                </Link>
-              </p>
-            </Card>
-          </div>
-        </div>
+        {/* STORY */}
+        <motion.div className="mt-10 grid gap-6 md:grid-cols-2" variants={fadeUp} initial="hidden" animate="show">
+          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h2 className="flex items-center gap-2 text-xl font-semibold"><Clock className="h-5 w-5 text-primary"/> Jak to začalo</h2>
+            <p className="mt-3 text-white/80 leading-7">
+              S webem jsem začal v roce 2017 v kroužku tvorby webových stránek. Po jeho zrušení jsem se učil samostatně –
+              od HTML a CSS přes JavaScript až k vývoji aplikací. Během pandemie jsem díky darovanému notebooku mohl
+              pokračovat v online výuce a po škole programovat. První aplikací byl jednoduchý blog.
+            </p>
+          </Card>
+          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h2 className="flex items-center gap-2 text-xl font-semibold"><Briefcase className="h-5 w-5 text-primary"/> Čemu se věnuji nyní</h2>
+            <p className="mt-3 text-white/80 leading-7">
+              Zaměřuji se na vývoj webových aplikací a služeb s důrazem na výkon a bezpečnost. Můj největší projekt je
+              česká video platforma <strong>FakeTube</strong>, na které pracuji {yearsLabel} a {monthsLabel}. Na střední škole jsem založil tým
+              <Link className="text-primary hover:underline ml-1" href="https://sspt.petrvurm.cz" target="_blank" rel="noopener">ŠSPT</Link>,
+              kde vyvíjíme software pro školu a školní akce.
+            </p>
+          </Card>
+        </motion.div>
 
-        {/* získané certifikáty */}
-        <div className="w-full mt-10">
-          <h2 className="mb-2 text-2xl font-bold">Získané certifikáty</h2>
-          <div className="container grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-            <Card className="rounded-sm bg-background p-8 transition-all scale-100 hover:scale-120">
-              <div>
-                <h3 className="text-lg font-semibold">
-                  DofE - bronzová úroveň
-                </h3>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  20. 11. 2024
-                </p>
-                <p className="text-sm mt-1 text-muted-foreground">
-                  Uděleno organizací{" "}
-                  <Link
-                    href="https://dofe.cz"
-                    className="link"
-                    target="_blank"
-                    prefetch={false}
-                  >
-                    DofE ČR
-                  </Link>{" "}
-                  dne 13. 2. 2025
-                </p>
-              </div>
-              <p className="mt-2">
-                <Link
-                  href="/docs/certificates/dofe/bronze.pdf"
-                  className="link"
-                  target="_blank"
-                  prefetch={false}
-                >
-                  Zobrazit certifikát
-                </Link>
-              </p>
-            </Card>
-          </div>
-        </div>
+        {/* EDUCATION & CERTS */}
+        <motion.div className="mt-10 grid gap-6 md:grid-cols-3" variants={fadeUp} initial="hidden" animate="show">
+          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h3 className="flex items-center gap-2 text-lg font-semibold"><GraduationCap className="h-5 w-5 text-primary"/> Vzdělání</h3>
+            <ul className="mt-3 space-y-3 text-sm">
+              <li>
+                <div className="font-medium">SPŠ, SOŠ a SOU Hradec Králové</div>
+                <div className="text-white/70">2021 – dosud • Informační technologie</div>
+                <Link href="https://www.hradebni.cz" className="text-primary hover:underline" target="_blank">Navštívit web</Link>
+              </li>
+              <li>
+                <div className="font-medium">ZŠ a MŠ Nechanice</div>
+                <div className="text-white/70">2012 – 2021 • Všeobecné vzdělání</div>
+                <Link href="https://www.zsnechanice.cz" className="text-primary hover:underline" target="_blank">Navštívit web</Link>
+              </li>
+            </ul>
+          </Card>
 
-        {/* technologie a co dělám teď */}
-        <div className="w-full mt-10 text-justify">
-          <h2 className="mt-4 text-2xl font-bold">Co dělám teď</h2>
-          <p>
-            Od té doby jsem se začal více věnovat vývoji webových aplikací a
-            vytvořil jsem několik menších projektů, které mi pomohly zlepšit se
-            v&nbsp;programování a ve&nbsp;tvorbě webových stránek.
-          </p>
-          <p className="mt-3">
-            Jedním z mých projektů je i česká sociální síť FakeTube, kde mohou
-            uživatelé sdílet své videa, komentovat videa jiných uživatelů a
-            sledovat oblíbené tvůrce. FakeTube je můj největší projekt, který
-            jsem vytvořil a na kterém jsem pracoval nejvíce (právě je to přesně{" "}
-            {yearsString} a {monthString} od doby, kdy jsem začal pracovat na
-            FakeTube).
-          </p>
-          <p className="mt-3">
-            V roce 2023 jsem založil na střední škole{" "}
-            <Link
-              className="link"
-              rel="noopener"
-              href="https://sspt.petrvurm.cz"
-              target="_blank"
-              style={{ fontWeight: "bold" }}
-            >
-              ŠSPT
-            </Link>{" "}
-            (školní studentský programátorský tým), kde vytváříme aplikace a
-            weby pro školu, školní projekty, akce, soutěže a další. Díky tomu
-            jsem se naučil spolupracovat s ostatními programátory, řešit
-            problémy a vytvářet kvalitní a moderní weby a aplikace. V rámci
-            činnosti ŠSPT jsme vytvořili už{" "}
-            <b className="text-primary cursor-pointer">2 projekty</b>.
-          </p>
-          <h3 className="mt-6 text-xl font-bold">Technologie, jaké používám</h3>
-          <div className="mt-2">
-            <div className="flex flex-wrap gap-2 font-bold justify-center">
-              <div className="bg-[#e34c26] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <HTML5Icon className="w-5 h-5 fill-white" />
-                <p>HTML5</p>
-              </div>
-              <div className="bg-[#264de4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <CSS3Icon className="w-5 h-5 fill-white" />
-                <p>CSS3</p>
-              </div>
-              <div className="bg-[#cc6699] text-[#fff] cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <SassIcon className="w-5 h-5 fill-[#fff]" />
-                <p>Sass</p>
-              </div>
-              <div className="bg-[#f0db4f] text-[#323330] cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <JavaScriptIcon className="w-5 h-5 fill-[#323330]" />
-                <p>JavaScript</p>
-              </div>
-              <div className="bg-[#007acc] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <TypeScriptIcon className="w-4 h-4 fill-white" />
-                <p>TypeScript</p>
-              </div>
-              <div className="bg-[#777bb4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <PHPIcon className="w-4 h-4 fill-white" />
-                <p>PHP</p>
-              </div>
-              <div className="bg-[#61dafb] text-[#323330] cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <ReactIcon className="w-5 h-5 fill-[#323330]" />
-                <p>React</p>
-              </div>
-              <div className="bg-white text-black cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <NextJsIcon className="w-5 h-5 fill-black" />
-                <p>Next.js</p>
-              </div>
-              <div className="bg-[#339933] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <NodeJsIcon className="w-5 h-5 fill-white" />
-                <p>Node.js</p>
-              </div>
-              <div className="bg-[#F05340] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <LaravelIcon className="w-5 h-5 fill-white" />
-                <p>Laravel</p>
-              </div>
-              <div className="bg-[#FB70A9] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <LaravelLivewireIcon className="w-5 h-5 fill-white" />
-                <p>Laravel Livewire</p>
-              </div>
-              <div className="bg-[#00758f] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <MariaDbIcon className="w-5 h-5 fill-white" />
-                <p>MariaDB</p>
-              </div>
-              <div className="bg-[#F1502F] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <GitIcon className="w-5 h-5 fill-white" />
-                <p>Git</p>
-              </div>
-              <div className="bg-[#2f2f2f] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <ApiIcon className="w-5 h-5 fill-white" />
-                <p>API</p>
-              </div>
-              <div className="bg-[#239120] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <CSharpIcon className="w-5 h-5 fill-white" />
-                <p>C#</p>
-              </div>
-              <div className="bg-[#512bd4] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                <p>.NET</p>
-              </div>
-                <div className="bg-[#44a8b3] text-white cursor-pointer p-2 rounded-md flex gap-1 items-center">
-                  <TailwindIcon className="w-5 h-5 fill-white" />
-                    <p>Tailwind CSS</p>
-                </div>
+          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur md:col-span-2">
+            <h3 className="flex items-center gap-2 text-lg font-semibold"><Award className="h-5 w-5 text-primary"/> Certifikáty</h3>
+            <ul className="mt-3 space-y-3 text-sm">
+              <li>
+                <div className="font-medium">DofE – bronzová úroveň</div>
+                <div className="text-white/70">Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE ČR</div>
+                <Link href="/docs/certificates/dofe/bronze.pdf" className="text-primary hover:underline" target="_blank">Zobrazit certifikát</Link>
+              </li>
+            </ul>
+          </Card>
+        </motion.div>
+
+        {/* TECH STACK */}
+        <motion.div className="mt-10" variants={fadeUp} initial="hidden" animate="show">
+          <h2 className="text-2xl font-bold">Technologie, které používám</h2>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {techs.map(({ name, color, text, Icon }) => (
+              <span
+                key={name}
+                className="inline-flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs font-semibold ring-1 ring-white/20"
+                style={{ backgroundColor: color, color: text }}
+              >
+                {Icon ? <Icon className="h-4 w-4" style={{ fill: text }} /> : null}
+                {name}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div className="mt-12" variants={fadeUp} initial="hidden" animate="show">
+          <Card className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur md:flex-row md:text-left">
+            <div>
+              <h3 className="text-lg font-semibold">Hledáte spolehlivého vývojáře?</h3>
+              <p className="text-sm text-white/80">Krátká konzultace pomůže upřesnit rozsah, milníky a rozpočet.</p>
             </div>
-          </div>
-        </div>
+            <Link href="/kontakt" className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-primary/90">Nezávazně mě kontaktovat</Link>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );

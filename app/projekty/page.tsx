@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { Card } from "@radix-ui/themes";
+import { motion, AnimatePresence } from "framer-motion";
+import { Filter, XCircle, AlertCircle, ArrowRight } from "lucide-react";
 import {
   HTML5Icon,
   CSS3Icon,
@@ -16,15 +20,15 @@ import {
   SassIcon,
   PHPIcon,
   ApiIcon,
-  CSharpIcon, TailwindIcon
+  CSharpIcon,
+  TailwindIcon,
 } from "@/Icons/Icons";
-import Link from "next/link";
-import { Card } from "@radix-ui/themes";
 
+// --- data ---
 const projects = [
   {
     title: "FakeTube",
-    description: "Česká sociální síť pro sdílení videí",
+    description: "Česká sociální síť pro sdílení videí.",
     technologies: [
       "HTML5",
       "CSS3",
@@ -38,98 +42,106 @@ const projects = [
   },
   {
     title: "BressKamp",
-    description: "Portfolio německé společnosti BressKamp",
+    description: "Prezentace německé společnosti BressKamp.",
     technologies: ["HTML5", "CSS3", "JavaScript", "PHP", "Git"],
     slug: "bresskamp",
   },
   {
     title: "HopHub",
-    description: "Rozšíření pro internetový prohlížeč",
+    description: "Rozšíření pro internetový prohlížeč.",
     technologies: ["HTML5", "CSS3", "Sass", "JavaScript", "Git"],
     slug: "hophub",
   },
   {
     title: "Petr Vurm",
-    description: "Profesní webové portfolio",
+    description: "Profesní webové portfolio.",
     technologies: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Git"],
-    slug: "petrvurm"
+    slug: "petrvurm",
   },
   {
     title: "Twitch Game: Red Light, Green Light",
-    description: "Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Squid Game) na streamu v chatu",
+    description:
+      "Twitch chatbot, který umožňuje divákům hrát Red Light, Green Light přímo v chatu.",
     technologies: ["JavaScript", "Node.js", "Git", "API"],
-    slug: "twitch-chatbot-red-light-green-light"
+    slug: "twitch-chatbot-red-light-green-light",
   },
   {
     title: "Ivan",
-    description: "Nástroj, který zjednodušuje tvorbu zasedacího pořádku pro celostátní matematickou soutěž.",
+    description:
+      "Nástroj pro tvorbu zasedacích pořádků celo­státní matematické soutěže.",
     technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
-    slug: "sspt-ivan"
+    slug: "sspt-ivan",
   },
   {
     title: "Gomegle",
-    description: "Webová aplikace pro náhodný živý chat s ostatními lidmi",
-    technologies: ["HTML5", "CSS3", "JavaScript", "Laravel", "Laravel Livewire", "MariaDB", "Node.js", "Git", "Tailwind CSS"],
-    slug: "gomegle"
-  }
+    description: "Webová aplikace pro náhodný živý chat s uživateli.",
+    technologies: [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Laravel",
+      "Laravel Livewire",
+      "MariaDB",
+      "Node.js",
+      "Git",
+      "Tailwind CSS",
+    ],
+    slug: "gomegle",
+  },
 ];
 
 const technologies = [
-  { name: "HTML5", icon: HTML5Icon, color: "#e34c26", textColor: "#ffffff" },
-  { name: "CSS3", icon: CSS3Icon, color: "#264de4", textColor: "#ffffff" },
-  { name: "Sass", icon: SassIcon, color: "#cc6699", textColor: "#ffffff" },
-  { name: "JavaScript", icon: JavaScriptIcon, color: "#f0db4f", textColor: "#323330" },
-  { name: "TypeScript", icon: TypeScriptIcon, color: "#007acc", textColor: "#ffffff" },
-  { name: "PHP", icon: PHPIcon, color: "#777bb4", textColor: "#ffffff" },
-  { name: "React", icon: ReactIcon, color: "#61dafb", textColor: "#323330" },
-  { name: "Next.js", icon: NextJsIcon, color: "#ffffff", textColor: "#000000" },
-  { name: "Node.js", icon: NodeJsIcon, color: "#339933", textColor: "#ffffff" },
-  { name: "Laravel", icon: LaravelIcon, color: "#F05340", textColor: "#ffffff" },
-  { name: "Laravel Livewire", icon: LaravelLivewireIcon, color: "#FB70A9", textColor: "#ffffff" },
-  { name: "MariaDB", icon: MariaDbIcon, color: "#00758f", textColor: "#ffffff" },
-  { name: "Git", icon: GitIcon, color: "#F1502F", textColor: "#ffffff" },
-  { name: "API", icon: ApiIcon, color: "#2f2f2f", textColor: "#ffffff" },
-  { name: "C#", icon: CSharpIcon, color: "#239120", textColor: "#ffffff"},
-  { name: ".NET", color: "#512bd4", textColor: "#ffffff"},
-  { name: "Tailwind CSS", icon: TailwindIcon, color: "#44a8b3", textColor: "#ffffff"}
+  { name: "HTML5", icon: HTML5Icon, color: "#e34c26", text: "#ffffff" },
+  { name: "CSS3", icon: CSS3Icon, color: "#264de4", text: "#ffffff" },
+  { name: "Sass", icon: SassIcon, color: "#cc6699", text: "#ffffff" },
+  { name: "JavaScript", icon: JavaScriptIcon, color: "#f0db4f", text: "#323330" },
+  { name: "TypeScript", icon: TypeScriptIcon, color: "#007acc", text: "#ffffff" },
+  { name: "PHP", icon: PHPIcon, color: "#777bb4", text: "#ffffff" },
+  { name: "React", icon: ReactIcon, color: "#61dafb", text: "#1a1a1a" },
+  { name: "Next.js", icon: NextJsIcon, color: "#ffffff", text: "#000000" },
+  { name: "Node.js", icon: NodeJsIcon, color: "#339933", text: "#ffffff" },
+  { name: "Laravel", icon: LaravelIcon, color: "#F05340", text: "#ffffff" },
+  { name: "Laravel Livewire", icon: LaravelLivewireIcon, color: "#FB70A9", text: "#ffffff" },
+  { name: "MariaDB", icon: MariaDbIcon, color: "#00758f", text: "#ffffff" },
+  { name: "Git", icon: GitIcon, color: "#F1502F", text: "#ffffff" },
+  { name: "API", icon: ApiIcon, color: "#2f2f2f", text: "#ffffff" },
+  { name: "C#", icon: CSharpIcon, color: "#239120", text: "#ffffff" },
+  { name: ".NET", color: "#512bd4", text: "#ffffff" },
+  { name: "Tailwind CSS", icon: TailwindIcon, color: "#44a8b3", text: "#ffffff" },
 ];
 
 export default function Projekty() {
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [showAlert, setShowAlert] = useState(false);
 
-  // Create a map of technology names to their color and text color
-  const techMap = new Map<string, { color: string; textColor: string }>(
-    technologies.map((tech) => [
-      tech.name,
-      { color: tech.color, textColor: tech.textColor },
-    ])
+  const techMap = useMemo(
+    () =>
+      new Map<string, { color: string; textColor: string }>(
+        technologies.map((t) => [t.name, { color: t.color, textColor: t.text }])
+      ),
+    []
   );
 
-  const filteredProjects =
-    selectedTechs.length > 0
-      ? projects.filter((project) =>
-          selectedTechs.every((tech) => project.technologies.includes(tech))
-        )
-      : projects;
+  const filteredProjects = useMemo(
+    () =>
+      selectedTechs.length > 0
+        ? projects.filter((p) => selectedTechs.every((t) => p.technologies.includes(t)))
+        : projects,
+    [selectedTechs]
+  );
 
   useEffect(() => {
-    if (selectedTechs.length > 0 && filteredProjects.length === 0) {
-      setShowAlert(true);
-    } else {
-      setShowAlert(false);
-    }
+    setShowAlert(selectedTechs.length > 0 && filteredProjects.length === 0);
   }, [selectedTechs, filteredProjects]);
 
-  const handleTechClick = (techName: string) => {
-    setSelectedTechs((prevSelectedTechs) =>
-      prevSelectedTechs.includes(techName)
-        ? prevSelectedTechs.filter((tech) => tech !== techName)
-        : [...prevSelectedTechs, techName]
+  const toggleTech = (name: string) => {
+    setSelectedTechs((prev) =>
+      prev.includes(name) ? prev.filter((t) => t !== name) : [...prev, name]
     );
   };
 
-  // Function to format the tech list
+  const resetFilters = () => setSelectedTechs([]);
+
   const formatTechList = (techs: string[]) => {
     if (techs.length === 0) return "";
     if (techs.length === 1) return techs[0];
@@ -137,99 +149,140 @@ export default function Projekty() {
     return `${techs.slice(0, -1).join(", ")} a ${techs[techs.length - 1]}`;
   };
 
-  const formatAdditionalTechs = (count: number) => {
-    if (count === 1) return "+ 1 další technologie";
-    if (count === 2) return "+ 2 další technologie";
-    if (count === 3) return "+ 3 další technologie";
-    return `+ ${count} dalších technologií`;
-  };
-
-  const alertMessage = `Neexistuje žádný projekt, ve kterém bych využíval ${formatTechList(
-    selectedTechs
-  )}.`;
+  const alertMessage = `Nebyly nalezeny projekty odpovídající filt­rům: ${formatTechList(selectedTechs)}.`;
 
   return (
-    <section id="services" className="py-10">
+    <section className="relative py-12">
+      {/* gradient background */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
+
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex items-center justify-between mb-1">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Projekty
-          </h2>
+        <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Projekty</h1>
+            <p className="mt-2 max-w-3xl text-white/80 text-sm md:text-base">
+              Níže naleznete výběr realizací napříč webovými aplikacemi, integracemi a
+              automatizacemi. Filtry vám umožní zobrazit projekty podle použitých technologií.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-white/50" />
+            <span className="text-xs text-white/60">Kliknutím na technologii filtrujete projekty</span>
+          </div>
         </div>
 
-        <p className="mt-0">
-          Na téhle stránce najdete projekty, na kterých jsem pracoval. Váš web
-          bude jistě další, který můžeme společně realizovat.
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-6 mb-6 justify-center">
+        {/* filters */}
+        <div className="flex flex-wrap items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur">
           {technologies.map((tech) => (
-            <div
+            <button
               key={tech.name}
-              className={`cursor-pointer p-2 rounded-md flex gap-1 items-center ${
+              type="button"
+              aria-pressed={selectedTechs.includes(tech.name)}
+              onClick={() => toggleTech(tech.name)}
+              className={`group inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium ring-1 ring-inset transition ${
                 selectedTechs.includes(tech.name)
-                  ? "outline outline-offset-2 outline-2"
-                  : ""
+                  ? "ring-white/60 shadow-[inset_0_0_0_9999px_rgba(255,255,255,0.18)]"
+                  : "ring-white/20 hover:ring-white/40"
               }`}
-              style={{
-                backgroundColor: tech.color,
-                color: tech.textColor || "white",
-                outlineColor: selectedTechs.includes(tech.name)
-                  ? tech.textColor || "white"
-                  : "",
-              }}
-              onClick={() => handleTechClick(tech.name)}
+              style={{ backgroundColor: tech.color, color: tech.text }}
             >
-              {tech.icon && (<tech.icon className="w-5 h-5 fill-current" />)}
-              <p>{tech.name}</p>
-            </div>
+              {tech.icon ? <tech.icon className="h-4 w-4" style={{ fill: tech.text }} /> : null}
+              <span>{tech.name}</span>
+            </button>
           ))}
+
+          <AnimatePresence>
+            {selectedTechs.length > 0 && (
+              <motion.button
+                type="button"
+                onClick={resetFilters}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="ml-auto inline-flex items-center gap-1 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-semibold text-white/90 ring-1 ring-white/20 hover:bg-white/15"
+              >
+                <XCircle className="h-4 w-4" /> Zrušit filtry
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
 
-        {showAlert ? (
-          <div className="p-4 mb-6 bg-red-200 text-red-800 border border-red-400 rounded">
-            <p>{alertMessage}</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => {
-              const techs = project.technologies;
-              const visibleTechs = techs.slice(0, 4);
-              const extraTechCount = techs.length - visibleTechs.length;
+        {/* grid / empty state */}
+        <div className="mt-8 min-h-[200px]">
+          <AnimatePresence mode="popLayout">
+            {showAlert ? (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="flex items-center gap-3 rounded-xl border border-amber-300/30 bg-amber-200/10 p-4 text-amber-200"
+              >
+                <AlertCircle className="h-5 w-5" />
+                <p className="text-sm">{alertMessage}</p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="grid"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                {filteredProjects.map((project, idx) => {
+                  const techs = project.technologies;
+                  const visible = techs.slice(0, 4);
+                  const extra = techs.length - visible.length;
 
-              return (
-                <Link key={project.title} href={`/projekty/${project.slug}`}>
-                  <Card className="p-4 border rounded-lg shadow hover:bg-card-hover cursor-pointer">
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-justify truncate">{project.description}</p>
-                    <div className="flex gap-2 mt-2 flex-wrap">
-                      {visibleTechs.map((tech) => {
-                        const techDetails = techMap.get(tech);
-                        return techDetails ? (
-                          <span
-                            key={tech}
-                            className="text-sm px-2 py-1 rounded-full"
-                            style={{
-                              backgroundColor: techDetails.color,
-                              color: techDetails.textColor,
-                            }}
-                          >
-                            {tech}
-                          </span>
-                        ) : null;
-                      })}
-                      {extraTechCount > 0 && (
-                        <span className="text-sm px-2 py-1 rounded-full bg-gray-200 text-gray-800">
-                          {formatAdditionalTechs(extraTechCount)}
-                        </span>
-                      )}
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+                  return (
+                    <motion.article
+                      key={project.title}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      transition={{ duration: 0.35, delay: idx * 0.03 }}
+                      className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-0 backdrop-blur hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+                    >
+                      <Link href={`/projekty/${project.slug}`} className="block group" prefetch={false}>
+                        <div className="p-5">
+                          <h3 className="text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors">
+                            {project.title}
+                          </h3>
+                          <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/80">
+                            {project.description}
+                          </p>
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {visible.map((t) => {
+                              const d = techMap.get(t);
+                              if (!d) return null;
+                              return (
+                                <span
+                                  key={t}
+                                  className="rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-white/20"
+                                  style={{ backgroundColor: d.color, color: d.textColor }}
+                                >
+                                  {t}
+                                </span>
+                              );
+                            })}
+                            {extra > 0 && (
+                              <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-white/80 ring-1 ring-white/20">
+                                + {extra} dalších
+                              </span>
+                            )}
+                          </div>
+                          <div className="mt-4 inline-flex items-center gap-1 text-primary">
+                            Zobrazit detail <ArrowRight className="h-4 w-4" />
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.article>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

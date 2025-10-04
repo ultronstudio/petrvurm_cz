@@ -1,160 +1,232 @@
+"use client";
+
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Code, Cog, Link2, Layout, Lightbulb, ShieldCheck, ArrowRight } from "lucide-react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
+};
 
 export default function Home() {
   return (
-      <>
-        {/* HERO sekce */}
-        <section className="bg-primary/80 py-20 text-center text-primary-foreground">
-          <div className="container mx-auto max-w-4xl px-4 md:px-6">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Petr Vurm
-            </h1>
-            <p className="mt-6 text-xl">
-              Pomáhám firmám, startupům i jednotlivcům proměnit jejich nápady v digitální řešení, která šetří čas, snižují náklady a přinášejí reálné výsledky.
-            </p>
-            <div className="mt-10 flex justify-center gap-4">
-              <Link
-                  href="/projekty"
-                  className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-black hover:text-white focus:outline-none focus:ring-2"
-                  prefetch={false}
-              >
-                Moje projekty
-              </Link>
-              <Link
-                  href="/kontakt"
-                  className="transition-all duration-300 inline-flex items-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-white hover:text-black focus:outline-none focus:ring-2"
-                  prefetch={false}
-              >
-                Kontaktujte mě
-              </Link>
-            </div>
-          </div>
-        </section>
+    <section className="relative py-12">
+      {/* gradient background */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
 
-        {/* SLUŽBY */}
-        <section id="services" className="py-10">
-          <div className="container mx-auto max-w-6xl px-4 md:px-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Služby, na které se můžete spolehnout
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  Vývoj webových aplikací
-                </h3>
-                <p className="mt-4 text-white">
-                  Navrhuji a vytvářím moderní webové platformy, firemní prezentace i komplexní aplikace, které podporují růst vašeho podnikání a zaujmou uživatele.
-                </p>
-              </Card>
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  Zakázkový software
-                </h3>
-                <p className="mt-4 text-white">
-                  Realizuji software přesně podle vašich potřeb – od desktopových nástrojů po interní systémy, které vám ulehčí práci a zefektivní procesy.
-                </p>
-              </Card>
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  Integrace a automatizace
-                </h3>
-                <p className="mt-4 text-white">
-                  Propojuji aplikace a systémy, automatizuji rutinní úkoly a pomáhám vám snížit chybovost i náklady. Vše navržené s ohledem na váš konkrétní provoz.
-                </p>
-              </Card>
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  UX & UI design
-                </h3>
-                <p className="mt-4 text-white">
-                  Tvořím přehledné a moderní uživatelské rozhraní, které není jen hezké, ale hlavně funkční. Protože dobrý design prodává.
-                </p>
-              </Card>
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  Technologické poradenství
-                </h3>
-                <p className="mt-4 text-white">
-                  Pomohu vám vybrat správné technologie, navrhnout architekturu systémů nebo zhodnotit vaše nápady ještě před tím, než investujete do vývoje.
-                </p>
-              </Card>
-              <Card className="p-6 scale-100 z-1 transition-all duration-500 hover:scale-105 hover:z-10">
-                <h3 className="text-xl font-bold text-primary">
-                  Správa a podpora
-                </h3>
-                <p className="mt-4 text-white">
-                  Vaše projekty nenechám bez dozoru. Poskytuji dlouhodobou podporu, správu a pravidelné aktualizace, aby vše fungovalo hladce a bez starostí.
-                </p>
-              </Card>
-            </div>
-          </div>
-        </section>
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6 py-16 md:py-24 text-center">
+          <motion.h1
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="text-4xl md:text-6xl font-extrabold tracking-tight text-white"
+          >
+            Petr Vurm
+          </motion.h1>
+          <motion.p
+            variants={fadeUp}
+            custom={1}
+            initial="hidden"
+            animate="show"
+            className="mx-auto mt-5 max-w-3xl text-lg md:text-xl text-white/80"
+          >
+            Pomáhám firmám, startupům i jednotlivcům převádět záměry do funkčních digitálních řešení.
+            Doručuji měřitelný užitek: zrychlení procesů, snížení nákladů a stabilní provoz.
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            custom={2}
+            initial="hidden"
+            animate="show"
+            className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              href="/projekty"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(0,183,239,0.35)] transition hover:translate-y-[-1px] hover:bg-primary/90 focus:outline-none focus:ring-2"
+              prefetch={false}
+              aria-label="Zobrazit projekty"
+            >
+              Moje projekty <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-[1px] hover:border-white/30 focus:outline-none focus:ring-2"
+              prefetch={false}
+            >
+              Nezávazná konzultace
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* PROJEKTY */}
-        <section id="projects" className="py-10">
-          <div className="container mx-auto max-w-6xl px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Vybrané projekty
-            </h2>
-            <p className="mt-6 text-muted-foreground">
-              Ukázka projektů, na kterých jsem pracoval. Každý z nich je důkazem, že kvalitní software není jen o kódu, ale hlavně o lidech a jejich potřebách.
-            </p>
-            <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <Card className="p-0">
-                <img
-                    src="/images/projekty/faketube.jpg"
-                    width={1280}
-                    height={720}
-                    alt="FakeTube"
-                    className="rounded-t-sm object-cover aspect-video"
-                />
-                <div className="p-4">
-                  <p className="font-bold text-xl">FakeTube</p>
-                  <p>
-                    Česká video platforma s vlastním přehrávačem, pokročilou správou obsahu a možností živého streamování.
-                  </p>
-                  <div className="mt-4 gap-3">
+      {/* SERVICES */}
+      <section id="services" className="py-14 md:py-18">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mb-6 flex items-end justify-between"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Služby, na které se můžete spolehnout</h2>
+            <Link href="/cenik" className="hidden md:inline-flex items-center gap-2 text-primary hover:underline" prefetch={false}>
+              Ceník a kalkulace <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Vývoj webových aplikací",
+                text: "Návrh a realizace moderních webových platforem a prezentací s důrazem na výkon a udržitelnost.",
+                Icon: Code,
+              },
+              {
+                title: "Zakázkový software",
+                text: "Řešení vytvářená na míru – od interních nástrojů po desktopové aplikace, zaměřená na efektivitu procesů.",
+                Icon: Cog,
+              },
+              {
+                title: "Integrace a automatizace",
+                text: "Propojování systémů, API a automatizace rutinních činností s cílem snížit chybovost i náklady.",
+                Icon: Link2,
+              },
+              {
+                title: "UX & UI design",
+                text: "Srozumitelná a estetická rozhraní, která podporují obchodní cíle a přinášejí kvalitní uživatelskou zkušenost.",
+                Icon: Layout,
+              },
+              {
+                title: "Technologické poradenství",
+                text: "Volba technologií, návrh architektury a posouzení záměrů před investicí do vývoje.",
+                Icon: Lightbulb,
+              },
+              {
+                title: "Správa a podpora",
+                text: "Dlouhodobý dohled nad projekty, aktualizace a péče o bezproblémový provoz.",
+                Icon: ShieldCheck,
+              },
+            ].map(({ title, text, Icon }, i) => (
+              <motion.div
+                key={title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+                custom={i}
+              >
+                <Card className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition will-change-transform hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+                  <div className="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 to-transparent opacity-0 transition group-hover:opacity-100" />
+                  <div className="flex items-start gap-3">
+                    <div className="rounded-lg bg-primary/20 p-2 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white tracking-tight">{title}</h3>
+                      <p className="mt-3 text-sm leading-6 text-white/80">{text}</p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section id="projects" className="py-6 md:py-5">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <motion.h2
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="text-3xl md:text-4xl font-bold tracking-tight"
+          >
+            Vybrané projekty
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            custom={1}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mt-4 max-w-3xl text-white/70"
+          >
+            Níže uvedené ukázky představují realizace s důrazem na spolehlivý provoz, bezpečnost a přehlednou správu obsahu.
+          </motion.p>
+
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            {[
+              {
+                href: "/projekty/faketube",
+                img: "/images/projekty/faketube.jpg",
+                title: "FakeTube",
+                text: "Česká video platforma s vlastním přehrávačem, správou obsahu a podporou živého vysílání.",
+              },
+              {
+                href: "/projekty/hophub",
+                img: "/images/projekty/hophub.png",
+                title: "HopHub",
+                text: "Rozšíření pro prohlížeč s rychlým přístupem k pracovním nástrojům a automatizacím.",
+              },
+            ].map((p, i) => (
+              <motion.article
+                key={p.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+                custom={i}
+                className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
+              >
+                <div className="relative">
+                  <img src={p.img} alt={p.title} className="aspect-video w-full object-cover" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-xl font-bold tracking-tight text-white">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/80">{p.text}</p>
+                  <div className="mt-4">
                     <Link
-                        href="/projekty/faketube"
-                        className="w-full transition-all justify-center duration-200 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md shadow-primary hover:bg-primary/80 hover:shadow-none"
-                        prefetch={false}
+                      href={p.href}
+                      className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+                      prefetch={false}
                     >
-                      Zobrazit detaily
+                      Zobrazit detaily <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
-              </Card>
-
-              <Card className="p-0">
-                <img
-                    src="/images/projekty/hophub.png"
-                    width={1280}
-                    height={720}
-                    alt="HopHub"
-                    className="rounded-t-sm object-cover aspect-video"
-                />
-                <div className="p-4">
-                  <p className="font-bold text-xl">HopHub</p>
-                  <p>
-                    Rozšíření pro prohlížeč, které umožňuje rychlý přístup k oblíbeným online nástrojům a výrazně zefektivňuje každodenní práci.
-                  </p>
-                  <div className="mt-4 gap-3">
-                    <Link
-                        href="/projekty/hophub"
-                        className="w-full transition-all justify-center duration-200 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-md shadow-primary hover:bg-primary/80 hover:shadow-none"
-                        prefetch={false}
-                    >
-                      Zobrazit detaily
-                    </Link>
-                  </div>
-                </div>
-              </Card>
-            </div>
+              </motion.article>
+            ))}
           </div>
-        </section>
-      </>
+        </div>
+      </section>
+
+      {/* CTA STRIP */}
+      <section className="relative py-6 md:py-5">
+        <div className="pointer-events-none absolute inset-x-0 -top-16 -z-10 h-32" />
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <div className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur md:flex-row md:text-left">
+            <div>
+              <h3 className="text-xl font-semibold">Potřebujete spolehlivého partnera pro vývoj?</h3>
+              <p className="mt-1 text-sm text-white/80">Krátká úvodní konzultace pomůže přesně vymezit rozsah a časový plán.</p>
+            </div>
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+              prefetch={false}
+            >
+              Domluvit konzultaci <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </section>
   );
 }
