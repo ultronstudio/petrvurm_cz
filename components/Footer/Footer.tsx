@@ -24,7 +24,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mt-16 border-t border-white/10 bg-[#0b0c0e]">
+    <footer className="border-t border-white/10 bg-[#0b0c0e]">
       {/* top */}
       <div className="container mx-auto max-w-6xl px-4 md:px-6 py-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.2fr_1fr]">
