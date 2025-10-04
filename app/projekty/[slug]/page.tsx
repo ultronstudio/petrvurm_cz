@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import MarkdownComponent from "@/app/projekty/[slug]/MarkdownComponent";
+import Link from "next/link";
 
 const postsDirectory = path.join(process.cwd(), "projekty");
 
@@ -18,6 +19,11 @@ export interface PostData {
     licence: string;
   };
   content: string;
+}
+
+function readTimeMinutes(text: string, wpm = 200) {
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / wpm));
 }
 
 async function getPostData(slug: string) {
@@ -38,7 +44,7 @@ async function getPostData(slug: string) {
         licence: data.licence || "",
       },
       content,
-    };
+    } as PostData;
   } catch (e) {
     console.log(e);
     return null;
@@ -48,75 +54,98 @@ async function getPostData(slug: string) {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
   const slug = (await params).slug;
-  const content = await getPostData(slug);
+  const post = await getPostData(slug);
 
-  if (content == null) {
-    return notFound();
-  }
+  if (!post) return notFound();
+
+  const rt = readTimeMinutes(post.content);
 
   return (
-    <section id="services" className="py-10">
+    <section className="relative py-12">
+      {/* soft gradient background */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%),linear-gradient(180deg,#0B0C0E_0%,#0A0A0C_100%)]" />
+
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="w-[100%] max-w-[100%] md:w-[50%] md:max-w-[50%]">
-            <img
-              src={`${content.data.previewImage}`}
-              alt={content.data.title}
-              className="w-full aspect-video max-h-[720px] object-cover rounded-lg"
-            />
-          </div>
-          <div className="w-[100%] max-w-[100%] md:w-[50%] md:max-w-[50%]">
-            <h2 className="text-4xl">
-              <strong>{content.data.title}</strong>
-            </h2>
-            <p
-              className="text-gray-400 mt-1 text-1xl"
-              dangerouslySetInnerHTML={{ __html: content.data.description }}
-            ></p>
-            <div className="grid grid-cols-2 gap-4 p-5">
-              <div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Projekt vytvořen
-                </div>
-                <div className="text-base font-bold">
-                  {content.data.created}
-                </div>
+        {/* breadcrumb */}
+        <div className="mb-4 text-sm text-white/60">
+          <Link href="/projekty" prefetch={false} className="hover:text-white">
+            Projekty
+          </Link>{" "}
+          / <span className="text-white">{post.data.title}</span>
+        </div>
+
+        {/* hero */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+            {post.data.previewImage ? (
+              <img
+                src={post.data.previewImage}
+                alt={post.data.title}
+                className="h-full w-full aspect-video object-cover"
+                loading="eager"
+              />
+            ) : (
+              <div className="flex aspect-video items-center justify-center text-white/50">
+                Bez náhledu
               </div>
-              {content.data.updated && (
-                <div>
-                  <div className="text-sm font-medium text-muted-foreground">
-                    Naposledy upraven
-                  </div>
-                  <div className="text-base font-bold">
-                    {content.data.updated}
-                  </div>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+              {post.data.title}
+            </h1>
+            {/* popis může obsahovat HTML */}
+            {post.data.description && (
+              <p
+                className="mt-3 text-white/80"
+                dangerouslySetInnerHTML={{ __html: post.data.description }}
+              />
+            )}
+
+            {/* meta chips */}
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                <div className="text-xs text-white/60">Projekt vytvořen</div>
+                <div className="text-sm font-semibold">{post.data.created}</div>
+              </div>
+
+              {post.data.updated && (
+                <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                  <div className="text-xs text-white/60">Naposledy upraven</div>
+                  <div className="text-sm font-semibold">{post.data.updated}</div>
                 </div>
               )}
-              <div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Stav vývoje
-                </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                <div className="text-xs text-white/60">Stav vývoje</div>
                 <div
-                  className="text-base font-bold"
-                  dangerouslySetInnerHTML={{ __html: content.data.status }}
+                  className="text-sm font-semibold"
+                  dangerouslySetInnerHTML={{ __html: post.data.status }}
                 />
               </div>
-              <div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Licence projektu
-                </div>
-                <div className="text-base font-bold">
-                  {content.data.licence}
-                </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+                <div className="text-xs text-white/60">Licence</div>
+                <div className="text-sm font-semibold">{post.data.licence || "—"}</div>
               </div>
+            </div>
+
+            {/* reading time */}
+            <div className="mt-4 text-xs text-white/60">
+              Odhad doby čtení: <span className="text-white">{rt} min</span>
             </div>
           </div>
         </div>
-        <h3 className="text-white text-3xl font-bold mt-6 mb-2">O projektu</h3>
-        <MarkdownComponent content={content.content} />
+
+        {/* content */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+          <h2 className="text-2xl font-semibold mb-3">O projektu</h2>
+          <MarkdownComponent content={post.content} />
+        </div>
       </div>
     </section>
   );
