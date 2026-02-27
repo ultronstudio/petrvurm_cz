@@ -5,7 +5,7 @@ import { Card } from "@radix-ui/themes";
 import { motion } from "framer-motion";
 
 // ====== KONSTANTY / NASTAVENÍ ======
-const HOURLY = 250; // Kč/h – základní sazba
+const HOURLY = 350; // Kč/h – základní sazba
 
 // Typy
 type ServiceType = "main" | "additional";
@@ -211,10 +211,18 @@ export default function KalkulackaWeb() {
     });
   };
 
+  // získá cenu pro položku – pokud má odhad hodin, počítá je podle hodinové sazby
+  const getItemPrice = (item: CenikItem) => {
+    if (item.estHours) {
+      return item.estHours * HOURLY;
+    }
+    return item.price;
+  };
+
   const calculatePrice = () =>
     selectedServices.reduce((sum, s) => {
       const it = cenikItems.find((i) => i.title === s);
-      return it ? sum + it.price : sum;
+      return it ? sum + getItemPrice(it) : sum;
     }, 0);
 
   const estimateHours = () =>
@@ -305,7 +313,7 @@ export default function KalkulackaWeb() {
           <div className="mt-6 flex items-end justify-between">
             <p className="font-bold text-xl">
               <span className={`${selected ? "text-black" : "text-primary"}`}>
-                od {formatNumber(item.price, { style: "currency", currency: "CZK" })} {item.period ?? ""}
+                od {formatNumber(getItemPrice(item), { style: "currency", currency: "CZK" })} {item.period ?? ""}
               </span>
             </p>
             {item.estHours && (
