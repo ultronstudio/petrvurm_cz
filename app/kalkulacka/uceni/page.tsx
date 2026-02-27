@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import { Card } from "@radix-ui/themes";
 
+// ===== Konfigurace =====
+const HOURLY = 350; // Kč/h – základní sazba pro položky na hodinu
+
 // ===== Typy & helpery =====
 type ItemType = "doucovani" | "skoleni" | "kurz";
 type Unit = "hod" | "lekce" | "osoba";
@@ -20,6 +23,14 @@ interface CenikItem {
 
 function formatNumber(n: number, opt: Intl.NumberFormatOptions = {}) {
   return new Intl.NumberFormat("cs-CZ", { maximumFractionDigits: 0, ...opt }).format(n);
+}
+
+// vrátí cenu za jednu jednotku položky (dynamicky používá HOURLY pro hodinu)
+function getUnitPrice(item: CenikItem) {
+  if (item.pricePerWhat === "hod") {
+    return HOURLY;
+  }
+  return item.basePrice;
 }
 
 const UNIT_LABEL: Record<Unit, { single: string; plural: string }> = {
@@ -96,7 +107,7 @@ export default function KalkulackaUceni() {
     setQty(1); // reset množství při změně služby
   };
 
-  const subtotal = selectedItem ? selectedItem.basePrice * qty : 0;
+  const subtotal = selectedItem ? getUnitPrice(selectedItem) * qty : 0;
   const total = Math.round(subtotal * discountMultiplier);
 
   const unitText =
@@ -110,7 +121,7 @@ export default function KalkulackaUceni() {
 
 mám zájem o:
 • ${selectedItem.title} – ${qty} ${unitText}
-• Sazba: ${formatNumber(selectedItem.basePrice, { style: "currency", currency: "CZK" })}/${unit}
+• Sazba: ${formatNumber(getUnitPrice(selectedItem), { style: "currency", currency: "CZK" })}/${unit}
 • Odhad: ${formatNumber(total, { style: "currency", currency: "CZK" })}${discountMultiplier < 1 ? ` (před slevou ${formatNumber(Math.round(subtotal), { style: "currency", currency: "CZK" })})` : ""}
 
 Prosím o návrh možných termínů a organizačních detailů.
@@ -148,7 +159,7 @@ Děkuji.`
         )}
         <div className="mt-5 text-xl font-bold">
           <span className="text-primary">
-            {formatNumber(item.basePrice, { style: "currency", currency: "CZK" })}
+            {formatNumber(getUnitPrice(item), { style: "currency", currency: "CZK" })}
           </span>
           <span className="text-white/60 text-sm"> / {item.pricePerWhat}</span>
         </div>
