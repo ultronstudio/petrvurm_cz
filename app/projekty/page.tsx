@@ -71,23 +71,7 @@ const projects = [
       "Nástroj pro tvorbu zasedacích pořádků celo­státní matematické soutěže.",
     technologies: ["C#", "Git", "API", "MariaDB", ".NET"],
     slug: "sspt-ivan",
-  },
-  {
-    title: "Gomegle",
-    description: "Webová aplikace pro náhodný živý chat s uživateli.",
-    technologies: [
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "Laravel",
-      "Laravel Livewire",
-      "MariaDB",
-      "Node.js",
-      "Git",
-      "Tailwind CSS",
-    ],
-    slug: "gomegle",
-  },
+  }
 ];
 
 const technologies = [
