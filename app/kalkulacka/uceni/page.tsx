@@ -19,18 +19,19 @@ interface CenikItem {
   pricePerWhat: Unit;
   maxCapacity: number;   // max počet jednotek
   minParticipants?: number;
+  priceMultiplier?: number; // volitelný násobič ceny (výchozí 1)
 }
 
 function formatNumber(n: number, opt: Intl.NumberFormatOptions = {}) {
   return new Intl.NumberFormat("cs-CZ", { maximumFractionDigits: 0, ...opt }).format(n);
 }
 
-// vrátí cenu za jednu jednotku položky (dynamicky používá HOURLY pro hodinu)
+// vrátí cenu za jednu jednotku položky (dynamicky používá HOURLY pro hodinu
+// a bere v úvahu volitelný násobič)
 function getUnitPrice(item: CenikItem) {
-  if (item.pricePerWhat === "hod") {
-    return HOURLY;
-  }
-  return item.basePrice;
+  const base = item.pricePerWhat === "hod" ? HOURLY : item.basePrice;
+  const mult = item.priceMultiplier ?? 1;
+  return base * mult;
 }
 
 const UNIT_LABEL: Record<Unit, { single: string; plural: string }> = {
@@ -49,6 +50,8 @@ const cenikItems: CenikItem[] = [
     type: "doucovani",
     pricePerWhat: "hod",
     maxCapacity: 10,
+    // např. 1.0 = normální sazba, 1.2 = o 20 % dražší, 2 = dvojnásobek
+    priceMultiplier: 1,
   },
   {
     title: "Tvorba statických webů",
@@ -58,6 +61,7 @@ const cenikItems: CenikItem[] = [
     type: "doucovani",
     pricePerWhat: "hod",
     maxCapacity: 10,
+    priceMultiplier: 0.9, // o 10 % levnější než standardní sazba pro hodinu
   },
   {
     title: "Tvorba webových aplikací",
@@ -67,6 +71,7 @@ const cenikItems: CenikItem[] = [
     type: "doucovani",
     pricePerWhat: "hod",
     maxCapacity: 10,
+    priceMultiplier: 1.1, // o 10 % dražší než standardní sazba pro hodinu
   },
   {
     title: "Jak na SEO",
@@ -77,6 +82,7 @@ const cenikItems: CenikItem[] = [
     pricePerWhat: "osoba",
     maxCapacity: 15,
     minParticipants: 30,
+    priceMultiplier: 1.2, // o 20 % dražší než základní cena pro osobu
   },
 ];
 
