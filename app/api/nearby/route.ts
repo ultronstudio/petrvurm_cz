@@ -37,8 +37,15 @@ export async function GET(request: NextRequest) {
     radius
   )}&apikey=${encodeURIComponent(key)}`;
 
+  const referer = process.env.MAPY_REFERER || 'https://petrvurm.cz';
+
   try {
-    const res = await fetch(mapyUrl);
+    const res = await fetch(mapyUrl, {
+      headers: {
+        Referer: referer,
+        Origin: referer,
+      },
+    });
     const data = await res.json();
     if (
       data.detail &&

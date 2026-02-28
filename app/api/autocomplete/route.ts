@@ -26,8 +26,18 @@ export async function GET(request: NextRequest) {
     q
   )}&apikey=${encodeURIComponent(key)}`;
 
+  // Some Mapy.com API keys are restricted to a referer/origin. Forward a
+  // sensible Referer/Origin header (configurable via MAPY_REFERER) so the
+  // provided key is accepted when the project requires a referer match.
+  const referer = process.env.MAPY_REFERER || 'https://petrvurm.cz';
+
   try {
-    const res = await fetch(mapyUrl);
+    const res = await fetch(mapyUrl, {
+      headers: {
+        Referer: referer,
+        Origin: referer,
+      },
+    });
     const data = await res.json();
     // if the key is wrong the API returns a detail message; fall back to an
     // empty array rather than forwarding the error to the client.
