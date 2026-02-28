@@ -14,7 +14,15 @@ export const STATIC_ROUTES: string[] = [
 ];
 
 
-export const ALL_SERVICES = {
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  category: string;
+};
+
+export const ALL_SERVICES: Record<string, Service> = {
   mesh_wifi: {
     id: 'mesh_wifi',
     title: 'Chytrá Wi-Fi bez sekání (Mesh)',
