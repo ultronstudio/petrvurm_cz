@@ -15,6 +15,7 @@ export default function Footer() {
     { name: "O mně", href: "/o-mne" },
     { name: "Projekty", href: "/projekty" },
     { name: "Ceník", href: "/cenik" },
+    { name: "IT služby", href: "/it-servis" },
     { name: "Kontakt", href: "/kontakt" },
   ];
 
