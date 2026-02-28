@@ -27,11 +27,11 @@ interface CityServicesClientProps {
 
 // Mapování ikon na základě ID služby (mnohem spolehlivější než text stringu)
 const iconMap: Record<string, React.ReactNode> = {
-  'mesh_wifi': <Wifi className="h-6 w-6 text-cyan-400" />,
-  'tiskarny_tv': <Monitor className="h-6 w-6 text-cyan-400" />,
-  'weby_zivnostnici': <Code className="h-6 w-6 text-cyan-400" />,
-  'it_konzultace': <Zap className="h-6 w-6 text-cyan-400" />,
-  default: <House className="h-6 w-6 text-indigo-600" />,
+  'mesh_wifi': <Wifi className="h-6 w-6 text-[#00B7EF]" />,
+  'tiskarny_tv': <Monitor className="h-6 w-6 text-[#00B7EF]" />,
+  'weby_zivnostnici': <Code className="h-6 w-6 text-[#00B7EF]" />,
+  'it_konzultace': <Zap className="h-6 w-6 text-[#00B7EF]" />,
+  default: <House className="h-6 w-6 text-[#00B7EF]" />,
 };
 
 export const CityServicesClient: React.FC<CityServicesClientProps> = ({
@@ -39,12 +39,12 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
   services,
 }) => {
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-[#0a0a0a] text-white">
       {/* Hero Sekce */}
       <header className="py-24 px-4 text-center">
         <div className="container mx-auto max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-            Čisté IT služby pro <span className="text-cyan-400">{city}</span>
+            Čisté IT služby pro <span className="text-[#00B7EF]">{city}</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
             Rychle, bez zednického nepořádku a s jasnou cenou. Jsem váš místní IT
@@ -52,7 +52,7 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
           </p>
           <a
             href="#kontakt"
-            className="inline-flex items-center justify-center bg-cyan-500 text-black px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-cyan-600 transition-colors"
+            className="inline-flex items-center justify-center bg-[#00B7EF] text-black px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-[#009edb] transition-colors"
           >
             Nezávazně se ozvat
           </a>
@@ -72,7 +72,7 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
                 <div className="bg-gray-700 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                   {iconMap[svc.id] || iconMap.default}
                 </div>
-                <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-2">
+                <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
                   {svc.category}
                 </span>
                 <h3 className="text-xl font-bold text-white mb-3">{svc.title}</h3>
@@ -95,21 +95,21 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
           <div className="grid gap-8 md:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto bg-gray-700 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <House className="h-8 w-8 text-cyan-400" />
+                <House className="h-8 w-8 text-[#00B7EF]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Jsem místní</h3>
               <p className="text-gray-300">Bydlím kousek od obce {city}. Neplatíte předražené výjezdy z Hradce.</p>
             </div>
             <div className="text-center">
               <div className="mx-auto bg-gray-700 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <Zap className="h-8 w-8 text-cyan-400" />
+                <Zap className="h-8 w-8 text-[#00B7EF]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Čistá práce</h3>
               <p className="text-gray-300">Nepořádku se bát nemusíte. Specializuji se na bezdrátová a softwarová řešení.</p>
             </div>
             <div className="text-center">
               <div className="mx-auto bg-gray-700 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <Code className="h-8 w-8 text-cyan-400" />
+                <Code className="h-8 w-8 text-[#00B7EF]" />
               </div>
               <h3 className="font-bold text-lg mb-2 text-white">Férové ceny</h3>
               <p className="text-gray-300">Cenu znáte vždy předem. Žádné umělé natahování hodinové sazby.</p>
@@ -127,14 +127,14 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
             href="mailto:kontakt@petrvurm.cz"
-            className="flex items-center justify-center gap-3 bg-gray-700 border-2 border-cyan-400 text-cyan-400 px-8 py-4 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
+            className="flex items-center justify-center gap-3 bg-gray-700 border-2 border-[#00B7EF] text-[#00B7EF] px-8 py-4 rounded-xl font-semibold hover:bg-gray-600 transition-colors"
           >
             <Mail className="h-5 w-5" />
             <span>kontakt@petrvurm.cz</span>
           </a>
           <a
             href="tel:+420777416611"
-            className="flex items-center justify-center gap-3 bg-cyan-500 text-black border-2 border-cyan-500 px-8 py-4 rounded-xl font-semibold hover:bg-cyan-600 transition-colors"
+            className="flex items-center justify-center gap-3 bg-[#00B7EF] text-black border-2 border-[#00B7EF] px-8 py-4 rounded-xl font-semibold hover:bg-[#009edb] transition-colors"
           >
             <Phone className="h-5 w-5" />
             <span>777 416 611</span>
