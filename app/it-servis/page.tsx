@@ -39,7 +39,6 @@ export default function ServiceChecker() {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [nearbyCities, setNearbyCities] = useState<string[]>([]);
-  const [showAll, setShowAll] = useState(false);
 
   // if the user agrees to share location, fetch the list of towns within 30 km
   React.useEffect(() => {
@@ -144,11 +143,10 @@ export default function ServiceChecker() {
             </button>
           </form>
           <p className="mt-2 text-sm text-gray-300">
-            ↓ našeptávač pracuje pouze s platným API klíčem Mapy.cz – pokud náhle
-            nic nevidíte, ověřte, že klíč je správně nastavený (není prázdný a má
-            oprávnění pro geokódování).<br />
-            Sekce &quot;Obce v okolí&quot; zobrazí se až po povolení přístupu k
-            poloze, nebo můžete kliknout &quot;Ukázat vše&quot; níže.
+            ↓ našeptávač pracuje pouze s platným API klíčem Mapy.cz – pokud nic
+            nevidíte, ověřte, že klíč je správně nastavený (není prázdný a má
+            oprávnění pro geokódování). Sekce níže obsahuje kompletní seznam
+            lokalit.
           </p>
         </div>
       </section>
@@ -177,44 +175,14 @@ export default function ServiceChecker() {
       </section>
 
       {/* City lists */}
-      {/* offer a manual fallback to view the full list if the browser
-          doesn't supply a location or the API key is invalid */}
-      <div className="py-8 px-4 text-center">
-        <button
-          onClick={() => setShowAll((s) => !s)}
-          className="px-4 py-2 bg-[#00B7EF] hover:bg-[#009edb] rounded-md font-semibold"
-        >
-          {showAll ? 'Skrýt vše' : 'Ukázat vše'}
-        </button>
-      </div>
+      {/* render the complete list of towns directly inside the main section */}
 
-      {nearbyCities.length > 0 && (
-        <section className="py-16 px-4 bg-gray-900">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-center mb-8">
-              Obce v okolí (30&nbsp;km)
-            </h2>
-            <div className="columns-2 sm:columns-3 gap-4">
-              {nearbyCities.map((city) => (
-                <Link
-                  key={city}
-                  href={`/it-servis/${slugify(city)}`}
-                  className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-                >
-                  {city}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {showAll && (
-        <section className="py-16 px-4 bg-gray-800">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-2xl font-bold text-center mb-8">
-              Všechny dostupné lokality
-            </h2>
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            IT služby momentálně poskytuji v těchto lokalitách
+          </h2>
+          <div>
             <div className="columns-2 sm:columns-3 gap-4">
               {STATIC_TOWNS.map((city) => (
                 <Link
@@ -225,44 +193,6 @@ export default function ServiceChecker() {
                   {city}
                 </Link>
               ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            IT služby momentálně poskytuji v těchto lokalitách
-          </h2>
-          <div className="space-y-12">
-            <div>
-              <h3 className="font-semibold mb-3">Lokální zóna</h3>
-              <div className="columns-2 sm:columns-3 gap-4">
-                {LOCAL_CITIES.map((city) => (
-                  <Link
-                    key={city}
-                    href={`/it-servis/${slugify(city)}`}
-                    className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-                  >
-                    {city}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3">Širší region</h3>
-              <div className="columns-2 sm:columns-3 gap-4">
-                {REGIONAL_CITIES.map((city) => (
-                  <Link
-                    key={city}
-                    href={`/it-servis/${slugify(city)}`}
-                    className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-                  >
-                    {city}
-                  </Link>
-                ))}
-              </div>
             </div>
           </div>
         </div>
