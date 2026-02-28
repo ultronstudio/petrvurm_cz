@@ -23,16 +23,18 @@ export async function generateStaticParams() {
 }
 
 // Dynamická metadata pro lokální SEO
-export function generateMetadata({ params }: { params: Params }): Metadata {
-  const cityName = formatCityName(params.mesto);
+export async function generateMetadata({ params }: { params: Params | Promise<Params> }): Promise<Metadata> {
+  const resolved = await params;
+  const cityName = formatCityName(resolved.mesto);
   return {
     title: `IT servis ${cityName} – Petr Vurm`,
     description: `Čisté IT služby ${cityName}: Wi‑Fi, tiskárny, weby a konzultace. Sousedská pomoc bez vrtání do zdí.`,
   };
 }
 
-export default function CityPage({ params }: { params: Params }) {
-  const citySlug = params.mesto;
+export default async function CityPage({ params }: { params: Params | Promise<Params> }) {
+  const resolved = await params;
+  const citySlug = resolved.mesto;
   // Zde získáme CELÉ objekty služeb, ne jen titulky
   const services = getServicesForCity(citySlug); 
   const cityName = formatCityName(citySlug);
