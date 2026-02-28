@@ -41,86 +41,92 @@ export default function ServiceChecker() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col">
+    <div className="bg-gray-900 text-white">
       {/* Hero with form */}
-      <header className="flex-grow flex flex-col justify-center items-center px-4 text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl">
-          Zjistěte, zda jsou ve vaší obci dostupné mé IT služby
-        </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 w-full max-w-xl flex flex-col sm:flex-row gap-4"
-        >
-          <input
-            type="text"
-            aria-label="Název obce"
-            placeholder="Zadejte název vaší obce..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-grow px-4 py-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-          />
-          <button
-            type="submit"
-            className="px-6 py-3 bg-[#00a8e8] hover:bg-cyan-600 rounded-md font-semibold transition"
+      <section className="relative overflow-hidden">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6 py-24 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl mx-auto">
+            Zjistěte, zda jsou ve vaší obci dostupné mé IT služby
+          </h1>
+          <form
+            onSubmit={handleSubmit}
+            className="mt-8 w-full max-w-xl mx-auto flex flex-col sm:flex-row gap-4"
           >
-            Ověřit dostupnost
-          </button>
-        </form>
-      </header>
+            <input
+              type="text"
+              aria-label="Název obce"
+              placeholder="Zadejte název vaší obce..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="flex-grow px-4 py-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            />
+            <button
+              type="submit"
+              className="px-6 py-3 bg-[#00a8e8] hover:bg-cyan-600 rounded-md font-semibold transition"
+            >
+              Ověřit dostupnost
+            </button>
+          </form>
+        </div>
+      </section>
 
       {/* Benefits */}
       <section className="bg-gray-800 py-16 px-4">
-        <h2 className="text-2xl font-bold text-center mb-8">
-          Proč lokální IT servis od Petra Vurma?
-        </h2>
-        <ul className="max-w-2xl mx-auto space-y-4 text-lg">
-          {[
-            'Žádné vrtání do zdí, vše bez kabelového chaosu',
-            'Spolehlivá Wi-Fi po celém domě i na zahradě',
-            'Přijedu do 24 hodin – jsem od vás ze stejné vesnice',
-            'Jasná cena předem, žádné skryté poplatky',
-            'Řád a čistota, po sobě uklidím – neumím být v nepořádku',
-          ].map((text) => (
-            <li key={text} className="flex items-start">
-              <Check className="h-6 w-6 text-green-400 flex-shrink-0 mr-3" />
-              <span>{text}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Proč lokální IT servis od Petra Vurma?
+          </h2>
+          <ul className="max-w-2xl mx-auto space-y-4 text-lg">
+            {[
+              'Žádné vrtání do zdí, vše bez kabelového chaosu',
+              'Spolehlivá Wi-Fi po celém domě i na zahradě',
+              'Přijedu do 24 hodin – jsem od vás ze stejné vesnice',
+              'Jasná cena předem, žádné skryté poplatky',
+              'Řád a čistota, po sobě uklidím – neumím být v nepořádku',
+            ].map((text) => (
+              <li key={text} className="flex items-start">
+                <Check className="h-6 w-6 text-green-400 flex-shrink-0 mr-3" />
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       {/* City lists */}
       <section className="py-16 px-4">
-        <h2 className="text-2xl font-bold text-center mb-8">
-          IT služby momentálně poskytuji v těchto lokalitách
-        </h2>
-        <div className="max-w-3xl mx-auto space-y-12">
-          <div>
-            <h3 className="font-semibold mb-3">Lokální zóna</h3>
-            <div className="columns-2 sm:columns-3 gap-4">
-              {LOCAL_CITIES.map((city) => (
-                <Link
-                  key={city}
-                  href={`/it-servis/${slugify(city)}`}
-                  className="block break-inside-avoid mb-1 text-cyan-400 hover:underline"
-                >
-                  {city}
-                </Link>
-              ))}
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            IT služby momentálně poskytuji v těchto lokalitách
+          </h2>
+          <div className="space-y-12">
+            <div>
+              <h3 className="font-semibold mb-3">Lokální zóna</h3>
+              <div className="columns-2 sm:columns-3 gap-4">
+                {LOCAL_CITIES.map((city) => (
+                  <Link
+                    key={city}
+                    href={`/it-servis/${slugify(city)}`}
+                    className="block break-inside-avoid mb-1 text-cyan-400 hover:underline"
+                  >
+                    {city}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-3">Širší region</h3>
-            <div className="columns-2 sm:columns-3 gap-4">
-              {REGIONAL_CITIES.map((city) => (
-                <Link
-                  key={city}
-                  href={`/it-servis/${slugify(city)}`}
-                  className="block break-inside-avoid mb-1 text-cyan-400 hover:underline"
-                >
-                  {city}
-                </Link>
-              ))}
+            <div>
+              <h3 className="font-semibold mb-3">Širší region</h3>
+              <div className="columns-2 sm:columns-3 gap-4">
+                {REGIONAL_CITIES.map((city) => (
+                  <Link
+                    key={city}
+                    href={`/it-servis/${slugify(city)}`}
+                    className="block break-inside-avoid mb-1 text-cyan-400 hover:underline"
+                  >
+                    {city}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
