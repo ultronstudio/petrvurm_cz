@@ -23,8 +23,8 @@ export async function generateStaticParams() {
 }
 
 // Dynamická metadata pro lokální SEO
-export async function generateMetadata({ params }: { params: Params | Promise<Params> }): Promise<Metadata> {
-  const resolved = await params;
+export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
+  const resolved: Params = await params;
   const cityName = formatCityName(resolved.mesto);
   return {
     title: `IT servis ${cityName} – Petr Vurm`,
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: { params: Params | Promise<Pa
   };
 }
 
-export default async function CityPage({ params }: { params: Params | Promise<Params> }) {
-  const resolved = await params;
+export default async function CityPage({ params }: { params: any }) {
+  const resolved: Params = await params;
   const citySlug = resolved.mesto;
   // Zde získáme CELÉ objekty služeb, ne jen titulky
   const services = getServicesForCity(citySlug); 
