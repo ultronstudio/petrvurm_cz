@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useRef, useEffect } from 'react';
 import { STATIC_TOWNS } from '@/lib/towns';
 import { useRouter } from 'next/navigation';
 import { Check } from 'lucide-react';
@@ -39,6 +39,19 @@ export default function ServiceChecker() {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [nearbyCities, setNearbyCities] = useState<string[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setSuggestions([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // if the user agrees to share location, fetch the list of towns within 30 km
   React.useEffect(() => {
@@ -120,17 +133,17 @@ export default function ServiceChecker() {
                   setQuery(v);
                   fetchSuggestions(v);
                 }}
-                className="w-full px-4 py-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00B7EF]"
+                className="w-full px-4 py-3 rounded-md bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00B7EF]"
                 autoComplete="off"
               />
 
               {/* simple dropdown of suggestions from Mapy.cz */}
               {suggestions.length > 0 ? (
-                <ul className="absolute z-50 w-full bg-white text-black rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
-                  {suggestions.map((s) => (
+                <ul className="absolute z-50 w-full bg-gray-800 border border-gray-700 text-white rounded-md mt-1 shadow-lg max-h-96 overflow-y-auto">
+                  {suggestions.map((s, index) => (
                     <li
-                      key={s}
-                      className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                      key={`${s}-${index}`}
+                      className="px-3 py-2 hover:bg-[#00B7EF] hover:text-black cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors"
                       onClick={() => {
                         setQuery(s);
                         setSuggestions([]);
