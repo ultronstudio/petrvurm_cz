@@ -3,11 +3,23 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
-import { getAllCitiesByRegion } from '@/site.config';
+import { STATIC_TOWNS } from '@/lib/towns';
+
+function slugify(input: string) {
+  return input
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 export default function ServiceChecker() {
-  const localCities = getAllCitiesByRegion('local');
-  const regionalCities = getAllCitiesByRegion('regional');
+  const towns = STATIC_TOWNS.map((name) => ({
+    name,
+    slug: slugify(name),
+  }));
 
   return (
     <div className="bg-[#0a0a0a] text-white">
@@ -47,37 +59,19 @@ export default function ServiceChecker() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold text-center mb-8">
-            IT služby momentálně poskytuji v těchto lokalitách
+            Internet poskytujeme<br />
+            ve stovkách obcí
           </h2>
-          <div className="space-y-12">
-            <div>
-              <h3 className="font-semibold mb-3">Lokální zóna</h3>
-              <div className="columns-2 sm:columns-3 gap-4">
-                {localCities.map((city) => (
-                  <Link
-                    key={city.slug}
-                    href={`/it-servis/${city.slug}`}
-                    className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-                  >
-                    {city.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3">Širší region</h3>
-              <div className="columns-2 sm:columns-3 gap-4">
-                {regionalCities.map((city) => (
-                  <Link
-                    key={city.slug}
-                    href={`/it-servis/${city.slug}`}
-                    className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-                  >
-                    {city.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <div className="columns-2 sm:columns-3 md:columns-4 gap-4">
+            {towns.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/it-servis/${city.slug}`}
+                className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
+              >
+                {city.name}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
