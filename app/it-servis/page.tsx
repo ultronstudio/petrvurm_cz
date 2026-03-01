@@ -72,12 +72,15 @@ export default function ServiceChecker() {
       if (res.ok) {
         const data = await res.json();
         // mapy.cz returns an array of features, each with a name property
-        setSuggestions(data.features?.map((f: any) => f.name) || []);
+        const names = data.features?.map((f: any) => f.name) || [];
+        console.log('[Autocomplete] fetched:', { q, features: names.length, names });
+        setSuggestions(names);
       } else {
+        console.log('[Autocomplete] error:', res.status);
         setSuggestions([]);
       }
     } catch (err) {
-      console.error('autocomplete error', err);
+      console.error('[Autocomplete] fetch error', err);
       setSuggestions([]);
     }
   };
@@ -118,8 +121,8 @@ export default function ServiceChecker() {
               />
 
               {/* simple dropdown of suggestions from Mapy.cz */}
-              {suggestions.length > 0 && (
-                <ul className="absolute z-10 w-full bg-white text-black rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
+              {suggestions.length > 0 ? (
+                <ul className="absolute z-50 w-full bg-white text-black rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
                   {suggestions.map((s) => (
                     <li
                       key={s}
@@ -133,7 +136,7 @@ export default function ServiceChecker() {
                     </li>
                   ))}
                 </ul>
-              )}
+              ) : null}
             </div>
             <button
               type="submit"
