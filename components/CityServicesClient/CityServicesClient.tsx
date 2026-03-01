@@ -10,19 +10,12 @@ import {
   House,
   Zap,
 } from 'lucide-react';
-
-// Přesná definice toho, co ti vrací tvůj config
-export interface ServiceItem {
-  id: string;
-  title: string;
-  description: string;
-  price: string;
-  category: string;
-}
+import { Service, CityConfig } from '@/site.config';
 
 interface CityServicesClientProps {
   city: string;
-  services: ServiceItem[];
+  services: Service[];
+  cityConfig?: CityConfig | null;
 }
 
 // Mapování ikon na základě ID služby (mnohem spolehlivější než text stringu)
@@ -34,9 +27,16 @@ const iconMap: Record<string, React.ReactNode> = {
   default: <House className="h-6 w-6 text-[#00B7EF]" />,
 };
 
+// Počítání ceny s koeficientem vzdálenosti
+function getPriceWithCoefficient(basePrice: number, coefficient: number): string {
+  const finalPrice = Math.round(basePrice * coefficient);
+  return `${finalPrice} Kč`;
+}
+
 export const CityServicesClient: React.FC<CityServicesClientProps> = ({
   city,
   services,
+  cityConfig,
 }) => {
   return (
     <div className="bg-[#0a0a0a] text-white">
@@ -50,6 +50,11 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
             Rychle, bez zednického nepořádku a s jasnou cenou. Jsem váš místní IT
             soused a vyřeším vaše potíže ještě dnes.
           </p>
+          {cityConfig && cityConfig.region === 'regional' && (
+            <p className="text-sm text-gray-400 mb-4">
+              *Ceny zahrnují příplatek za vzdálenost ({Math.round((cityConfig.priceCoefficient - 1) * 100)}%)
+            </p>
+          )}
           <a
             href="#kontakt"
             className="inline-flex items-center justify-center bg-[#00B7EF] text-black px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-[#009edb] transition-colors"
@@ -64,26 +69,32 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">S čím vám pomohu</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((svc) => (
-              <div
-                key={svc.id}
-                className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="bg-[#2a2a2a] w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                  {iconMap[svc.id] || iconMap.default}
+            {services.map((svc) => {
+              const displayPrice = cityConfig 
+                ? getPriceWithCoefficient(svc.basePrice, cityConfig.priceCoefficient)
+                : svc.basePriceText;
+              
+              return (
+                <div
+                  key={svc.id}
+                  className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="bg-[#2a2a2a] w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                    {iconMap[svc.id] || iconMap.default}
+                  </div>
+                  <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
+                    {svc.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-3">{svc.title}</h3>
+                  <p className="text-gray-300 flex-grow mb-6 leading-relaxed">
+                    {svc.description}
+                  </p>
+                  <div className="pt-4 border-t border-gray-700">
+                    <span className="font-bold text-white">{displayPrice}</span>
+                  </div>
                 </div>
-                <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
-                  {svc.category}
-                </span>
-                <h3 className="text-xl font-bold text-white mb-3">{svc.title}</h3>
-                <p className="text-gray-300 flex-grow mb-6 leading-relaxed">
-                  {svc.description}
-                </p>
-                <div className="pt-4 border-t border-gray-700">
-                  <span className="font-bold text-white">{svc.price}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -7,7 +7,6 @@ const nextConfig = {
 
   // Další nastavení, která můžete potřebovat
   reactStrictMode: true,
-  swcMinify: true, // Doporučeno pro zrychlení kompilace
 
   // Pokud používáte obrázky, povolte tento plugin
   images: {
