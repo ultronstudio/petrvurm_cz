@@ -77,7 +77,7 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              prefetch={false}
+              prefetch={true}
               className={`text-sm transition-colors ${
                 isActive(l.href)
                   ? "text-primary"
@@ -92,7 +92,7 @@ export default function Navbar() {
           {/* CTA */}
           <Link
             href="/kontakt"
-            prefetch={false}
+            prefetch={true}
             className="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
           >
             Nezávazná konzultace

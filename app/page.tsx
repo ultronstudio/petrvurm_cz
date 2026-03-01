@@ -208,6 +208,96 @@ export default function Home() {
         </div>
       </section>
 
+      {/* STATS */}
+      <section className="py-14 md:py-18">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+            {[
+              { value: "8+", label: "Dokončených projektů" },
+              { value: "5+", label: "Let zkušeností" },
+              { value: "100%", label: "Spokojení klienti" },
+              { value: "24h", label: "Odpověď na zprávu" }
+            ].map(({ value, label }, i) => (
+              <motion.div
+                key={label}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+                custom={i}
+                className="rounded-xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur"
+              >
+                <div className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+                  {value}
+                </div>
+                <p className="mt-2 text-sm text-white/70">{label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-14 md:py-18">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="mb-6"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Co říkají mí klienti</h2>
+            <p className="mt-4 max-w-3xl text-white/70">Recenze od lidí, s nimiž jsem měl tu čest pracovat</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {[
+              {
+                name: "Firma XYZ",
+                role: "Majitel e-shopu",
+                text: "Petr nám vytvořil web, který nám zvýšil tržby o 40%. Je profesionální, komunikativní a dodržuje termíny.",
+                avatar: "🎯"
+              },
+              {
+                name: "Startupová společnost",
+                role: "Zakladatel",
+                text: "Návrh architektury od Petra nám ušetřil spoustu problémů později. Doporučuji jej všem, co hledají kvalitu.",
+                avatar: "🚀"
+              },
+              {
+                name: "Nezávislý podnikatel",
+                role: "Konzultant",
+                text: "Nejlepší technické poradenství, jaké jsem měl. Petr rozumí jak technologiím, tak obchodnímu smyslu.",
+                avatar: "💡"
+              }
+            ].map(({ name, role, text, avatar }, i) => (
+              <motion.div
+                key={name}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+                custom={i}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur"
+              >
+                <div className="flex items-start gap-1 text-xl mb-4">
+                  {"⭐⭐⭐⭐⭐".split("").map((star, i) => <span key={i}>{star}</span>)}
+                </div>
+                <p className="text-white/90 leading-relaxed">{text}</p>
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="text-3xl">{avatar}</div>
+                  <div>
+                    <p className="font-semibold text-white">{name}</p>
+                    <p className="text-xs text-white/60">{role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA STRIP */}
       <section className="relative py-6 md:py-5">
         <div className="pointer-events-none absolute inset-x-0 -top-16 -z-10 h-32" />
