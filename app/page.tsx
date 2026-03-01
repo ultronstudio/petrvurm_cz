@@ -205,7 +205,8 @@ export default function Home() {
                     <Link
                       href={p.href}
                       className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
-                      prefetch={false}
+                      prefetch={true}
+                      aria-label={`Zobrazit detaily projektu ${p.title}`}
                     >
                       Zobrazit detaily <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -319,7 +320,7 @@ export default function Home() {
             <Link
               href="/kontakt"
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
-              prefetch={false}
+              prefetch={true}
             >
               Domluvit konzultaci <ArrowRight className="h-4 w-4" />
             </Link>
