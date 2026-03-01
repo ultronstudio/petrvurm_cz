@@ -142,12 +142,7 @@ export default function ServiceChecker() {
               Ověřit dostupnost
             </button>
           </form>
-          <p className="mt-2 text-sm text-gray-300">
-            ↓ našeptávač pracuje pouze s platným API klíčem Mapy.cz – pokud nic
-            nevidíte, ověřte, že klíč je správně nastavený (není prázdný a má
-            oprávnění pro geokódování). Sekce níže obsahuje kompletní seznam
-            lokalit.
-          </p>
+          {/* Mapy.cz note removed as requested */}
         </div>
       </section>
 
