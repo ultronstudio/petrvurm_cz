@@ -1,18 +1,7 @@
 "use client";
 
-import type { Metadata } from "next";
 import { useMemo, useState } from "react";
 import { Card } from "@radix-ui/themes";
-
-export const metadata: Metadata = {
-  title: "Kalkulačka kurzů – Petr Vurm",
-  description: "Interaktivní kalkulačka ceny kurzů, školení a doučování. Vyberte si typ a počet lekcí, ihned vidíte cenu.",
-  openGraph: {
-    title: "Kalkulačka kurzů – Petr Vurm",
-    description: "Interaktivní kalkulačka ceny kurzů, školení a doučování. Vyberte si typ a počet lekcí, ihned vidíte cenu.",
-    type: "website"
-  }
-};
 
 // ===== Konfigurace =====
 const HOURLY = 350; // Kč/h – základní sazba pro položky na hodinu

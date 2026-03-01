@@ -1,20 +1,9 @@
 'use client';
 
-import type { Metadata } from 'next';
 import React from 'react';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { STATIC_TOWNS } from '@/lib/towns';
-
-export const metadata: Metadata = {
-  title: 'IT služby – Petr Vurm',
-  description: 'Čisté IT služby: instalace Wi-Fi, tiskáren, webů a IT konzultace. Bez vrtání do zdí, bez kabelu. Přijedu do 24 hodin.',
-  openGraph: {
-    title: 'IT služby – Petr Vurm',
-    description: 'Čisté IT služby: instalace Wi-Fi, tiskáren, webů a IT konzultace. Bez vrtání do zdí, bez kabelu. Přijedu do 24 hodin.',
-    type: 'website'
-  }
-};
 
 function slugify(input: string) {
   return input
