@@ -13,7 +13,7 @@ const fadeUp = {
 export default function Cenik() {
   const services = [
     {
-      category: "🌐 Webové služby",
+      category: "Webové služby",
       icon: Monitor,
       items: [
         { name: "Jednoduchý web", price: "3 500 Kč", description: "Jednostránkový web, prezentace" },
@@ -23,7 +23,7 @@ export default function Cenik() {
       ]
     },
     {
-      category: "🛠️ IT Služby",
+      category: "IT Služby",
       icon: Headphones,
       items: [
         { name: "Mesh Wi-Fi", price: "1 500 Kč+", description: "Instalace, bez vrtání" },
@@ -33,7 +33,7 @@ export default function Cenik() {
       ]
     },
     {
-      category: "📚 Školení & Kurzy",
+      category: "Školení & Kurzy",
       icon: Code,
       items: [
         { name: "Doučování", price: "300 Kč/h", description: "Programování, IT" },
@@ -42,7 +42,7 @@ export default function Cenik() {
       ]
     },
     {
-      category: "💼 Poradenství",
+      category: "Poradenství",
       icon: Lightbulb,
       items: [
         { name: "Konzultace", price: "zdarma", description: "Jednorázová, bez závazku" },
@@ -119,14 +119,14 @@ export default function Cenik() {
           <h2 className="text-2xl md:text-3xl font-bold mb-8">Co je součástí každého projektu?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              "✓ Konzultace a plánování",
-              "✓ Responsive design (mobil, tablet, PC)",
-              "✓ SEO optimalizace",
-              "✓ Testování & QA",
-              "✓ Nasazení na produkci",
-              "✓ 1 měsíc bezplatné opravy",
-              "✓ Dokumentace kódu",
-              "✓ Instrukce pro správu"
+              "Konzultace a plánování",
+              "Responsive design (mobil, tablet, PC)",
+              "SEO optimalizace",
+              "Testování & QA",
+              "Nasazení na produkci",
+              "1 měsíc bezplatné opravy",
+              "Dokumentace kódu",
+              "Instrukce pro správu"
             ].map((feature, i) => (
               <div key={feature} className="flex gap-3">
                 <span className="text-primary flex-shrink-0">•</span>
