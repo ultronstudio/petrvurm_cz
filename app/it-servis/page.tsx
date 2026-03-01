@@ -139,7 +139,7 @@ export default function ServiceChecker() {
 
               {/* simple dropdown of suggestions from Mapy.cz */}
               {suggestions.length > 0 ? (
-                <ul className="absolute z-50 w-full bg-gray-800 border border-gray-700 text-white rounded-md top-full mt-1 shadow-lg max-h-96 overflow-y-scroll">
+                <ul className="absolute z-50 w-full bg-gray-800 border border-gray-700 text-white rounded-md top-full mt-1 shadow-lg max-h-80 overflow-y-scroll">
                   {suggestions.map((s, index) => (
                     <li
                       key={`${s}-${index}`}
