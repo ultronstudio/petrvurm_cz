@@ -71,9 +71,13 @@ export default function ServiceChecker() {
       )}`);
       if (res.ok) {
         const data = await res.json();
-        // mapy.cz returns an array of features, each with a name property
-        const names = data.features?.map((f: any) => f.name) || [];
-        console.log('[Autocomplete] fetched:', { q, features: names.length, names });
+        // Mapy.cz returns items array; extract location names
+        // Support both response formats: { items: [...] } or { features: [...] }
+        const names = 
+          (data.items?.map((item: any) => item.title || item.name) || 
+           data.features?.map((f: any) => f.name) || 
+           []).slice(0, 8); // limit to top 8 results
+        console.log('[Autocomplete] fetched:', { q, results: names.length, names });
         setSuggestions(names);
       } else {
         console.log('[Autocomplete] error:', res.status);

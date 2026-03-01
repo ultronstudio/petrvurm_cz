@@ -39,6 +39,13 @@ export async function GET(request: NextRequest) {
       },
     });
     const data = await res.json();
+    console.log('[Autocomplete API] Mapy.cz response:', {
+      status: res.status,
+      q,
+      resultCount: data.items?.length || data.features?.length || 0,
+      hasDetail: !!data.detail,
+      detail: data.detail,
+    });
     // if the key is wrong the API returns a detail message; fall back to an
     // empty array rather than forwarding the error to the client.
     if (data.detail && /key/i.test(data.detail)) {
