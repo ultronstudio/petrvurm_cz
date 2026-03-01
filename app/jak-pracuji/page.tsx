@@ -130,15 +130,15 @@ export default function JakPracuji() {
           viewport={{ once: true, margin: "-80px" }}
           className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Co riguarantuju</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-8">Co garantuju</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
-              "✓ Transparentní komunikaci – vždy víš, na čem se pracuje",
-              "✓ Termíny dodržuji – plánování je přesné",
-              "✓ Kvalitní kód – udržitelný a testovaný",
-              "✓ Bezpečnost – HTTPS, ochrana dat, bezpečnostní audit",
-              "✓ Performance – web bude rychlý a efektivní",
-              "✓ SEO optimalizace – viditelnost v Google"
+              "Transparentní komunikaci – vždy víš, na čem se pracuje",
+              "Termíny dodržuji – plánování je přesné",
+              "Kvalitní kód – udržitelný a testovaný",
+              "Bezpečnost – HTTPS, ochrana dat, bezpečnostní audit",
+              "Performance – web bude rychlý a efektivní",
+              "SEO optimalizace – viditelnost v Google"
             ].map((item, i) => (
               <div key={item} className="flex gap-3 items-start">
                 <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -163,7 +163,7 @@ export default function JakPracuji() {
           <Link
             href="/kontakt"
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black shadow-[0_8px_30px_rgba(0,183,239,0.35)] transition hover:bg-primary/90"
-            prefetch={false}
+            prefetch={true}
           >
             Nezávazná konzultace <ArrowRight className="h-5 w-5" />
           </Link>
