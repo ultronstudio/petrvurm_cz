@@ -59,8 +59,7 @@ export default function ServiceChecker() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-2xl font-bold text-center mb-8">
-            Internet poskytujeme<br />
-            ve stovkách obcí
+            IT služby momentálně poskytuji v těchto lokalitách
           </h2>
           <div className="columns-2 sm:columns-3 md:columns-4 gap-4">
             {towns.map((city) => (
@@ -73,6 +72,24 @@ export default function ServiceChecker() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-[#1a1a1a] py-16 px-4">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold mb-4">
+            Nenašli jste svoji obec?
+          </h2>
+          <p className="text-lg text-gray-300 mb-6">
+            Pokud vaše obec není na seznamu, neznámená to, že vám nemohu pomoci. Kontaktujte mě a podíváme se na to společně.
+          </p>
+          <Link
+            href="/kontakt"
+            className="inline-block px-8 py-3 bg-[#00B7EF] hover:bg-[#009edb] rounded-md font-semibold transition text-black"
+          >
+            Napsat mi zprávu
+          </Link>
         </div>
       </section>
     </div>

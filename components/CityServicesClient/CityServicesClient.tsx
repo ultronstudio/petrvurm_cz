@@ -41,7 +41,7 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
   return (
     <div className="bg-[#0a0a0a] text-white">
       {/* Hero Sekce */}
-      <header className="py-24 px-4 text-center">
+      <header className="pt-20 pb-10 px-4 text-center">
         <div className="container mx-auto max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
             Čisté IT služby pro <span className="text-[#00B7EF]">{city}</span>
@@ -50,26 +50,20 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
             Rychle, bez zednického nepořádku a s jasnou cenou. Jsem váš místní IT
             soused a vyřeším vaše potíže ještě dnes.
           </p>
-          {cityConfig && cityConfig.region === 'regional' && (
+          {cityConfig && cityConfig.priceCoefficient > 1.0 && (
             <p className="text-sm text-gray-400 mb-4">
               *Ceny zahrnují příplatek za vzdálenost ({Math.round((cityConfig.priceCoefficient - 1) * 100)}%)
             </p>
           )}
-          <a
-            href="#kontakt"
-            className="inline-flex items-center justify-center bg-[#00B7EF] text-black px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-[#009edb] transition-colors"
-          >
-            Nezávazně se ozvat
-          </a>
         </div>
       </header>
 
       {/* Služby */}
-      <section className="py-20 px-4">
+      <section className="px-4 pb-20">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">S čím vám pomohu</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((svc) => {
+            {services.map((svc: { basePrice: number; basePriceText: string | string[]; id: React.Key | null | undefined; category: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => {
               const displayPrice = cityConfig 
                 ? getPriceWithCoefficient(svc.basePrice, cityConfig.priceCoefficient)
                 : svc.basePriceText;
@@ -79,9 +73,6 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
                   key={svc.id}
                   className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="bg-[#2a2a2a] w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                    {iconMap[svc.id] || iconMap.default}
-                  </div>
                   <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
                     {svc.category}
                   </span>
@@ -90,41 +81,11 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
                     {svc.description}
                   </p>
                   <div className="pt-4 border-t border-gray-700">
-                    <span className="font-bold text-white">{displayPrice}</span>
+                    <span className="font-bold text-white">{displayPrice}</span>&nbsp;/&nbsp;{svc.basePriceText.includes('/ h') ? 'hodinu' : 'službu'}
                   </div>
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Proč já */}
-      <section className="bg-[#1a1a1a] py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">Proč si vybrat mě?</h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="text-center">
-              <div className="mx-auto bg-[#2a2a2a] w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <House className="h-8 w-8 text-[#00B7EF]" />
-              </div>
-              <h3 className="font-bold text-lg mb-2 text-white">Jsem místní</h3>
-              <p className="text-gray-300">Bydlím kousek od obce {city}. Neplatíte předražené výjezdy z Hradce.</p>
-            </div>
-            <div className="text-center">
-              <div className="mx-auto bg-[#2a2a2a] w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <Zap className="h-8 w-8 text-[#00B7EF]" />
-              </div>
-              <h3 className="font-bold text-lg mb-2 text-white">Čistá práce</h3>
-              <p className="text-gray-300">Nepořádku se bát nemusíte. Specializuji se na bezdrátová a softwarová řešení.</p>
-            </div>
-            <div className="text-center">
-              <div className="mx-auto bg-[#2a2a2a] w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                <Code className="h-8 w-8 text-[#00B7EF]" />
-              </div>
-              <h3 className="font-bold text-lg mb-2 text-white">Férové ceny</h3>
-              <p className="text-gray-300">Cenu znáte vždy předem. Žádné umělé natahování hodinové sazby.</p>
-            </div>
           </div>
         </div>
       </section>
@@ -135,20 +96,13 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
         <p className="text-lg text-gray-300 mb-10">
           Napište mi, co přesně vás trápí, nebo rovnou zavolejte. Rád s vámi proberu možnosti.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <div className="flex justify-center">
           <a
-            href="mailto:kontakt@petrvurm.cz"
-            className="flex items-center justify-center gap-3 bg-[#1a1a1a] border-2 border-[#00B7EF] text-[#00B7EF] px-8 py-4 rounded-xl font-semibold hover:bg-[#2a2a2a] transition-colors"
+            href="/kontakt"
+            className="flex items-center justify-center gap-3 bg-[#1a1a1a] border-2 border-[#00B7EF] text-[#00B7EF] px-8 py-4 rounded-lg font-semibold hover:bg-[#2a2a2a] transition-colors"
           >
             <Mail className="h-5 w-5" />
-            <span>kontakt@petrvurm.cz</span>
-          </a>
-          <a
-            href="tel:+420777416611"
-            className="flex items-center justify-center gap-3 bg-[#00B7EF] text-black border-2 border-[#00B7EF] px-8 py-4 rounded-xl font-semibold hover:bg-[#009edb] transition-colors"
-          >
-            <Phone className="h-5 w-5" />
-            <span>777 416 611</span>
+            <span>Kontaktovat mě</span>
           </a>
         </div>
       </section>

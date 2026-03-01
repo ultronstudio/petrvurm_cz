@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getServicesForCity, getCityConfig, getAllCities } from '../../../site.config';
-import CityServicesClient from '@/components/CityServicesClient/CityServicesClient';
+import { getServicesForCity, getCityConfig, getAllCities } from '@/site.config';
+import CityServicesClientWrapper from '@/components/CityServicesClient/CityServicesClientWrapper';
 
 interface Params {
   mesto: string;
@@ -27,12 +27,18 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
 
 export default async function CityPage({ params }: { params: any }) {
   const resolved: Params = await params;
-  const citySlug = resolved.mesto;
+  const citySlug = typeof resolved.mesto === 'string' ? resolved.mesto : '';
   
   // Získáme konfiguraci města a služby
   const cityConfig = getCityConfig(citySlug);
   const services = getServicesForCity(citySlug);
-  const cityName = cityConfig?.name || citySlug;
 
-  return <CityServicesClient city={cityName} services={services} cityConfig={cityConfig} />;
+  // Pokud město neexistuje, vrátíme null (redirect se stane na klient-side)
+  if (!cityConfig) {
+    return null;
+  }
+
+  const cityName = cityConfig.name;
+
+  return <CityServicesClientWrapper city={cityName} services={services} cityConfig={cityConfig} citySlug={citySlug} />;
 }

@@ -72,6 +72,12 @@ export default function Kontakt() {
             <p className="mt-2 text-white/80">
               Krátké dotazy a domluva termínu hovoru.
             </p>
+            <a
+              href="tel:+420777416611"
+              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+            >
+              Zavolat mi
+            </a>
           </Card>
         </div>
 
