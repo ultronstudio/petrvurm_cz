@@ -122,7 +122,7 @@ export default function ServiceChecker() {
             onSubmit={handleSubmit}
             className="mt-8 w-full max-w-xl mx-auto flex flex-col sm:flex-row gap-4"
           >
-            <div className="relative flex-grow">
+            <div ref={dropdownRef} className="relative flex-grow">
               <input
                 type="text"
                 aria-label="Název obce"
@@ -139,7 +139,7 @@ export default function ServiceChecker() {
 
               {/* simple dropdown of suggestions from Mapy.cz */}
               {suggestions.length > 0 ? (
-                <ul className="absolute z-50 w-full bg-gray-800 border border-gray-700 text-white rounded-md mt-1 shadow-lg max-h-96 overflow-y-auto">
+                <ul className="absolute z-50 w-full bg-gray-800 border border-gray-700 text-white rounded-md top-full mt-1 shadow-lg max-h-96 overflow-y-scroll">
                   {suggestions.map((s, index) => (
                     <li
                       key={`${s}-${index}`}
