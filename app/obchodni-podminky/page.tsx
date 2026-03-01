@@ -1,6 +1,17 @@
 "use client";
 
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Obchodní podmínky – Petr Vurm",
+  description: "Obchodní podmínky poskytování služeb na webu petrvurm.cz. Práva a povinnosti klienta.",
+  openGraph: {
+    title: "Obchodní podmínky – Petr Vurm",
+    description: "Obchodní podmínky poskytování služeb na webu petrvurm.cz. Práva a povinnosti klienta.",
+    type: "website"
+  }
+};
 
 export default function ObchodniPodminky() {
   return (

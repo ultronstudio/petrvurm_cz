@@ -1,5 +1,6 @@
 "use client";
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
 import { motion } from "framer-motion";
@@ -22,6 +23,16 @@ import {
   CSharpIcon,
   TailwindIcon,
 } from "@/Icons/Icons";
+
+export const metadata: Metadata = {
+  title: "O mně – Petr Vurm",
+  description: "Jsem webový vývojář a tvůrce aplikací se zaměřením na moderní technologie. Věnuji se vývoji webů, desktopových aplikací a poradenství.",
+  openGraph: {
+    title: "O mně – Petr Vurm",
+    description: "Jsem webový vývojář a tvůrce aplikací se zaměřením na moderní technologie. Věnuji se vývoji webů, desktopových aplikací a poradenství.",
+    type: "website"
+  }
+};
 
 function getAge() {
   const today = new Date();

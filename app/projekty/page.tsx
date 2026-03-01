@@ -1,5 +1,6 @@
 "use client";
 
+import type { Metadata } from "next";
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Card } from "@radix-ui/themes";
@@ -23,6 +24,16 @@ import {
   CSharpIcon,
   TailwindIcon,
 } from "@/Icons/Icons";
+
+export const metadata: Metadata = {
+  title: "Projekty – Petr Vurm",
+  description: "Přehled mých realizovaných projektů: webové aplikace, sociální sítě, desktopové aplikace a open-source projekty.",
+  openGraph: {
+    title: "Projekty – Petr Vurm",
+    description: "Přehled mých realizovaných projektů: webové aplikace, sociální sítě, desktopové aplikace a open-source projekty.",
+    type: "website"
+  }
+};
 
 // --- data ---
 const projects = [

@@ -1,8 +1,19 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useMemo, useState } from "react";
 import { Card } from "@radix-ui/themes";
 import { motion } from "framer-motion";
+
+export const metadata: Metadata = {
+  title: "Kalkulačka webů – Petr Vurm",
+  description: "Interaktivní kalkulačka ceny vývoje webu. Vyberte si služby a ihned uvidíte orientační cenu s DPH.",
+  openGraph: {
+    title: "Kalkulačka webů – Petr Vurm",
+    description: "Interaktivní kalkulačka ceny vývoje webu. Vyberte si služby a ihned uvidíte orientační cenu s DPH.",
+    type: "website"
+  }
+};
 
 // ====== KONSTANTY / NASTAVENÍ ======
 const HOURLY = 350; // Kč/h – základní sazba

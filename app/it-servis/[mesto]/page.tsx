@@ -22,6 +22,11 @@ export async function generateMetadata({ params }: { params: any }): Promise<Met
   return {
     title: `IT servis ${cityName} – Petr Vurm`,
     description: `Čisté IT služby ${cityName}: Wi‑Fi, tiskárny, weby a konzultace. Sousedská pomoc bez vrtání do zdí.`,
+    openGraph: {
+      title: `IT servis ${cityName} – Petr Vurm`,
+      description: `Čisté IT služby ${cityName}: Wi‑Fi, tiskárny, weby a konzultace. Sousedská pomoc bez vrtání do zdí.`,
+      type: "website"
+    }
   };
 }
 

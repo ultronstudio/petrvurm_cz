@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import MarkdownComponent from "@/app/projekty/[slug]/MarkdownComponent";
 import Link from "next/link";
 
@@ -49,6 +50,33 @@ async function getPostData(slug: string) {
     console.log(e);
     return null;
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const slug = (await params).slug;
+  const post = await getPostData(slug);
+
+  if (!post) {
+    return {
+      title: "Projekt nenalezen – Petr Vurm",
+      description: "Projekt, který hledáte, nebyl nalezen.",
+    };
+  }
+
+  return {
+    title: `${post.data.title} – Petr Vurm`,
+    description: post.data.description || "Projekt od Petra Vurma",
+    openGraph: {
+      title: `${post.data.title} – Petr Vurm`,
+      description: post.data.description || "Projekt od Petra Vurma",
+      type: "website",
+      images: post.data.previewImage ? [{ url: post.data.previewImage }] : [],
+    },
+  };
 }
 
 export default async function Page({
