@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Disallow crawling of internal paths
+Disallow: /_next/
+Disallow: /api/
+Disallow: /admin/
+
+# Allow crawling of assets
+Allow: /images/
+Allow: /_next/static/
+
+# Sitemap
+Sitemap: https://petrvurm.cz/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1

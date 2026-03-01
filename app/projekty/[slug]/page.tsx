@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 import MarkdownComponent from "@/app/projekty/[slug]/MarkdownComponent";
 import Link from "next/link";
 
@@ -109,11 +110,13 @@ export default async function Page({
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             {post.data.previewImage ? (
-              <img
+              <Image
                 src={post.data.previewImage}
                 alt={post.data.title}
+                width={600}
+                height={400}
                 className="h-full w-full aspect-video object-cover"
-                loading="eager"
+                priority={true}
               />
             ) : (
               <div className="flex aspect-video items-center justify-center text-white/50">

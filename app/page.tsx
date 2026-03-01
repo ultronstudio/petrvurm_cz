@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -47,15 +48,16 @@ export default function Home() {
             <Link
               href="/projekty"
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(0,183,239,0.35)] transition hover:translate-y-[-1px] hover:bg-primary/90 focus:outline-none focus:ring-2"
-              prefetch={false}
-              aria-label="Zobrazit projekty"
+              prefetch={true}
+              aria-label="Zobrazit moje projekty"
             >
               Moje projekty <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/kontakt"
               className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-[1px] hover:border-white/30 focus:outline-none focus:ring-2"
-              prefetch={false}
+              prefetch={true}
+              aria-label="Objednat nezávaznou konzultaci"
             >
               Nezávazná konzultace
             </Link>
@@ -74,7 +76,7 @@ export default function Home() {
             className="mb-6 flex items-end justify-between"
           >
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Služby, na které se můžete spolehnout</h2>
-            <Link href="/cenik" className="hidden md:inline-flex items-center gap-2 text-primary hover:underline" prefetch={false}>
+            <Link href="/cenik" className="hidden md:inline-flex items-center gap-2 text-primary hover:underline" prefetch={true} aria-label="Přejít na ceník">
               Ceník a kalkulace <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
@@ -186,7 +188,14 @@ export default function Home() {
                 className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
               >
                 <div className="relative">
-                  <img src={p.img} alt={p.title} className="aspect-video w-full object-cover" />
+                  <Image
+                    src={p.img}
+                    alt={p.title}
+                    width={600}
+                    height={400}
+                    className="aspect-video w-full object-cover"
+                    priority={i === 0}
+                  />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
                 <div className="p-5">
