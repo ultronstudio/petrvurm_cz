@@ -3,9 +3,10 @@
 import { useMemo, useState } from "react";
 import { Card } from "@radix-ui/themes";
 import { motion } from "framer-motion";
+import { BASE_HOURLY_RATE, calculatePrice as calculateWithCoefficient } from "@/lib/pricing";
 
 // ====== KONSTANTY / NASTAVENÍ ======
-const HOURLY = 350; // Kč/h – základní sazba
+const HOURLY = BASE_HOURLY_RATE; // Kč/h – základní sazba
 
 // Typy
 type ServiceType = "main" | "additional";
@@ -212,11 +213,10 @@ export default function KalkulackaWeb() {
   };
 
   // získá cenu pro položku – pokud má odhad hodin, počítá je podle hodinové sazby
-  const getItemPrice = (item: CenikItem) => {
-    if (item.estHours) {
-      return item.estHours * HOURLY;
-    }
-    return item.price;
+  // a zároveň se aplikuje centrální globální koeficient cen
+  const getItemPrice = (item: CenikItem): number => {
+    const raw = item.estHours ? item.estHours * HOURLY : item.price;
+    return calculateWithCoefficient(raw);
   };
 
   const calculatePrice = () =>

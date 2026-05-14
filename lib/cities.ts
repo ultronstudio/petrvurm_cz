@@ -1,6 +1,7 @@
 import { MANUAL_CITIES_CONFIG } from './cities-config';
 import { STATIC_TOWNS } from './towns';
 import { DEFAULT_CITY_SERVICES } from './services';
+import { DEFAULT_DISTANCE_COEFFICIENT } from './pricing';
 
 // ===== CITY CONFIGURATION =====
 export type CityConfig = {
@@ -50,7 +51,7 @@ function buildCitiesIndex(): Record<string, CityConfig> {
       index[slug] = {
         name: townName,
         slug: slug,
-        priceCoefficient: 1.0,
+        priceCoefficient: DEFAULT_DISTANCE_COEFFICIENT,
         allowedServices: DEFAULT_CITY_SERVICES,
       };
     }

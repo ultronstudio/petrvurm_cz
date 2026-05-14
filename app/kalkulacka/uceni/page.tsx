@@ -2,9 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { Card } from "@radix-ui/themes";
+import { BASE_HOURLY_RATE, calculatePrice } from "@/lib/pricing";
 
 // ===== Konfigurace =====
-const HOURLY = 350; // Kč/h – základní sazba pro položky na hodinu
+const HOURLY = BASE_HOURLY_RATE; // Kč/h – základní sazba pro položky na hodinu
 
 // ===== Typy & helpery =====
 type ItemType = "doucovani" | "skoleni" | "kurz";
@@ -27,11 +28,11 @@ function formatNumber(n: number, opt: Intl.NumberFormatOptions = {}) {
 }
 
 // vrátí cenu za jednu jednotku položky (dynamicky používá HOURLY pro hodinu
-// a bere v úvahu volitelný násobič)
+// a bere v úvahu volitelný násobič a centrální koeficient inflace)
 function getUnitPrice(item: CenikItem) {
   const base = item.pricePerWhat === "hod" ? HOURLY : item.basePrice;
   const mult = item.priceMultiplier ?? 1;
-  return base * mult;
+  return calculatePrice(Math.round(base * mult));
 }
 
 const UNIT_LABEL: Record<Unit, { single: string; plural: string }> = {

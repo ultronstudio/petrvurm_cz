@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card } from "@radix-ui/themes";
 import { ArrowRight, Check, Code, Lightbulb, Headphones, Monitor } from "lucide-react";
+import { BASE_HOURLY_RATE, BASE_PROJECT_RATES, calculatePrice, formatPrice } from "@/lib/pricing";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -16,20 +17,20 @@ export default function Cenik() {
       category: "Webové služby",
       icon: Monitor,
       items: [
-        { name: "Jednoduchý web", price: "3 500 Kč", description: "Jednostránkový web, prezentace" },
-        { name: "Standardní web", price: "8 000 Kč", description: "5-10 stran, CMS, SEO" },
-        { name: "E-shop", price: "15 000 Kč+", description: "Online obchod s katalogem, platby" },
-        { name: "Webová aplikace", price: "od 30 000 Kč", description: "Komplexní řešení, databáze, API" },
+        { name: "Jednoduchý web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.simpleWeb)), description: "Jednostránkový web, prezentace" },
+        { name: "Standardní web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.standardWeb)), description: "5-10 stran, CMS, SEO" },
+        { name: "E-shop", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.shop)) + "+", description: "Online obchod s katalogem, platby" },
+        { name: "Webová aplikace", price: `od ${formatPrice(calculatePrice(BASE_PROJECT_RATES.webApp))}`, description: "Komplexní řešení, databáze, API" },
       ]
     },
     {
       category: "IT Služby",
       icon: Headphones,
       items: [
-        { name: "Mesh Wi-Fi", price: "1 500 Kč+", description: "Instalace, bez vrtání" },
-        { name: "Tiskárny & TV", price: "800 Kč", description: "Připojení, konfigurace" },
-        { name: "IT Konzultace", price: "350 Kč/h", description: "Online nebo osobně" },
-        { name: "Správa serveru", price: "2 000 Kč/m", description: "Monitoring, zálohy, bezpečnost" },
+        { name: "Mesh Wi-Fi", price: formatPrice(calculatePrice(1500)) + "+", description: "Instalace, bez vrtání" },
+        { name: "Tiskárny & TV", price: formatPrice(calculatePrice(800)), description: "Připojení, konfigurace" },
+        { name: "IT Konzultace", price: `${formatPrice(calculatePrice(BASE_HOURLY_RATE))} / h`, description: "Online nebo osobně" },
+        { name: "Správa serveru", price: `${formatPrice(calculatePrice(2000))} / m`, description: "Monitoring, zálohy, bezpečnost" },
       ]
     },
     {
@@ -107,6 +108,19 @@ export default function Cenik() {
             </motion.div>
           ))}
         </div>
+
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Aktualizovaná cena</h2>
+          <p className="text-white/80">
+            Ceny jsou vypočtené s globálním koeficientem ceny a hodinovou sazbou. Pokud se změní inflace nebo sazba, upraví se centrálně v konfiguraci.
+          </p>
+        </motion.section>
 
         {/* FEATURES */}
         <motion.section

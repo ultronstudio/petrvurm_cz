@@ -11,6 +11,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { Service, CityConfig } from '@/site.config';
+import { calculatePrice, formatPrice } from '@/lib/pricing';
 
 interface CityServicesClientProps {
   city: string;
@@ -27,10 +28,9 @@ const iconMap: Record<string, React.ReactNode> = {
   default: <House className="h-6 w-6 text-[#00B7EF]" />,
 };
 
-// Počítání ceny s koeficientem vzdálenosti
+// Počítání ceny s koeficientem vzdálenosti a globálním inflačním koeficientem
 function getPriceWithCoefficient(basePrice: number, coefficient: number): string {
-  const finalPrice = Math.round(basePrice * coefficient);
-  return `${finalPrice} Kč`;
+  return formatPrice(calculatePrice(basePrice, coefficient));
 }
 
 export const CityServicesClient: React.FC<CityServicesClientProps> = ({
@@ -50,9 +50,14 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
             Rychle, bez zednického nepořádku a s jasnou cenou. Jsem váš místní IT
             soused a vyřeším vaše potíže ještě dnes.
           </p>
+          {cityConfig && cityConfig.priceCoefficient === 1.0 && (
+            <p className="text-sm text-gray-400 mb-4">
+              *Základní cena pro sousední obce jako Tůně, Nechanice a blízké okolí.
+            </p>
+          )}
           {cityConfig && cityConfig.priceCoefficient > 1.0 && (
             <p className="text-sm text-gray-400 mb-4">
-              *Ceny zahrnují příplatek za vzdálenost ({Math.round((cityConfig.priceCoefficient - 1) * 100)}%)
+              *Ceny zahrnují příplatek za vzdálenost ({Math.round((cityConfig.priceCoefficient - 1) * 100)} %).
             </p>
           )}
         </div>
@@ -64,9 +69,18 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
           <h2 className="text-3xl font-bold text-center mb-12 text-white">S čím vám pomohu</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((svc: { basePrice: number; basePriceText: string | string[]; id: React.Key | null | undefined; category: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => {
-              const displayPrice = cityConfig 
+              const displayPrice = cityConfig
                 ? getPriceWithCoefficient(svc.basePrice, cityConfig.priceCoefficient)
-                : svc.basePriceText;
+                : typeof svc.basePriceText === 'string'
+                ? svc.basePriceText
+                : Array.isArray(svc.basePriceText)
+                ? svc.basePriceText.join(' ')
+                : '';
+              const priceUnit = typeof svc.basePriceText === 'string' && svc.basePriceText.includes('/ h')
+                ? 'hodinu'
+                : typeof svc.basePriceText === 'string' && svc.basePriceText.includes('/ m')
+                ? 'měsíc'
+                : 'službu';
               
               return (
                 <div
@@ -81,7 +95,7 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
                     {svc.description}
                   </p>
                   <div className="pt-4 border-t border-gray-700">
-                    <span className="font-bold text-white">{displayPrice}</span>&nbsp;/&nbsp;{svc.basePriceText.includes('/ h') ? 'hodinu' : 'službu'}
+                    <span className="font-bold text-white">{displayPrice}</span>&nbsp;/&nbsp;{priceUnit}
                   </div>
                 </div>
               );
