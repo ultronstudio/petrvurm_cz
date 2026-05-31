@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, ArrowRight } from "lucide-react";
 
+/**
+ * @deprecated Tento komponent už není využíván a bude (snad) odstraněn v budoucnu.
+ */
 export default function StickyCtaFooter() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);

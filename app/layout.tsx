@@ -3,7 +3,6 @@ import "./globals.css";
 import { Theme, Container, Section } from "@radix-ui/themes";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import StickyCtaFooter from "@/components/StickyCtaFooter";
 
 export const metadata: Metadata = {
   title: "Petr Vurm",
@@ -38,7 +37,6 @@ export default function RootLayout({
           <div className="mt-[64px] flex flex-col min-h-screen bg-background text-foreground">
             <main className="flex-1">{children}</main>
           </div>
-          <StickyCtaFooter />
           <Footer />
         </Theme>
       </body>
