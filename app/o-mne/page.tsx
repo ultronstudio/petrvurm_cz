@@ -25,22 +25,25 @@ import {
 
 function getAge() {
   const today = new Date();
-  const birthDate = new Date(2005, 9, 25); // 0‑based měsíc → 9 = říjen
+  const birthDate = new Date(2005, 9, 25); // 0-based měsíc → 9 = říjen
   const diff = today.getTime() - birthDate.getTime();
   const years = Math.floor(diff / (365.25 * 24 * 60 * 60 * 1000));
   return years;
 }
 
 function getFakeTubeAge() {
-  // Oprava: měsíc je 0‑based → 11 = prosinec
+  // Oprava: měsíc je 0-based → 11 = prosinec
   const created = new Date(2020, 11, 28);
   const today = new Date();
+
   let years = today.getFullYear() - created.getFullYear();
   let months = today.getMonth() - created.getMonth();
+
   if (months < 0) {
     years -= 1;
     months += 12;
   }
+
   return { years, months };
 }
 
@@ -65,15 +68,33 @@ const techs = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      delay: i * 0.06,
+    },
+  }),
 };
 
 export default function OMne() {
   const age = getAge();
   const { years, months } = getFakeTubeAge();
 
-  const yearsLabel = years === 1 ? "1 rok" : years > 1 && years < 5 ? `${years} roky` : `${years} let`;
-  const monthsLabel = months === 1 ? "1 měsíc" : months > 1 && months < 5 ? `${months} měsíce` : `${months} měsíců`;
+  const yearsLabel =
+    years === 1
+      ? "1 rok"
+      : years > 1 && years < 5
+        ? `${years} roky`
+        : `${years} let`;
+
+  const monthsLabel =
+    months === 1
+      ? "1 měsíc"
+      : months > 1 && months < 5
+        ? `${months} měsíce`
+        : `${months} měsíců`;
 
   // const avatarImage = "/images/portrait.jpg"; // produkce
   const avatarImage = null; // vývoj
@@ -87,30 +108,59 @@ export default function OMne() {
         {/* HERO */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
           <div>
-            <motion.h1 variants={fadeUp} initial="hidden" animate="show" className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            <motion.h1
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              className="text-3xl font-extrabold tracking-tight md:text-5xl"
+            >
               O mně
             </motion.h1>
-            <motion.p variants={fadeUp} custom={1} initial="hidden" animate="show" className="mt-3 text-white/80 text-sm md:text-base leading-7">
-              Jmenuji se Petr Vurm. Je mi {age} let a působím jako full‑stack vývojář webových aplikací. Kombinuji
-              moderní frontendové technologie s robustním backendem a dbám na čistý kód, bezpečnost a udržitelnost.
+
+            <motion.p
+              variants={fadeUp}
+              custom={1}
+              initial="hidden"
+              animate="show"
+              className="mt-3 text-sm leading-7 text-white/80 md:text-base"
+            >
+              Jmenuji se Petr Vurm. Je mi {age} let a působím jako full-stack
+              vývojář webových aplikací. Kombinuji moderní frontendové
+              technologie s robustním backendem a dbám na čistý kód, bezpečnost
+              a udržitelnost.
             </motion.p>
 
             {/* KPI karty */}
-            <motion.div variants={fadeUp} custom={2} initial="hidden" animate="show" className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <motion.div
+              variants={fadeUp}
+              custom={2}
+              initial="hidden"
+              animate="show"
+              className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4"
+            >
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">{years + (months > 0 ? 1 : 0)}+</div>
+                <div className="text-3xl font-extrabold text-primary">
+                  {years + (months > 0 ? 1 : 0)}+
+                </div>
                 <div className="text-xs text-white/70">let praxe s weby</div>
               </Card>
+
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">{yearsLabel}</div>
+                <div className="text-3xl font-extrabold text-primary">
+                  {yearsLabel}
+                </div>
                 <div className="text-xs text-white/70">vývoje FakeTube</div>
               </Card>
+
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
                 <div className="text-3xl font-extrabold text-primary">10+</div>
                 <div className="text-xs text-white/70">menších projektů</div>
               </Card>
+
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">24/7</div>
+                <div className="text-3xl font-extrabold text-primary">
+                  24/7
+                </div>
                 <div className="text-xs text-white/70">důraz na provoz</div>
               </Card>
             </motion.div>
@@ -128,70 +178,153 @@ export default function OMne() {
         </div>
 
         {/* STORY */}
-        <motion.div className="mt-10 grid gap-6 md:grid-cols-2" variants={fadeUp} initial="hidden" animate="show">
+        <motion.div
+          className="mt-10 grid gap-6 md:grid-cols-2"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
           <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h2 className="flex items-center gap-2 text-xl font-semibold"><Clock className="h-5 w-5 text-primary"/> Jak to začalo</h2>
-            <p className="mt-3 text-white/80 leading-7">
-              S webem jsem začal v roce 2017 v kroužku tvorby webových stránek. Po jeho zrušení jsem se učil samostatně –
-              od HTML a CSS přes JavaScript až k vývoji aplikací. Během pandemie jsem díky darovanému notebooku mohl
-              pokračovat v online výuce a po škole programovat. První aplikací byl jednoduchý blog.
+            <h2 className="flex items-center gap-2 text-xl font-semibold">
+              <Clock className="h-5 w-5 text-primary" />
+              Jak to začalo
+            </h2>
+
+            <p className="mt-3 leading-7 text-white/80">
+              S webem jsem začal v roce 2017 v kroužku tvorby webových
+              stránek. Po jeho zrušení jsem se učil samostatně – od HTML a CSS
+              přes JavaScript až k vývoji aplikací. Během pandemie jsem díky
+              darovanému notebooku mohl pokračovat v online výuce a po škole
+              programovat. První aplikací byl jednoduchý blog.
             </p>
           </Card>
+
           <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h2 className="flex items-center gap-2 text-xl font-semibold"><Briefcase className="h-5 w-5 text-primary"/> Čemu se věnuji nyní</h2>
-            <p className="mt-3 text-white/80 leading-7">
-              Zaměřuji se na vývoj webových aplikací a služeb s důrazem na výkon a bezpečnost. Můj největší projekt je
-              česká video platforma <strong>FakeTube</strong>, na které pracuji {yearsLabel} a {monthsLabel}. Na střední škole jsem založil tým
-              <Link className="text-primary hover:underline ml-1" href="https://sspt.petrvurm.cz" target="_blank" rel="noopener">ŠSPT</Link>,
-              kde vyvíjíme software pro školu a školní akce.
+            <h2 className="flex items-center gap-2 text-xl font-semibold">
+              <Briefcase className="h-5 w-5 text-primary" />
+              Čemu se věnuji nyní
+            </h2>
+
+            <p className="mt-3 leading-7 text-white/80">
+              Zaměřuji se na vývoj webových aplikací a služeb s důrazem na
+              výkon a bezpečnost. Můj největší projekt je česká video platforma{" "}
+              <strong>FakeTube</strong>, na které pracuji {yearsLabel} a{" "}
+              {monthsLabel}. Na střední škole jsem založil tým
+              <Link
+                className="ml-1 text-primary hover:underline"
+                href="https://sspt.petrvurm.cz"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ŠSPT
+              </Link>
+              , kde vyvíjíme software pro školu a školní akce.
             </p>
           </Card>
         </motion.div>
 
         {/* EDUCATION & CERTS */}
-        <motion.div className="mt-10 grid gap-6 md:grid-cols-3" variants={fadeUp} initial="hidden" animate="show">
+        <motion.div
+          className="mt-10 grid gap-6 md:grid-cols-3"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
           <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h3 className="flex items-center gap-2 text-lg font-semibold"><GraduationCap className="h-5 w-5 text-primary"/> Vzdělání</h3>
+            <h3 className="flex items-center gap-2 text-lg font-semibold">
+              <GraduationCap className="h-5 w-5 text-primary" />
+              Vzdělání
+            </h3>
+
             <ul className="mt-3 space-y-3 text-sm">
               <li>
-                <div className="font-medium">SPŠ, SOŠ a SOU Hradec Králové</div>
-                <div className="text-white/70">2021 – dosud • Informační technologie</div>
-                <Link href="https://www.hradebni.cz" className="text-primary hover:underline" target="_blank">Navštívit web</Link>
+                <div className="font-medium">
+                  SPŠ, SOŠ a SOU Hradec Králové
+                </div>
+                <div className="text-white/70">
+                  2021 – dosud • Informační technologie
+                </div>
+                <Link
+                  href="https://www.hradebni.cz"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Navštívit web
+                </Link>
               </li>
+
               <li>
                 <div className="font-medium">ZŠ a MŠ Nechanice</div>
-                <div className="text-white/70">2012 – 2021 • Všeobecné vzdělání</div>
-                <Link href="https://www.zsnechanice.cz" className="text-primary hover:underline" target="_blank">Navštívit web</Link>
+                <div className="text-white/70">
+                  2012 – 2021 • Všeobecné vzdělání
+                </div>
+                <Link
+                  href="https://www.zsnechanice.cz"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Navštívit web
+                </Link>
               </li>
             </ul>
           </Card>
 
           <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur md:col-span-2">
-            <h3 className="flex items-center gap-2 text-lg font-semibold"><Award className="h-5 w-5 text-primary"/> Certifikáty</h3>
-            
+            <h3 className="flex items-center gap-2 text-lg font-semibold">
+              <Award className="h-5 w-5 text-primary" />
+              Certifikáty
+            </h3>
+
             {/* Ostatní certifikáty */}
             <ul className="mt-3 space-y-3 text-sm">
               <li>
                 <div className="font-medium">DofE – bronzová úroveň</div>
-                <div className="text-white/70">Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE ČR</div>
-                <Link href="/docs/certificates/dofe/bronze.pdf" className="text-primary hover:underline" target="_blank">Zobrazit certifikát</Link>
+                <div className="text-white/70">
+                  Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE
+                  ČR
+                </div>
+                <Link
+                  href="/docs/certificates/dofe/bronze.pdf"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Zobrazit certifikát
+                </Link>
               </li>
             </ul>
 
             {/* Odborné certifikáty */}
-            <ul className="mt-6 space-y-3 text-sm"></ul>
+            <ul className="mt-6 space-y-3 text-sm">
               <li>
                 <div className="font-medium">JavaScript Essentials 1</div>
-                <div className="text-white/70">Uděleno a splněno 8. 6. 2026 • Cisco Networking Academy</div>
-                <Link href="/docs/certificates/cisco/javascript-essentials-1.pdf" className="text-primary hover:underline" target="_blank">Zobrazit certifikát</Link>
+                <div className="text-white/70">
+                  Uděleno a splněno 8. 6. 2026 • Cisco Networking Academy
+                </div>
+                <Link
+                  href="/docs/certificates/cisco/javascript-essentials-1.pdf"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Zobrazit certifikát
+                </Link>
               </li>
             </ul>
           </Card>
         </motion.div>
 
         {/* TECH STACK */}
-        <motion.div className="mt-10" variants={fadeUp} initial="hidden" animate="show">
+        <motion.div
+          className="mt-10"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
           <h2 className="text-2xl font-bold">Technologie, které používám</h2>
+
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {techs.map(({ name, color, text, Icon }) => (
               <span
@@ -199,7 +332,9 @@ export default function OMne() {
                 className="inline-flex items-center gap-2 rounded-md px-2.5 py-1.5 text-xs font-semibold ring-1 ring-white/20"
                 style={{ backgroundColor: color, color: text }}
               >
-                {Icon ? <Icon className="h-4 w-4" style={{ fill: text }} /> : null}
+                {Icon ? (
+                  <Icon className="h-4 w-4" style={{ fill: text }} />
+                ) : null}
                 {name}
               </span>
             ))}
@@ -207,13 +342,28 @@ export default function OMne() {
         </motion.div>
 
         {/* CTA */}
-        <motion.div className="mt-12" variants={fadeUp} initial="hidden" animate="show">
+        <motion.div
+          className="mt-12"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+        >
           <Card className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur md:flex-row md:text-left">
             <div>
-              <h3 className="text-lg font-semibold">Hledáte spolehlivého vývojáře?</h3>
-              <p className="text-sm text-white/80">Krátká konzultace pomůže upřesnit rozsah, milníky a rozpočet.</p>
+              <h3 className="text-lg font-semibold">
+                Hledáte spolehlivého vývojáře?
+              </h3>
+              <p className="text-sm text-white/80">
+                Krátká konzultace pomůže upřesnit rozsah, milníky a rozpočet.
+              </p>
             </div>
-            <Link href="/kontakt" className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-primary/90">Nezávazně mě kontaktovat</Link>
+
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-primary/90"
+            >
+              Nezávazně mě kontaktovat
+            </Link>
           </Card>
         </motion.div>
       </div>
