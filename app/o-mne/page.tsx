@@ -168,11 +168,22 @@ export default function OMne() {
 
           <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur md:col-span-2">
             <h3 className="flex items-center gap-2 text-lg font-semibold"><Award className="h-5 w-5 text-primary"/> Certifikáty</h3>
+            
+            {/* Ostatní certifikáty */}
             <ul className="mt-3 space-y-3 text-sm">
               <li>
                 <div className="font-medium">DofE – bronzová úroveň</div>
                 <div className="text-white/70">Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE ČR</div>
                 <Link href="/docs/certificates/dofe/bronze.pdf" className="text-primary hover:underline" target="_blank">Zobrazit certifikát</Link>
+              </li>
+            </ul>
+
+            {/* Odborné certifikáty */}
+            <ul className="mt-6 space-y-3 text-sm"></ul>
+              <li>
+                <div className="font-medium">JavaScript Essentials 1</div>
+                <div className="text-white/70">Uděleno a splněno 8. 6. 2026 • Cisco Networking Academy</div>
+                <Link href="/docs/certificates/cisco/javascript-essentials-1.pdf" className="text-primary hover:underline" target="_blank">Zobrazit certifikát</Link>
               </li>
             </ul>
           </Card>
