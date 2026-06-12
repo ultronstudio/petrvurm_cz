@@ -299,6 +299,20 @@ export default function OMne() {
             {/* Odborné certifikáty */}
             <ul className="mt-6 space-y-3 text-sm">
               <li>
+                <div className="font-medium">Network Technician Career Path</div>
+                <div className="text-white/70">
+                  Uděleno a splněno 12. 6. 2026 • Cisco Networking Academy
+                </div>
+                <Link
+                  href="/docs/certificates/cisco/network-technician-career-path.pdf"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Zobrazit certifikát
+                </Link>
+              </li>
+              <li>
                 <div className="font-medium">JavaScript Essentials 1</div>
                 <div className="text-white/70">
                   Uděleno a splněno 8. 6. 2026 • Cisco Networking Academy
