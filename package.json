@@ -25,7 +25,6 @@
     "marked-shiki": "^1.1.0",
     "next": "15.1.11",
     "next-intl": "^3.17.2",
-    "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "remark": "^15.0.1",
