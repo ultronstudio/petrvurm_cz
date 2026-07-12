@@ -23,6 +23,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs">
+      <head>
+        {/* Google AdSense site-ownership verification for petrvurm.cz —
+            root-domain verification covers subdomains too (duhovka-dev./
+            duhovka.petrvurm.cz), so this only needs to exist here. */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244196393603152"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className="p-[0.01px] bg-[#111113]">
         <Theme
           appearance="dark"
