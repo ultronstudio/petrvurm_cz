@@ -96,8 +96,7 @@ export default function OMne() {
         ? `${months} měsíce`
         : `${months} měsíců`;
 
-  // const avatarImage = "/images/portrait.jpg"; // produkce
-  const avatarImage = null; // vývoj
+  const avatarImage = "/images/me/cro_inverview.webp";
 
   return (
     <section className="relative py-12">
@@ -173,7 +172,7 @@ export default function OMne() {
             transition={{ duration: 0.5 }}
             src={avatarImage || "https://www.gravatar.com/avatar/?d=mp&s=360"}
             alt="Petr Vurm"
-            className="mx-auto aspect-[3/4] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/10 object-cover shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+            className="mx-auto aspect-[3/4] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/10 object-cover"
           />
         </div>
 
@@ -206,19 +205,8 @@ export default function OMne() {
             </h2>
 
             <p className="mt-3 leading-7 text-white/80">
-              Zaměřuji se na vývoj webových aplikací a služeb s důrazem na
-              výkon a bezpečnost. Můj největší projekt je česká video platforma{" "}
-              <strong>FakeTube</strong>, na které pracuji {yearsLabel} a{" "}
-              {monthsLabel}. Na střední škole jsem založil tým
-              <Link
-                className="ml-1 text-primary hover:underline"
-                href="https://sspt.petrvurm.cz"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ŠSPT
-              </Link>
-              , kde vyvíjíme software pro školu a školní akce.
+              Zaměřuji se na vývoj aplikací a služeb s důrazem na
+              výkon a bezpečnost.
             </p>
           </Card>
         </motion.div>
@@ -239,10 +227,27 @@ export default function OMne() {
             <ul className="mt-3 space-y-3 text-sm">
               <li>
                 <div className="font-medium">
+                  SPŠE a VOŠ Pardubice
+                </div>
+                <div className="text-white/70">
+                  2026 – 2027 • Informační technologie (vývoj aplikací)
+                </div>
+                <Link
+                  href="https://www.spse.cz/"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Navštívit web
+                </Link>
+              </li>
+
+              <li>
+                <div className="font-medium">
                   SPŠ, SOŠ a SOU Hradec Králové
                 </div>
                 <div className="text-white/70">
-                  2021 – dosud • Informační technologie
+                  2021 – 2026 • Informační technologie (všeobecné zaměření)
                 </div>
                 <Link
                   href="https://www.hradebni.cz"
@@ -374,7 +379,7 @@ export default function OMne() {
 
             <Link
               href="/kontakt"
-              className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-primary/90"
+              className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black hover:bg-primary/90"
             >
               Nezávazně mě kontaktovat
             </Link>

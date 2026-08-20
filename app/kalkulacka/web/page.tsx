@@ -278,10 +278,10 @@ export default function KalkulackaWeb() {
         <Card
           className={`p-6 rounded-2xl transition-all duration-300 transform cursor-pointer border backdrop-blur ${
             selected
-              ? "bg-primary text-black scale-[1.03] border-transparent shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+              ? "bg-primary text-black scale-[1.03] border-transparent"
               : blocked
               ? "opacity-50 cursor-not-allowed border-white/5"
-              : "hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:border-white/20"
+              : "hover:border-white/20"
           }`}
           onClick={() => !blocked && handleCardClick(item.title)}
         >
@@ -429,7 +429,7 @@ export default function KalkulackaWeb() {
           {selectedServices.length > 0 && (
             <a
               href={generateMailtoLink()}
-              className="transition-all duration-300 inline-flex items-center justify-center w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-black shadow-sm hover:bg-primary/80 focus:outline-none focus:ring-2 mt-3"
+              className="transition-all duration-300 inline-flex items-center justify-center w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-black hover:bg-primary/80 focus:outline-none focus:ring-2 mt-3"
             >
               Domluvit 15min konzultaci
             </a>
@@ -454,7 +454,7 @@ export default function KalkulackaWeb() {
             {selectedServices.length > 0 && (
               <a
                 href={generateMailtoLink()}
-                className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-black shadow-sm hover:bg-primary/80 focus:outline-none focus:ring-2"
+                className="transition-all duration-300 inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-black hover:bg-primary/80 focus:outline-none focus:ring-2"
               >
                 Domluvit konzultaci
               </a>

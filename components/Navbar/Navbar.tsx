@@ -48,7 +48,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 z-50 w-full transition-all ${
         scrolled
-          ? "backdrop-blur bg-[#0b0c0e]/70 shadow-[0_2px_20px_rgba(0,0,0,0.25)]"
+          ? "backdrop-blur bg-[#0b0c0e]/70"
           : "bg-transparent"
       }`}
       role="navigation"
@@ -94,7 +94,7 @@ export default function Navbar() {
           <Link
             href="/kontakt"
             prefetch={true}
-            className="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+            className="rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black transition hover:bg-primary/90"
           >
             Nezávazná konzultace
           </Link>

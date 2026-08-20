@@ -3,10 +3,11 @@ title: "FakeTube"
 description: "Česká sociální síť pro sdílení videí"
 previewImage: "/images/projekty/faketube.jpg"
 created: "20. prosince 2020"
-status: "<span style=\"color: #38b000;\">aktivní</span>"
+status: "<span style=\"color: #bfc000;\">dokončeno</span>"
 licence: "Všechna práva vyhrazena"
 ---
-FakeTube je online platforma, která umožňuje uživatelům sledovat videa a poslouchat hudbu, kterou mají rádi. Uživatelé mohou nahrávat originální obsah a sdílet ho s přáteli, rodinou a celým světem. Projekt je stále ve vývoji a některé funkce nemusí fungovat správně.
+
+FakeTube byla online platforma, která umožňovala uživatelům sledovat videa a poslouchat hudbu, kterou měli rádi. Uživatelé mohli nahrávat originální obsah a sdílet ho s přáteli, rodinou a celým světem.
 
 #### Hlavní funkce
 
@@ -19,6 +20,8 @@ FakeTube je online platforma, která umožňuje uživatelům sledovat videa a po
 FakeTube jsem založil v roce 2020, když mi bylo 14 let. Chtěl jsem vytvořit platformu, kde by se lidé mohli setkat, sdílet své zájmy a bavit se. Od té doby se snažím projekt neustále zdokonalovat a přidávat nové funkce.
 
 Od založení prošel FakeTube mnoha změnami a vylepšeními. Díky podpoře komunity se mi podařilo vytvořit platformu, která je oblíbená mezi uživateli a stále se rozvíjí.
+
+V roce 2026 jsem se rozhodl projekt ukončit, protože jsem si uvědomil, že konkurence s většími platformami je příliš silná a že FakeTube nedosahuje takové popularity, jakou bych si přál. I přes to, že projekt končí, jsem hrdý na to, co jsem dokázal vytvořit a na komunitu, kterou jsem vybudoval.
 
 ## Odkazy
 

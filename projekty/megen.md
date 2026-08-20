@@ -3,7 +3,7 @@ title: "MeGen"
 description: "Webová aplikace pro generování memů pomocí umělé inteligence."
 previewImage: "/images/projekty/megen.jpg"
 created: "12. března 2025"
-status: "<span style=\"color: #38b000;\">aktivní</span>"
+status: "<span style=\"color: #bfc000;\">dokončeno</span>"
 licence: "Všechna práva vyhrazena"
 ---
 
@@ -18,7 +18,3 @@ MeGen je webová aplikace, která využívá umělou inteligenci pro snadné gen
 ## Proč byl MeGen vytvořen?
 
 Cílem projektu MeGen je zpřístupnit vytváření memů širšímu publiku. Díky využití AI odpadá nutnost složité grafické úpravy, takže i uživatelé bez speciálních dovedností mohou vytvářet zábavný obsah pro sociální sítě.
-
-## Odkazy
-
-- [MeGen](https://megen.ai.petrvurm.cz/ "Navštivte MeGen")

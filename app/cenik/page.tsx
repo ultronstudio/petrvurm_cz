@@ -200,7 +200,7 @@ export default function Cenik() {
           </p>
           <Link
             href="/kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black shadow-[0_8px_30px_rgba(0,183,239,0.35)] transition hover:bg-primary/90"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black transition hover:bg-primary/90"
             prefetch={true}
           >
             Nezávazná konzultace <ArrowRight className="h-5 w-5" />

@@ -47,7 +47,7 @@ export default function Home() {
           >
             <Link
               href="/projekty"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(0,183,239,0.35)] transition hover:translate-y-[-1px] hover:bg-primary/90 focus:outline-none focus:ring-2"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-black transition hover:translate-y-[-1px] hover:bg-primary/90 focus:outline-none focus:ring-2"
               prefetch={true}
               aria-label="Zobrazit moje projekty"
             >
@@ -122,7 +122,7 @@ export default function Home() {
                 viewport={{ once: true, margin: "-80px" }}
                 custom={i}
               >
-                <Card className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition will-change-transform hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+                <Card className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition will-change-transform">
                   <div className="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 to-transparent opacity-0 transition group-hover:opacity-100" />
                   <div className="flex items-start gap-3">
                     <div className="rounded-lg bg-primary/20 p-2 text-primary">
@@ -204,7 +204,7 @@ export default function Home() {
                   <div className="mt-4">
                     <Link
                       href={p.href}
-                      className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+                      className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
                       prefetch={true}
                       aria-label={`Zobrazit detaily projektu ${p.title}`}
                     >
@@ -258,7 +258,7 @@ export default function Home() {
             </div>
             <Link
               href="/kontakt"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
               prefetch={true}
             >
               Domluvit konzultaci <ArrowRight className="h-4 w-4" />

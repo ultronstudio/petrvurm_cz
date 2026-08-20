@@ -165,7 +165,7 @@ export default function Projekty() {
               onClick={() => toggleTech(tech.name)}
               className={`group inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium ring-1 ring-inset transition ${
                 selectedTechs.includes(tech.name)
-                  ? "ring-white/60 shadow-[inset_0_0_0_9999px_rgba(255,255,255,0.18)]"
+                  ? "ring-white/60"
                   : "ring-white/20 hover:ring-white/40"
               }`}
               style={{ backgroundColor: tech.color, color: tech.text }}
@@ -225,7 +225,7 @@ export default function Projekty() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{ duration: 0.35, delay: idx * 0.03 }}
-                      className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-0 backdrop-blur hover:shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+                      className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-0 backdrop-blur"
                     >
                       <Link href={`/projekty/${project.slug}`} className="block group" prefetch={false}>
                         <div className="p-5">

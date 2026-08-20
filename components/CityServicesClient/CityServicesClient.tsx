@@ -85,7 +85,7 @@ export const CityServicesClient: React.FC<CityServicesClientProps> = ({
               return (
                 <div
                   key={svc.id}
-                  className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] hover:-translate-y-1 transition-all duration-300"
                 >
                   <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
                     {svc.category}

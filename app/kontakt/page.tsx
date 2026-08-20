@@ -58,7 +58,7 @@ export default function Kontakt() {
             <p className="mt-2 text-white/80">Nejlepší kanál pro prvotní poptávku a sdílení podkladů.</p>
             <a
               href="mailto:kontakt@petrvurm.cz?subject=Poptávka&body=Dobrý%20den%2C%20rád%20bych..."
-              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
             >
               Napsat e-mail
             </a>
@@ -74,7 +74,7 @@ export default function Kontakt() {
             </p>
             <a
               href="tel:+420777416611"
-              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
             >
               Zavolat mi
             </a>
@@ -94,7 +94,7 @@ export default function Kontakt() {
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
                 href="/kalkulacka/web"
-                className="inline-flex items-center rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+                className="inline-flex items-center rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black transition hover:bg-primary/90"
                 prefetch={false}
               >
                 Web – kalkulačka

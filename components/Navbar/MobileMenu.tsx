@@ -102,7 +102,7 @@ export default function MobileMenu({
               <Link
                 href="/kontakt"
                 prefetch={false}
-                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-black shadow-sm transition hover:bg-primary/90"
+                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-primary/90"
                 onClick={() => setMobileMenuOpened(false)}
               >
                 Nezávazná konzultace
