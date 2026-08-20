@@ -125,7 +125,7 @@ export default function OMne() {
             >
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
                 <div className="text-3xl font-extrabold text-primary">
-                  {years + (months > 0 ? 1 : 0)}+
+                  {years + (months > 0 ? 1 : 0)}
                 </div>
                 <div className="text-xs text-white/70">let praxe s weby</div>
               </Card>
@@ -254,25 +254,6 @@ export default function OMne() {
               Certifikáty
             </h3>
 
-            {/* Ostatní certifikáty */}
-            <ul className="mt-3 space-y-3 text-sm">
-              <li>
-                <div className="font-medium">DofE – bronzová úroveň</div>
-                <div className="text-white/70">
-                  Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE
-                  ČR
-                </div>
-                <Link
-                  href="/docs/certificates/dofe/bronze.pdf"
-                  className="text-primary hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Zobrazit certifikát
-                </Link>
-              </li>
-            </ul>
-
             {/* Odborné certifikáty */}
             <ul className="mt-6 space-y-3 text-sm">
               <li>
@@ -296,6 +277,25 @@ export default function OMne() {
                 </div>
                 <Link
                   href="/docs/certificates/cisco/javascript-essentials-1.pdf"
+                  className="text-primary hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Zobrazit certifikát
+                </Link>
+              </li>
+            </ul>
+
+            {/* Ostatní certifikáty */}
+            <ul className="mt-3 space-y-3 text-sm">
+              <li>
+                <div className="font-medium">DofE – bronzová úroveň</div>
+                <div className="text-white/70">
+                  Uděleno 13. 2. 2025 (splněno 20. 11. 2024) • Organizace DofE
+                  ČR
+                </div>
+                <Link
+                  href="/docs/certificates/dofe/bronze.pdf"
                   className="text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
