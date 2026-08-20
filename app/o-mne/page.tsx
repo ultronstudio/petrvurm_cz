@@ -33,7 +33,7 @@ function getAge() {
 
 function getFakeTubeAge() {
   // Oprava: měsíc je 0-based → 11 = prosinec
-  const created = new Date(2020, 11, 28);
+  const created = new Date(2016, 11, 28);
   const today = new Date();
 
   let years = today.getFullYear() - created.getFullYear();
@@ -81,20 +81,6 @@ const fadeUp = {
 export default function OMne() {
   const age = getAge();
   const { years, months } = getFakeTubeAge();
-
-  const yearsLabel =
-    years === 1
-      ? "1 rok"
-      : years > 1 && years < 5
-        ? `${years} roky`
-        : `${years} let`;
-
-  const monthsLabel =
-    months === 1
-      ? "1 měsíc"
-      : months > 1 && months < 5
-        ? `${months} měsíce`
-        : `${months} měsíců`;
 
   const avatarImage = "/images/me/cro_inverview.webp";
 
@@ -145,22 +131,8 @@ export default function OMne() {
               </Card>
 
               <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">
-                  {yearsLabel}
-                </div>
-                <div className="text-xs text-white/70">vývoje FakeTube</div>
-              </Card>
-
-              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">10+</div>
-                <div className="text-xs text-white/70">menších projektů</div>
-              </Card>
-
-              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">
-                  24/7
-                </div>
-                <div className="text-xs text-white/70">důraz na provoz</div>
+                <div className="text-3xl font-extrabold text-primary">40+</div>
+                <div className="text-xs text-white/70">projektů</div>
               </Card>
             </motion.div>
           </div>
