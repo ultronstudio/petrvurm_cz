@@ -82,7 +82,7 @@ export default function OMne() {
   const age = getAge();
   const { years, months } = getFakeTubeAge();
 
-  const avatarImage = "/images/me/cro_inverview.webp";
+  const avatarImage = "/images/me/cro_interview.webp";
 
   return (
     <section className="relative py-12">
