@@ -1,5 +1,6 @@
 "use client";
 
+import { getAge, getFakeTubeAge } from "@/lib/ages";
 import Image from "next/image";
 import { Card } from "@radix-ui/themes";
 import Link from "next/link";
@@ -223,8 +224,8 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl px-4 md:px-6">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {[
-              { value: "8+", label: "Dokončených projektů" },
-              { value: "5+", label: "Let zkušeností" },
+              { value: "40+", label: "Dokončených projektů" },
+              { value: `${getFakeTubeAge().years + (getFakeTubeAge().months > 0 ? 1 : 0)}+`, label: "Let zkušeností" },
               { value: "100%", label: "Spokojení klienti" },
               { value: "24h", label: "Odpověď na zprávu" }
             ].map(({ value, label }, i) => (

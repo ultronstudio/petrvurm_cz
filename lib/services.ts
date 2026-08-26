@@ -29,8 +29,8 @@ export const ALL_SERVICES: Record<string, Service> = {
     id: 'it_konzultace',
     title: 'Online IT a technologické konzultace',
     description: 'Pomoc s výběrem podnikového softwaru, návrh architektury nebo zrychlení stávajících procesů.',
-    basePrice: 350,
-    basePriceText: '350 Kč / h',
+    basePrice: 500,
+    basePriceText: '500 Kč / h',
     category: 'Online služby',
   }
 };
