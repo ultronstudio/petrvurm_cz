@@ -91,6 +91,7 @@ export default function OMne() {
               technologie s robustním backendem a dbám na čistý kód, bezpečnost
               a udržitelnost.
             </motion.p>
+          </div>
 
           {/* PORTRAIT */}
           <motion.img
