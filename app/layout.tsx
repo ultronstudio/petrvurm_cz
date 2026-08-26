@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cs">
+    <html lang="cs" suppressHydrationWarning>
       <head>
         {/* Google AdSense site-ownership verification for petrvurm.cz —
             root-domain verification covers subdomains too (duhovka-dev./
