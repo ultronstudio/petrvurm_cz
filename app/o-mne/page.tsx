@@ -92,28 +92,6 @@ export default function OMne() {
               a udržitelnost.
             </motion.p>
 
-            {/* KPI karty */}
-            <motion.div
-              variants={fadeUp}
-              custom={2}
-              initial="hidden"
-              animate="show"
-              className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4"
-            >
-              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">
-                  {years + (months > 0 ? 1 : 0)}
-                </div>
-                <div className="text-xs text-white/70">let praxe s weby</div>
-              </Card>
-
-              <Card className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold text-primary">40+</div>
-                <div className="text-xs text-white/70">projektů</div>
-              </Card>
-            </motion.div>
-          </div>
-
           {/* PORTRAIT */}
           <motion.img
             initial={{ opacity: 0, y: 12 }}
