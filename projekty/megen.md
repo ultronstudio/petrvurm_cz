@@ -7,21 +7,13 @@ status: "Dokončeno"
 licence: "Všechna práva vyhrazena"
 ---
 
-## Projekt
+MeGen je webová aplikace pro generování memů z textu a obrázků pomocí generativního modelu.
 
-MeGen je webová aplikace pro tvorbu memů ze zadaných textů a obrázků s využitím modelu umělé inteligence.
+Uživatel zadá podklady a aplikace z nich vytvoří výsledný obrázek. Projekt vznikl jako praktický pokus s napojením generativního modelu do běžné webové aplikace.
 
-## Cíl
+## Funkce
 
-Zjednodušit tvorbu memů lidem, kteří nechtějí řešit ruční grafickou úpravu.
-
-## Řešení
-
-Aplikace spojuje jednoduchý vstup uživatele s generováním výsledného obsahu a možností jeho dalšího sdílení.
-
-## Co projekt ukazuje
-
-- integraci generativního modelu do webové aplikace,
-- návrh jednoduchého uživatelského toku,
-- práci s textovým a obrazovým vstupem,
-- propojení generování obsahu s webovým rozhraním.
+- textový a obrazový vstup,
+- generování výsledného obrázku,
+- jednoduché webové rozhraní,
+- možnost dalšího sdílení výsledku.

@@ -1,29 +1,19 @@
 ---
 title: "Ivan"
-description: "Nástroj pro zjednodušení tvorby zasedacího pořádku celostátní matematické soutěže"
+description: "Nástroj pro přípravu zasedacího pořádku celostátní matematické soutěže"
 previewImage: "/images/projekty/sspt-ivan.jpg"
 created: "1. září 2023"
 status: "Dokončeno"
 licence: "Všechna práva vyhrazena"
 ---
 
-## Projekt
+Ivan vznikl v roce 2023 v rámci školního studentského programátorského týmu na SPŠ, SOŠ a SOU Hradec Králové.
 
-Ivan je nástroj vytvořený v roce 2023 v rámci školního studentského programátorského týmu na SPŠ, SOŠ a SOU Hradec Králové.
+Program sloužil k přípravě zasedacího pořádku celostátní matematické soutěže. Měl organizátorům ušetřit část ruční práce při rozesazování účastníků.
 
-## Cíl
+## Technologie
 
-Zjednodušit organizátorům celostátní matematické soutěže přípravu zasedacího pořádku a snížit množství ruční organizační práce.
-
-## Řešení
-
-Místo obecného nástroje vznikla aplikace zaměřená na konkrétní proces soutěže a práci s daty potřebnými pro rozesazení účastníků.
-
-## Co projekt ukazuje
-
-- převod konkrétního organizačního procesu do softwaru,
-- práci v malém vývojovém týmu,
-- návrh aplikační logiky a práci s daty.
+C#, .NET a MariaDB.
 
 ## Autoři
 

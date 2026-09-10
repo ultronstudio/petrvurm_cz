@@ -11,14 +11,14 @@ export const metadata: Metadata = {
     default: 'Petr Vurm – tvorba webů a webových aplikací',
     template: '%s | Petr Vurm',
   },
-  description: 'Navrhuji a vyvíjím firemní weby, webové aplikace a software na míru pro firmy, živnostníky a startupy.',
+  description: 'Petr Vurm – webový vývojář. Tvorba webových stránek, webových aplikací a softwaru na míru.',
   openGraph: {
     type: 'website',
     locale: 'cs_CZ',
     url: SITE_URL,
     siteName: 'Petr Vurm',
     title: 'Petr Vurm – tvorba webů a webových aplikací',
-    description: 'Firemní weby, webové aplikace a software na míru s důrazem na udržitelnost, bezpečnost a další rozvoj.',
+    description: 'Webové stránky, webové aplikace a software na míru.',
   },
 };
 

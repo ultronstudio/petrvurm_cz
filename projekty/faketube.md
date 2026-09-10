@@ -1,35 +1,29 @@
 ---
 title: "FakeTube"
-description: "Vlastní video platforma pro nahrávání, sledování a sdílení obsahu"
+description: "Vlastní video platforma pro nahrávání a sledování videí"
 previewImage: "/images/projekty/faketube.jpg"
 created: "20. prosince 2020"
 status: "Ukončeno v roce 2026"
 licence: "Všechna práva vyhrazena"
 ---
 
-## Projekt
+FakeTube jsem založil v roce 2020 jako vlastní video platformu. Uživatelé mohli mít účet, nahrávat videa, sledovat je a sdílet s dalšími lidmi.
 
-FakeTube byla vlastní video platforma spuštěná v roce 2020. Uživatelé mohli sledovat obsah, nahrávat vlastní videa a sdílet je s dalšími lidmi.
+Projekt jsem několik let průběžně rozšiřoval. Prošel jsem si na něm backend, databázi, práci s uživatelským obsahem i provoz větší webové aplikace.
 
-## Cíl
+## Hlavní části
 
-Cílem bylo prakticky vyřešit funkce běžné pro video platformu: práci s uživatelským obsahem, jeho publikování a následné procházení a přehrávání.
+- uživatelské účty,
+- nahrávání a správa videí,
+- přehrávání a procházení obsahu,
+- administrační a backendová logika.
 
-## Řešení
+## Technologie
 
-Projekt postupně vznikal jako dlouhodobě rozvíjená aplikace. Nešlo jen o statický web, ale o systém s uživateli, obsahem a aplikační logikou kolem videí.
+Laravel, Livewire, MariaDB a JavaScript.
 
-## Technické řešení
-
-Ve veřejném portfoliu projekt uvádím jako ukázku práce s webovou aplikací, backendem, databází, správou obsahu a provozem vlastního produktu.
-
-## Co projekt ukazuje
-
-- návrh a dlouhodobý rozvoj vlastní webové aplikace,
-- práci s uživatelským obsahem,
-- backendovou a databázovou logiku,
-- zkušenost s provozem projektu od roku 2020 do jeho ukončení v roce 2026.
+Projekt jsem v roce 2026 ukončil.
 
 ## Odkazy
 
-- [FakeTube](https://faketube.cz "FakeTube")
+- [FakeTube](https://faketube.cz)

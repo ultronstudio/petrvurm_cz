@@ -1,26 +1,31 @@
 ---
 title: "Twitch Game: Red Light, Green Light"
-description: "Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Hra na oliheň (<i>Squid Game</i>)) na streamu v chatu"
+description: "Twitch chatbot pro jednoduchou hru Red Light, Green Light přímo v chatu"
 previewImage: "/images/projekty/twitch-chatbot-red-light-green-light.png"
 created: "10. února 2025"
-status: "<span style=\"color: #bfc000;\">dokončeno</span>"
+status: "Dokončeno"
 licence: "Apache License 2.0"
 ---
-Twitch chatbot, díky kterému mohou diváci hrát hru Red Light, Green Light (z populárního Netflix seriálu Hra na oliheň (*Squid Game*)) na streamu v chatu.
 
-#### Hlavní funkce
+Chatbot umožňuje divákům streamu hrát Red Light, Green Light přímo přes Twitch chat.
 
-- **Automatická moderace chatu**: Hráči, kteří napíší do chatu zprávu, když "svítí" červené světlo, jsou eliminováni *(timeout na jednu minutu)*.
-- **Přehledné oznámení**: Oznámení o stavu hry a jeho výsledku je zobrazeno v chatu.
-- **Upravení délek**: Streamer může upravit délku "svícení" světel a délku hry.
-- **Jednoduchý na použití**: Jednoduché příkazy: pouze pro start a ukončení hry.
+## Jak hra funguje
 
-#### Příkazy
+- hráč, který napíše zprávu během červeného světla, je na jednu minutu vyřazen pomocí timeoutu,
+- chatbot oznamuje stav hry a výsledek v chatu,
+- streamer může změnit délku jednotlivých fází i celé hry,
+- pro ovládání stačí příkazy pro spuštění a ukončení.
 
-`!start` - Spustí hru
+## Příkazy
 
-`!end` - Zastaví hru
+`!start` – spustí hru
+
+`!end` – ukončí hru
+
+## Technologie
+
+Node.js, JavaScript a Twitch API.
 
 ## Odkazy
 
-- [GitHub](https://github.com/ultronstudio/twitch-chatbot-red-light-green-light "Navštívit GitHub repozitář")
+- [GitHub](https://github.com/ultronstudio/twitch-chatbot-red-light-green-light)

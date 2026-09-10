@@ -1,34 +1,19 @@
 ---
 title: "HopHub"
-description: "Rozšíření pro internetový prohlížeč upravující rozhraní GitHubu"
+description: "Rozšíření pro internetový prohlížeč upravující vzhled GitHubu"
 previewImage: "/images/projekty/hophub.png"
 created: "31. července 2024"
 status: "Dokončeno"
 licence: "Apache License 2.0"
 ---
 
-## Projekt
+HopHub je experimentální rozšíření prohlížeče, které mění vzhled GitHubu pomocí JavaScriptu a vlastních stylů.
 
-HopHub je rozšíření pro internetový prohlížeč, které mění vizuální podobu rozhraní GitHubu.
+Stejnou základní verzi jsem připravil pro Firefox, Microsoft Edge a Chrome. Projekt mi sloužil hlavně k vyzkoušení práce s browser extensions a úpravou existující stránky přímo v prohlížeči.
 
-## Cíl
+## Technologie
 
-Projekt vznikl jako experiment s úpravou existující webové aplikace přímo v prohlížeči a s distribucí stejného rozšíření pro více prohlížečů.
-
-## Řešení
-
-Rozšíření upravuje vzhled načtené stránky GitHubu a je publikované v obchodech pro Firefox, Microsoft Edge a Chrome.
-
-## Technické řešení
-
-Projekt ukazuje práci s browser extension prostředím, CSS/JavaScriptem nad existujícím webem a přípravou balíčku pro různé distribuční kanály.
-
-## Co projekt ukazuje
-
-- vývoj rozšíření pro prohlížeč,
-- zásah do existujícího DOM a stylů,
-- distribuci pro více prohlížečů,
-- práci s otevřenou licencí Apache 2.0.
+JavaScript, Sass a API pro rozšíření prohlížečů.
 
 ## Odkazy
 
