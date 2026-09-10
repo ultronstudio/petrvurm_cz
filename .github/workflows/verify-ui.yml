@@ -48,10 +48,10 @@ jobs:
           {
             echo "AI-pattern counts in app/ and components/"
             for pattern in 'rounded-2xl' 'bg-white/5' 'border-white/10' 'backdrop-blur' 'tracking-widest' 'uppercase' 'radial-gradient' 'rounded-full'; do
-              count=$(grep -Rho --include='*.tsx' --include='*.ts' --include='*.css' "$pattern" app components 2>/dev/null | wc -l | tr -d ' ')
+              count=$( (grep -Rho --include='*.tsx' --include='*.ts' --include='*.css' "$pattern" app components 2>/dev/null || true) | wc -l | tr -d ' ')
               echo "$pattern=$count"
             done
-            lucide_files=$(grep -RIl --include='*.tsx' --include='*.ts' 'lucide-react' app components 2>/dev/null | wc -l | tr -d ' ')
+            lucide_files=$( (grep -RIl --include='*.tsx' --include='*.ts' 'lucide-react' app components 2>/dev/null || true) | wc -l | tr -d ' ')
             echo "lucide-import-files=$lucide_files"
           } | tee artifacts/pattern-audit.txt
 
