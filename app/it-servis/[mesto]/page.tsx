@@ -1,49 +1,49 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { getServicesForCity, getCityConfig, getAllCities } from '@/site.config';
-import CityServicesClientWrapper from '@/components/CityServicesClient/CityServicesClientWrapper';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getAllCities, getCityConfig, getServicesForCity, SITE_URL } from '@/site.config';
+import CityServicesClient from '@/components/CityServicesClient/CityServicesClient';
 
-interface Params {
-  mesto: string;
+type CityPageProps = {
+  params: Promise<{ mesto: string }>;
+};
+
+export function generateStaticParams() {
+  return getAllCities().map((city) => ({ mesto: city.slug }));
 }
 
-// Generování statických cest pro rychlé načítání
-export async function generateStaticParams() {
-  const allCities = getAllCities();
-  return allCities.map((city) => ({ mesto: city.slug }));
-}
+export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
+  const { mesto } = await params;
+  const city = getCityConfig(mesto);
 
-// Dynamická metadata pro lokální SEO
-export async function generateMetadata({ params }: { params: any }): Promise<Metadata> {
-  const resolved: Params = await params;
-  const cityConfig = getCityConfig(resolved.mesto);
-  const cityName = cityConfig?.name || resolved.mesto;
-  
+  if (!city) {
+    return {
+      title: 'Lokalita nenalezena – Petr Vurm',
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = `IT servis ${city.name} – Petr Vurm`;
+  const description = `Lokální IT servis v ${city.name}: nastavení Wi-Fi, tiskáren, chytrých zařízení a technologické konzultace.`;
+  const url = `${SITE_URL}/it-servis/${city.slug}`;
+
   return {
-    title: `IT servis ${cityName} – Petr Vurm`,
-    description: `Čisté IT služby ${cityName}: Wi‑Fi, tiskárny, weby a konzultace. Sousedská pomoc bez vrtání do zdí.`,
-    openGraph: {
-      title: `IT servis ${cityName} – Petr Vurm`,
-      description: `Čisté IT služby ${cityName}: Wi‑Fi, tiskárny, weby a konzultace. Sousedská pomoc bez vrtání do zdí.`,
-      type: "website"
-    }
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: 'website' },
   };
 }
 
-export default async function CityPage({ params }: { params: any }) {
-  const resolved: Params = await params;
-  const citySlug = typeof resolved.mesto === 'string' ? resolved.mesto : '';
-  
-  // Získáme konfiguraci města a služby
-  const cityConfig = getCityConfig(citySlug);
-  const services = getServicesForCity(citySlug);
+export default async function CityPage({ params }: CityPageProps) {
+  const { mesto } = await params;
+  const cityConfig = getCityConfig(mesto);
+  if (!cityConfig) notFound();
 
-  // Pokud město neexistuje, vrátíme null (redirect se stane na klient-side)
-  if (!cityConfig) {
-    return null;
-  }
-
-  const cityName = cityConfig.name;
-
-  return <CityServicesClientWrapper city={cityName} services={services} cityConfig={cityConfig} citySlug={citySlug} />;
+  return (
+    <CityServicesClient
+      city={cityConfig.name}
+      services={getServicesForCity(cityConfig.slug)}
+      cityConfig={cityConfig}
+    />
+  );
 }

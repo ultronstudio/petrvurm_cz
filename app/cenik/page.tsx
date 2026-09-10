@@ -1,211 +1,88 @@
-"use client";
+import Link from 'next/link';
+import { ArrowRight, Check } from 'lucide-react';
+import { BASE_HOURLY_RATE, BASE_PROJECT_RATES, formatFromPrice } from '@/lib/pricing';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card } from "@radix-ui/themes";
-import { ArrowRight, Check, Code, Lightbulb, Headphones, Monitor } from "lucide-react";
-import { BASE_HOURLY_RATE, BASE_PROJECT_RATES, calculatePrice, formatPrice } from "@/lib/pricing";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
-};
+const packages = [
+  {
+    name: 'Web Start',
+    price: formatFromPrice(BASE_PROJECT_RATES.webStart),
+    audience: 'Jednoduchý profesionální one-page web, landing page nebo menší prezentace služby.',
+    includes: ['Úvodní konzultace', 'Návrh struktury', 'Responzivní zpracování', 'Základní SEO a výkon', 'Kontaktní CTA nebo formulář', 'Nasazení a základní předání'],
+    drivers: 'Rozsah obsahu, grafické podklady a případné integrace.',
+  },
+  {
+    name: 'Firemní web',
+    price: formatFromPrice(BASE_PROJECT_RATES.businessWeb),
+    audience: 'Menší až střední firemní prezentace s více obsahem a jasnou strukturou nabídky.',
+    includes: ['Více podstránek', 'Individuální struktura', 'Responzivní implementace', 'SEO základy', 'Kontaktní prvky', 'Nasazení a předání'],
+    drivers: 'Počet typů stránek, množství obsahu, formuláře a napojení služeb.',
+  },
+  {
+    name: 'Firemní web Plus / CMS',
+    price: formatFromPrice(BASE_PROJECT_RATES.cmsWeb),
+    audience: 'Web, jehož obsah potřebujete průběžně upravovat bez zásahu vývojáře.',
+    includes: ['Více podstránek', 'CMS nebo jiný editovatelný obsah', 'Pokročilejší SEO', 'Integrace', 'Individuální komponenty', 'Předání správy'],
+    drivers: 'Rozsah administrace, datový model, role uživatelů a integrace.',
+  },
+  {
+    name: 'E-shop',
+    price: formatFromPrice(BASE_PROJECT_RATES.shop),
+    audience: 'Prodej produktů nebo služeb online s řešením vybraným podle konkrétního provozu.',
+    includes: ['Návrh struktury obchodu', 'Katalog a produktové stránky', 'Objednávkový proces', 'Responzivní rozhraní', 'Základní technické SEO', 'Nasazení'],
+    drivers: 'Počet produktů, platby, doprava, skladové systémy a další integrace.',
+  },
+  {
+    name: 'Webová aplikace / MVP',
+    price: formatFromPrice(BASE_PROJECT_RATES.webApp),
+    audience: 'Aplikace s vlastní logikou, databází, uživatelskými účty nebo napojením na API.',
+    includes: ['Upřesnění požadavků', 'Návrh architektury', 'Implementace klíčových funkcí', 'Testování', 'Nasazení', 'Zdrojový kód a předání'],
+    drivers: 'Funkce, role, datový model, integrace, bezpečnostní požadavky a provozní nároky.',
+  },
+];
 
 export default function Cenik() {
-  const services = [
-    {
-      category: "Webové služby",
-      icon: Monitor,
-      items: [
-        { name: "Jednoduchý web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.simpleWeb)), description: "Jednostránkový web, prezentace" },
-        { name: "Standardní web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.standardWeb)), description: "5-10 stran, CMS, SEO" },
-        { name: "E-shop", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.shop)) + "+", description: "Online obchod s katalogem, platby" },
-        { name: "Webová aplikace", price: `od ${formatPrice(calculatePrice(BASE_PROJECT_RATES.webApp))}`, description: "Komplexní řešení, databáze, API" },
-      ]
-    },
-    {
-      category: "IT Služby",
-      icon: Headphones,
-      items: [
-        { name: "Mesh Wi-Fi", price: formatPrice(calculatePrice(1500)) + "+", description: "Instalace, bez vrtání" },
-        { name: "Tiskárny & TV", price: formatPrice(calculatePrice(800)), description: "Připojení, konfigurace" },
-        { name: "IT Konzultace", price: `${formatPrice(calculatePrice(BASE_HOURLY_RATE))} / h`, description: "Online nebo osobně" },
-        { name: "Správa serveru", price: `${formatPrice(calculatePrice(2000))} / m`, description: "Monitoring, zálohy, bezpečnost" },
-      ]
-    },
-    {
-      category: "Školení & Kurzy",
-      icon: Code,
-      items: [
-        { name: "Doučování", price: "300 Kč/h", description: "Programování, IT" },
-        { name: "Skupina 3-5 osob", price: "250 Kč/h", description: "Zajímavější cena" },
-        { name: "Firemní školení", price: "na výzvu", description: "Customizované" },
-      ]
-    },
-    {
-      category: "Poradenství",
-      icon: Lightbulb,
-      items: [
-        { name: "Konzultace", price: "zdarma", description: "Jednorázová, bez závazku" },
-        { name: "Analýza & Návrh", price: "5 000 Kč", description: "Audit, doporučení" },
-        { name: "Dlouhodobá podpora", price: "5 000 Kč/m", description: "Prioritní podpora, vývoj" },
-      ]
-    }
-  ];
-
   return (
     <section className="relative py-12">
-      {/* gradient background */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
-
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        {/* HERO */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Ceník & Služby</h1>
-          <p className="mt-4 max-w-3xl text-white/80 text-lg">
-            Transparentní ceny bez skrytých nákladů. Vyberi si službu, kterou potřebuješ – nebo si nech navrhnout kombinaci.
-          </p>
-        </motion.div>
+        <header className="mb-12 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Orientační ceny</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Ceník webů a vývoje</h1>
+          <p className="mt-5 text-lg leading-8 text-white/75">U zakázkového vývoje dává smysl nejdřív znát cíl a rozsah. Proto uvádím realistické startovní ceny, ne falešně přesnou částku z automatické kalkulačky.</p>
+        </header>
 
-        {/* SERVICES GRID */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {services.map(({ category, icon: Icon, items }, categoryIdx) => (
-            <motion.div
-              key={category}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-80px" }}
-              custom={categoryIdx}
-            >
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur overflow-hidden">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="rounded-lg bg-primary/20 p-2 text-primary">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white">{category}</h2>
-                </div>
-
-                <div className="space-y-4">
-                  {items.map((item, i) => (
-                    <div
-                      key={item.name}
-                      className="border-b border-white/10 pb-4 last:border-0"
-                    >
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className="font-semibold text-white">{item.name}</h3>
-                        <span className="text-primary font-bold whitespace-nowrap">{item.price}</span>
-                      </div>
-                      <p className="text-sm text-white/60">{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {packages.map((item) => (
+            <article key={item.name} className="rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur">
+              <div className="flex flex-wrap items-start justify-between gap-3"><h2 className="text-2xl font-bold">{item.name}</h2><strong className="text-xl text-primary">{item.price}</strong></div>
+              <p className="mt-4 leading-7 text-white/75">{item.audience}</p>
+              <h3 className="mt-6 text-sm font-semibold uppercase tracking-wider text-white/60">Typicky obsahuje</h3>
+              <ul className="mt-3 space-y-2">
+                {item.includes.map((feature) => <li key={feature} className="flex gap-2 text-sm text-white/80"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" /><span>{feature}</span></li>)}
+              </ul>
+              <p className="mt-6 border-t border-white/10 pt-4 text-sm text-white/65"><strong className="text-white/85">Cenu ovlivňuje:</strong> {item.drivers}</p>
+            </article>
           ))}
         </div>
 
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Aktualizovaná cena</h2>
-          <p className="text-white/80">
-            Ceny jsou vypočtené s globálním koeficientem ceny a hodinovou sazbou. Pokud se změní inflace nebo sazba, upraví se centrálně v konfiguraci.
-          </p>
-        </motion.section>
-
-        {/* FEATURES */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Co je součástí každého projektu?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              "Konzultace a plánování",
-              "Responsive design (mobil, tablet, PC)",
-              "SEO optimalizace",
-              "Testování & QA",
-              "Nasazení na produkci",
-              "1 měsíc bezplatné opravy",
-              "Dokumentace kódu",
-              "Instrukce pro správu"
-            ].map((feature, i) => (
-              <div key={feature} className="flex gap-3">
-                <span className="text-primary flex-shrink-0">•</span>
-                <span className="text-white/90">{feature}</span>
-              </div>
-            ))}
+        <section className="mt-10 grid gap-6 md:grid-cols-2" aria-labelledby="dalsi-naceneni">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
+            <h2 id="dalsi-naceneni" className="text-2xl font-bold">Hodinová práce</h2>
+            <p className="mt-3 text-3xl font-extrabold text-primary">{BASE_HOURLY_RATE} Kč / hod</p>
+            <p className="mt-3 text-white/70">Používám ji tam, kde je hodinové účtování vhodnější než pevná projektová cena — například u menších zásahů nebo navazujícího vývoje.</p>
           </div>
-        </motion.section>
-
-        {/* CALCULATORS */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Interaktivní kalkulačky</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Link
-              href="/kalkulacka/web"
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur hover:border-primary/50 hover:bg-white/10 transition"
-              prefetch={true}
-            >
-              <h3 className="text-xl font-bold text-white mb-2">Kalkulačka Webů</h3>
-              <p className="text-white/70 mb-4">Vyberi si služby a vidíš cenu v reálném čase s DPH.</p>
-              <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition">
-                Otevřít <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
-
-            <Link
-              href="/kalkulacka/uceni"
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur hover:border-primary/50 hover:bg-white/10 transition"
-              prefetch={true}
-            >
-              <h3 className="text-xl font-bold text-white mb-2">Kalkulačka Kurzů</h3>
-              <p className="text-white/70 mb-4">Spočítej si cenu školení, doučování či skupinového kurzu.</p>
-              <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition">
-                Otevřít <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
+            <h2 className="text-2xl font-bold">Komplexnější projekt</h2>
+            <p className="mt-3 text-xl font-bold text-primary">Cena individuálně podle rozsahu.</p>
+            <p className="mt-3 text-white/70">Před zahájením si odsouhlasíme rozsah, způsob nacenění a co přesně bude součástí předání.</p>
           </div>
-        </motion.section>
+        </section>
 
-        {/* CTA */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 text-center"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Nevíš, kde začít?</h2>
-          <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Domluvme si konzultaci. Pomohu ti vybrat správnou službu pro tvé potřeby.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black transition hover:bg-primary/90"
-            prefetch={true}
-          >
-            Nezávazná konzultace <ArrowRight className="h-5 w-5" />
-          </Link>
-        </motion.section>
+        <section className="mt-12 rounded-2xl border border-primary/25 bg-primary/5 p-8 text-center">
+          <h2 className="text-2xl font-bold md:text-3xl">Nejste si jistí rozsahem?</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-white/75">Stačí stručně popsat, co má web nebo aplikace vyřešit. Navrhnu další postup a řeknu, jak projekt dává smysl nacenit.</p>
+          <Link href="/kontakt" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-black transition hover:bg-primary/90">Probrat projekt <ArrowRight className="h-5 w-5" aria-hidden="true" /></Link>
+        </section>
       </div>
     </section>
   );

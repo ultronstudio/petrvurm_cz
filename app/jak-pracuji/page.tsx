@@ -1,173 +1,48 @@
-"use client";
+import Link from 'next/link';
+import { ArrowRight, Check } from 'lucide-react';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card } from "@radix-ui/themes";
-import { MessageSquare, Pencil, Code, TestTube, Rocket, Headphones, ArrowRight, Check } from "lucide-react";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
-};
+const steps = [
+  ['01', 'Úvodní konzultace', 'Probereme cíl projektu, současný stav, priority a omezení. Smyslem není hned prodávat řešení, ale zjistit, co má projekt skutečně vyřešit.'],
+  ['02', 'Zadání a rozsah', 'Sepíšu funkce, obsah, hranice dodávky a otevřené otázky. Ujasníme si, co je součástí první verze a co může počkat.'],
+  ['03', 'Návrh řešení', 'Navrhnu strukturu, uživatelský tok a technický postup. U složitějších projektů rozdělím práci do smysluplných etap.'],
+  ['04', 'Implementace', 'Vyvíjím odsouhlasené řešení v současném stacku projektu nebo v technologii zvolené podle jeho potřeb.'],
+  ['05', 'Testování', 'Kontroluji hlavní scénáře, responzivitu, chybové stavy, výkon a relevantní bezpečnostní rizika před nasazením.'],
+  ['06', 'Nasazení', 'Připravím produkční prostředí a ověřím, že výsledná verze funguje i mimo vývojové prostředí.'],
+  ['07', 'Předání', 'Předám zdrojový kód, přístupy a potřebné instrukce. Rozsah dokumentace odpovídá typu a velikosti projektu.'],
+  ['08', 'Podpora a další rozvoj', 'Po spuštění lze pokračovat údržbou, aktualizacemi a novými funkcemi podle skutečných potřeb projektu.'],
+] as const;
 
 export default function JakPracuji() {
-  const steps = [
-    {
-      number: "1",
-      title: "Konzultace",
-      description: "Nejdřív si detailně popovídáme. Zjistím tvé cíle, omezení, rozpočet a časový plán. Bez překvapení později.",
-      Icon: MessageSquare,
-      duration: "1-2 dny",
-      outcome: "Jasný brief a návrh řešení"
-    },
-    {
-      number: "2",
-      title: "Návrh & Plánování",
-      description: "Předložím ti wireframy, architekturu a harmonogram. Všechno se projedná, než by se napsal jeden řádek kódu.",
-      Icon: Pencil,
-      duration: "3-7 dní",
-      outcome: "Schválený návrh a rozpis"
-    },
-    {
-      number: "3",
-      title: "Vývoj",
-      description: "Začína kódování. Pracuji iterativně – každý týden dostaneš update. Kvalita kódu a transparentnost jsou priorita.",
-      Icon: Code,
-      duration: "2-12 týdnů",
-      outcome: "Funkční aplikace"
-    },
-    {
-      number: "4",
-      title: "Testování",
-      description: "Důsledné testování: funkční testy, bezpečnost, výkon. Předám ti seznam všech zjištěných chyb a jak jsou opraveny.",
-      Icon: TestTube,
-      duration: "1-2 týdny",
-      outcome: "Certifikace kvality"
-    },
-    {
-      number: "5",
-      title: "Spuštění",
-      description: "Nasazení na produkci. Jsem k dispozici během spuštění, připravený řešit cokoliv, co by mohlo jít špatně.",
-      Icon: Rocket,
-      duration: "1 den",
-      outcome: "Live na webu"
-    },
-    {
-      number: "6",
-      title: "Podpora & Údržba",
-      description: "Projekt nekončí spuštěním. Jsem tady pro opravy, vylepšení a nové funkce. Garantuji podporu i po měsících.",
-      Icon: Headphones,
-      duration: "Průběžně",
-      outcome: "Stabilní provoz"
-    }
-  ];
-
   return (
     <section className="relative py-12">
-      {/* gradient background */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
-
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        {/* HERO */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Jak pracuji</h1>
-          <p className="mt-4 max-w-3xl text-white/80 text-lg">
-            Transparentní, spolehlivý proces. Bez překvapení, bez schovaných nákladů. Stále v kontaktu od prvního rozhovoru až po dlouhodobou podporu.
-          </p>
-        </motion.div>
+        <header className="mb-12 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Proces spolupráce</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Jak pracuji</h1>
+          <p className="mt-5 text-lg leading-8 text-white/75">Cílem je, abyste před zahájením věděli, co se bude dělat, přibližný rozsah, jak se projekt nacení a co dostanete při předání.</p>
+        </header>
 
-        {/* PROCESS GRID */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {steps.map(({ number, title, description, Icon, duration, outcome }, i) => (
-            <motion.div
-              key={number}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-80px" }}
-              custom={i}
-            >
-              <Card className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                {/* Number badge */}
-                <div className="absolute top-4 right-4 h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
-                  <span className="text-xl font-extrabold text-primary">{number}</span>
-                </div>
-
-                {/* Icon */}
-                <div className="mb-4 inline-flex rounded-lg bg-primary/20 p-3 text-primary">
-                  <Icon className="h-6 w-6" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-                <p className="text-white/80 text-sm leading-relaxed mb-4">{description}</p>
-
-                {/* Meta info */}
-                <div className="space-y-2 border-t border-white/10 pt-4">
-                  <div>
-                    <p className="text-xs text-white/60">Očekávaná doba</p>
-                    <p className="text-sm font-semibold text-white">{duration}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-white/60">Výstup</p>
-                    <p className="text-sm font-semibold text-white">{outcome}</p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
+        <ol className="grid gap-5 md:grid-cols-2">
+          {steps.map(([number, title, description]) => (
+            <li key={number} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <div className="flex items-start gap-4"><span className="text-lg font-extrabold text-primary" aria-hidden="true">{number}</span><div><h2 className="text-xl font-bold">{title}</h2><p className="mt-3 leading-7 text-white/72">{description}</p></div></div>
+            </li>
           ))}
-        </div>
+        </ol>
 
-        {/* HIGHLIGHTS */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Co garantuju</h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {[
-              "Transparentní komunikaci – vždy víš, na čem se pracuje",
-              "Termíny dodržuji – plánování je přesné",
-              "Kvalitní kód – udržitelný a testovaný",
-              "Bezpečnost – HTTPS, ochrana dat, bezpečnostní audit",
-              "Performance – web bude rychlý a efektivní",
-              "SEO optimalizace – viditelnost v Google"
-            ].map((item, i) => (
-              <div key={item} className="flex gap-3 items-start">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-white/90">{item}</span>
-              </div>
-            ))}
+        <section className="mt-12 rounded-2xl border border-white/10 bg-white/5 p-7" aria-labelledby="pred-zahajenim">
+          <h2 id="pred-zahajenim" className="text-2xl font-bold">Co si potvrdíme před zahájením</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {['Cíl a rozsah první verze', 'Cena nebo způsob nacenění', 'Důležité závislosti a podklady', 'Co bude součástí předání'].map((item) => <div key={item} className="flex items-start gap-2 text-white/80"><Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" /><span>{item}</span></div>)}
           </div>
-        </motion.section>
+        </section>
 
-        {/* CTA */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 text-center"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Chceš vědět víc?</h2>
-          <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Domluvme si konzultaci. Bez závazků, bez schování. Jen otevřená diskuse o tom, jak bych ti mohl pomoci.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black transition hover:bg-primary/90"
-            prefetch={true}
-          >
-            Nezávazná konzultace <ArrowRight className="h-5 w-5" />
-          </Link>
-        </motion.section>
+        <section className="mt-12 text-center">
+          <h2 className="text-2xl font-bold md:text-3xl">Máte konkrétní projekt?</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-white/75">Pošlete mi stručný popis cíle a současného stavu. Další postup můžeme upřesnit bez zbytečné obchodní omáčky.</p>
+          <Link href="/kontakt" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-black transition hover:bg-primary/90">Probrat projekt <ArrowRight className="h-5 w-5" aria-hidden="true" /></Link>
+        </section>
       </div>
     </section>
   );

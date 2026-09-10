@@ -1,98 +1,59 @@
-'use client';
-
-import React from 'react';
-import { Check } from 'lucide-react';
 import Link from 'next/link';
-import { STATIC_TOWNS } from '@/lib/towns';
+import { Check } from 'lucide-react';
+import { getAllCities } from '@/site.config';
 
-function slugify(input: string) {
-  return input
-    .trim()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-export default function ServiceChecker() {
-  const towns = STATIC_TOWNS.map((name) => ({
-    name,
-    slug: slugify(name),
-  }));
+export default function ItServis() {
+  const cities = getAllCities();
 
   return (
-    <div className="bg-[#0a0a0a] text-white">
-      {/* Hero section */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6 py-24 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl mx-auto">
-            IT služby, které poskytuji
-          </h1>
-        </div>
-      </section>
+    <section className="relative py-12">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
+      <div className="container mx-auto max-w-5xl px-4 md:px-6">
+        <header className="py-12 text-center md:py-20">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">Sekundární služba</p>
+          <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">Lokální IT servis</h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/75">
+            Vedle vývoje webů a softwaru nabízím v okolí Nechanic také praktickou pomoc s domácí sítí a zařízeními.
+          </p>
+        </header>
 
-      {/* Benefits */}
-      <section className="bg-[#1a1a1a] py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Proč IT servis od Petra Vurma?
-          </h2>
-          <ul className="max-w-2xl mx-auto space-y-4 text-lg">
+        <section className="rounded-2xl border border-white/10 bg-white/5 p-7 md:p-9" aria-labelledby="it-servis-sluzby">
+          <h2 id="it-servis-sluzby" className="text-2xl font-bold">Typické požadavky</h2>
+          <ul className="mt-5 grid gap-4 md:grid-cols-2">
             {[
-              'Žádné vrtání do zdí, vše bez kabelového chaosu',
-              'Spolehlivá Wi-Fi po celém domě i na zahradě',
-              'Přijedu do 24 hodin – jsem od vás ze stejné vesnice',
-              'Jasná cena předem, žádné skryté poplatky',
-              'Řád a čistota, po sobě uklidím – neumím být v nepořádku',
-            ].map((text) => (
-              <li key={text} className="flex items-start">
-                <Check className="h-6 w-6 text-[#00B7EF] flex-shrink-0 mr-3" />
-                <span>{text}</span>
+              'Nastavení a optimalizace domácí Wi-Fi',
+              'Zprovoznění Mesh Wi-Fi',
+              'Připojení tiskáren a chytrých TV',
+              'Základní technologická konzultace',
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-white/80">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                <span>{item}</span>
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </section>
 
-      {/* City lists */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            IT služby momentálně poskytuji v těchto lokalitách
-          </h2>
-          <div className="columns-2 sm:columns-3 md:columns-4 gap-4">
-            {towns.map((city) => (
-              <Link
-                key={city.slug}
-                href={`/it-servis/${city.slug}`}
-                className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-              >
+        <section className="py-12" aria-labelledby="obsluhovane-lokality">
+          <h2 id="obsluhovane-lokality" className="text-2xl font-bold">Obsluhované lokality</h2>
+          <p className="mt-3 max-w-3xl text-white/70">
+            Samostatné stránky uvádím jen pro oblasti, které mám výslovně nastavené jako obsluhované. U jiné obce se lze domluvit individuálně.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {cities.map((city) => (
+              <Link key={city.slug} href={`/it-servis/${city.slug}`} className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85 transition hover:border-primary/60 hover:text-primary">
                 {city.name}
               </Link>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="bg-[#1a1a1a] py-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            Nenašli jste svoji obec?
-          </h2>
-          <p className="text-lg text-gray-300 mb-6">
-            Pokud vaše obec není na seznamu, neznámená to, že vám nemohu pomoci. Kontaktujte mě a podíváme se na to společně.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-block px-8 py-3 bg-[#00B7EF] hover:bg-[#009edb] rounded-md font-semibold transition text-black"
-          >
-            Napsat mi zprávu
-          </Link>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-7 text-center">
+          <h2 className="text-2xl font-bold">Jiná lokalita nebo jiný problém?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-white/70">Napište mi, co potřebujete vyřešit. Potvrdím, zda je výjezd reálný a jaká bude orientační cena.</p>
+          <Link href="/kontakt" className="mt-6 inline-flex rounded-lg bg-primary px-6 py-3 font-semibold text-black transition hover:bg-primary/90">Probrat požadavek</Link>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
-
