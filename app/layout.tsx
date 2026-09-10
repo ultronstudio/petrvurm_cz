@@ -1,50 +1,46 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Theme, Container, Section } from "@radix-ui/themes";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
+import type { Metadata } from 'next';
+import './globals.css';
+import { Theme } from '@radix-ui/themes';
+import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
+import { SITE_URL } from '@/site.config';
 
 export const metadata: Metadata = {
-  title: "Petr Vurm",
-  description:
-    "Tvořím internetové stránky na míru, poskytuji kompletní webový servis, vytvářím desktopové aplikace pro jednotlivce a firmy, pořádám kurzy a workshopy.",
-    openGraph: {
-      title: "Petr Vurm",
-      description:
-        "Tvořím internetové stránky na míru, poskytuji kompletní webový servis, vytvářím desktopové aplikace pro jednotlivce a firmy, pořádám kurzy a workshopy.",
-      type: "website"
-    }
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Petr Vurm – tvorba webů a webových aplikací',
+    template: '%s | Petr Vurm',
+  },
+  description: 'Navrhuji a vyvíjím firemní weby, webové aplikace a software na míru pro firmy, živnostníky a startupy.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    locale: 'cs_CZ',
+    url: SITE_URL,
+    siteName: 'Petr Vurm',
+    title: 'Petr Vurm – tvorba webů a webových aplikací',
+    description: 'Firemní weby, webové aplikace a software na míru s důrazem na udržitelnost, bezpečnost a další rozvoj.',
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Petr Vurm',
+  url: SITE_URL,
+  jobTitle: 'Webový a softwarový vývojář',
+  email: 'mailto:kontakt@petrvurm.cz',
+  knowsAbout: ['Web development', 'Web applications', 'Software development', 'API integrations'],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="cs" suppressHydrationWarning>
-      <head>
-        {/* Google AdSense site-ownership verification for petrvurm.cz —
-            root-domain verification covers subdomains too (duhovka-dev./
-            duhovka.petrvurm.cz), so this only needs to exist here. */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244196393603152"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
-      <body className="p-[0.01px] bg-[#111113]">
-        <Theme
-          appearance="dark"
-          accentColor="indigo"
-          grayColor="slate"
-          hasBackground={true}
-          panelBackground="translucent"
-          radius="small"
-          scaling="100%"
-        >
+    <html lang="cs">
+      <body className="bg-[#111113] p-[0.01px]">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
+        <Theme appearance="dark" accentColor="indigo" grayColor="slate" hasBackground panelBackground="translucent" radius="small" scaling="100%">
           <Navbar />
-          <div className="mt-[64px] flex flex-col min-h-screen bg-background text-foreground">
+          <div className="mt-[64px] flex min-h-screen flex-col bg-background text-foreground">
             <main className="flex-1">{children}</main>
           </div>
           <Footer />

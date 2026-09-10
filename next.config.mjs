@@ -1,21 +1,14 @@
-// next.config.js
-import withMDX from '@next/mdx';
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Povolí použití mdx souborů
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md"],
-
-  // Další nastavení, která můžete potřebovat
   reactStrictMode: true,
-
-  // Pokud používáte obrázky, povolte tento plugin
   images: {
-    domains: ["petrvurm.cz"], // Nahraďte doménami, ze kterých chcete načítat obrázky
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'petrvurm.cz',
+      },
+    ],
+  },
 };
 
-const mdxConfig = withMDX({
-  extension: /\.md?$/,
-});
-
-export default mdxConfig(nextConfig);
+export default nextConfig;

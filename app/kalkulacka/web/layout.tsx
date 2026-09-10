@@ -1,19 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Kalkulačka webů – Petr Vurm",
-  description: "Interaktivní kalkulačka ceny vývoje webu. Vyberte si služby a ihned uvidíte orientační cenu s DPH.",
-  openGraph: {
-    title: "Kalkulačka webů – Petr Vurm",
-    description: "Interaktivní kalkulačka ceny vývoje webu. Vyberte si služby a ihned uvidíte orientační cenu s DPH.",
-    type: "website"
-  }
+  title: 'Orientační cena webu',
+  description: 'Startovní ceny webů a webových aplikací a vysvětlení faktorů, které ovlivňují výslednou cenu projektu.',
+  robots: { index: false, follow: true },
 };
 
-export default function WebLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function WebCalculatorLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

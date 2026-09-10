@@ -1,28 +1,35 @@
 ---
 title: "FakeTube"
-description: "Česká sociální síť pro sdílení videí"
+description: "Vlastní video platforma pro nahrávání, sledování a sdílení obsahu"
 previewImage: "/images/projekty/faketube.jpg"
 created: "20. prosince 2020"
-status: "<span style=\"color: #bfc000;\">dokončeno</span>"
+status: "Ukončeno v roce 2026"
 licence: "Všechna práva vyhrazena"
 ---
 
-FakeTube byla online platforma, která umožňovala uživatelům sledovat videa a poslouchat hudbu, kterou měli rádi. Uživatelé mohli nahrávat originální obsah a sdílet ho s přáteli, rodinou a celým světem.
+## Projekt
 
-#### Hlavní funkce
+FakeTube byla vlastní video platforma spuštěná v roce 2020. Uživatelé mohli sledovat obsah, nahrávat vlastní videa a sdílet je s dalšími lidmi.
 
-- **Široký výběr obsahu**: Od úsměvných videí až po vzrušující dobrodružství.
-- **Komunitní interakce**: Spojte se s komunitou, sdílejte své zájmy a objevujte nové obsahy.
-- **Sdílení okamžiků**: Nahrávejte a sdílejte nezapomenutelné okamžiky ze svého života.
+## Cíl
 
-#### Historie projektu
+Cílem bylo prakticky vyřešit funkce běžné pro video platformu: práci s uživatelským obsahem, jeho publikování a následné procházení a přehrávání.
 
-FakeTube jsem založil v roce 2020, když mi bylo 14 let. Chtěl jsem vytvořit platformu, kde by se lidé mohli setkat, sdílet své zájmy a bavit se. Od té doby se snažím projekt neustále zdokonalovat a přidávat nové funkce.
+## Řešení
 
-Od založení prošel FakeTube mnoha změnami a vylepšeními. Díky podpoře komunity se mi podařilo vytvořit platformu, která je oblíbená mezi uživateli a stále se rozvíjí.
+Projekt postupně vznikal jako dlouhodobě rozvíjená aplikace. Nešlo jen o statický web, ale o systém s uživateli, obsahem a aplikační logikou kolem videí.
 
-V roce 2026 jsem se rozhodl projekt ukončit, protože jsem si uvědomil, že konkurence s většími platformami je příliš silná a že FakeTube nedosahuje takové popularity, jakou bych si přál. I přes to, že projekt končí, jsem hrdý na to, co jsem dokázal vytvořit a na komunitu, kterou jsem vybudoval.
+## Technické řešení
+
+Ve veřejném portfoliu projekt uvádím jako ukázku práce s webovou aplikací, backendem, databází, správou obsahu a provozem vlastního produktu.
+
+## Co projekt ukazuje
+
+- návrh a dlouhodobý rozvoj vlastní webové aplikace,
+- práci s uživatelským obsahem,
+- backendovou a databázovou logiku,
+- zkušenost s provozem projektu od roku 2020 do jeho ukončení v roce 2026.
 
 ## Odkazy
 
-- [FakeTube](https://faketube.cz "Navštívit FakeTube")
+- [FakeTube](https://faketube.cz "FakeTube")
