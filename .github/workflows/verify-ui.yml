@@ -1,0 +1,144 @@
+name: Verify UI
+
+on:
+  push:
+    branches:
+      - refactor/professional-positioning-2026
+    paths:
+      - .github/workflows/verify-ui.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run source pattern audit
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          {
+            echo "AI-pattern counts in app/ and components/"
+            for pattern in 'rounded-2xl' 'bg-white/5' 'border-white/10' 'backdrop-blur' 'tracking-widest' 'uppercase' 'radial-gradient' 'rounded-full'; do
+              count=$(grep -Rho --include='*.tsx' --include='*.ts' --include='*.css' "$pattern" app components 2>/dev/null | wc -l | tr -d ' ')
+              echo "$pattern=$count"
+            done
+            lucide_files=$(grep -RIl --include='*.tsx' --include='*.ts' 'lucide-react' app components 2>/dev/null | wc -l | tr -d ' ')
+            echo "lucide-import-files=$lucide_files"
+          } | tee artifacts/pattern-audit.txt
+
+      - name: Run browser checks
+        shell: bash
+        run: |
+          mkdir -p artifacts/screenshots
+          npm run start > artifacts/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          for i in $(seq 1 40); do
+            if curl --silent --fail http://127.0.0.1:8001/ > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --silent --fail http://127.0.0.1:8001/ > /dev/null
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+
+          const routes = ['/', '/cenik', '/projekty', '/o-mne', '/jak-pracuji', '/kontakt', '/it-servis'];
+          const viewports = [
+            { name: 'desktop', width: 1440, height: 900 },
+            { name: 'mobile-360', width: 360, height: 800 },
+            { name: 'mobile-390', width: 390, height: 844 },
+            { name: 'mobile-412', width: 412, height: 915 },
+          ];
+          const browser = await chromium.launch({ headless: true });
+          const report = [];
+
+          for (const viewport of viewports) {
+            const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height } });
+            for (const route of routes) {
+              const page = await context.newPage();
+              const consoleErrors = [];
+              const pageErrors = [];
+              page.on('console', message => {
+                if (message.type() === 'error') consoleErrors.push(message.text());
+              });
+              page.on('pageerror', error => pageErrors.push(error.message));
+              const response = await page.goto(`http://127.0.0.1:8001${route}`, { waitUntil: 'networkidle' });
+              const checks = await page.evaluate(() => {
+                const all = Array.from(document.querySelectorAll('[class]'));
+                const classCount = token => all.filter(el => String(el.className).includes(token)).length;
+                return {
+                  title: document.title,
+                  h1Count: document.querySelectorAll('h1').length,
+                  horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+                  scrollWidth: document.documentElement.scrollWidth,
+                  clientWidth: document.documentElement.clientWidth,
+                  patterns: {
+                    rounded2xl: classCount('rounded-2xl'),
+                    white5: classCount('bg-white/5'),
+                    backdropBlur: classCount('backdrop-blur'),
+                    trackingWidest: classCount('tracking-widest'),
+                    uppercase: classCount('uppercase'),
+                    radialGradient: classCount('radial-gradient'),
+                    roundedFull: classCount('rounded-full'),
+                  },
+                };
+              });
+              const safeName = route === '/' ? 'home' : route.slice(1).replaceAll('/', '-');
+              await page.screenshot({ path: `artifacts/screenshots/${safeName}-${viewport.name}.png`, fullPage: true });
+              report.push({
+                route,
+                viewport,
+                status: response?.status() ?? null,
+                ...checks,
+                consoleErrors,
+                pageErrors,
+              });
+              await page.close();
+            }
+            await context.close();
+          }
+
+          await browser.close();
+          fs.writeFileSync('artifacts/browser-report.json', JSON.stringify(report, null, 2));
+
+          const failures = report.filter(item => item.status !== 200 || item.h1Count !== 1 || item.horizontalOverflow || item.consoleErrors.length || item.pageErrors.length);
+          console.log(JSON.stringify({ checked: report.length, failures }, null, 2));
+          if (failures.length) process.exit(1);
+          NODE
+
+      - name: Upload verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-verification
+          path: artifacts/
+          if-no-files-found: error
