@@ -13,7 +13,7 @@ const steps = [
 
 export default function JakPracuji() {
   return (
-    <section className="py-14 md:py-18">
+    <section className="py-14 md:py-16">
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Jak pracuji</h1>
@@ -25,7 +25,7 @@ export default function JakPracuji() {
             <li key={number} className="grid grid-cols-[2rem_1fr] gap-3 border-t border-white/10 py-5 sm:grid-cols-[2.5rem_12rem_1fr] sm:gap-5">
               <span className="font-mono text-sm text-primary" aria-hidden="true">{number}.</span>
               <h2 className="font-semibold text-white">{title}</h2>
-              <p className="col-start-2 text-sm leading-6 text-white/65 sm:col-start-3">{description}</p>
+              <p className="col-start-2 text-sm leading-6 text-white/60 sm:col-start-3">{description}</p>
             </li>
           ))}
         </ol>

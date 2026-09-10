@@ -52,7 +52,7 @@ export default function Home() {
           {services.map(([title, text]) => (
             <div key={title} className="border-t border-white/10 py-5">
               <h3 className="text-lg font-semibold text-white">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-white/65">{text}</p>
+              <p className="mt-2 text-sm leading-6 text-white/60">{text}</p>
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ export default function Home() {
                 />
               </Link>
               <h3 className="mt-4 text-xl font-bold">{project.title}</h3>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-white/65">{project.text}</p>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">{project.text}</p>
               <Link href={project.href} className="mt-3 inline-block text-sm text-primary hover:underline">Detail projektu</Link>
             </article>
           ))}
@@ -104,7 +104,7 @@ export default function Home() {
 
       <section className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6">
         <h2 className="text-2xl font-bold">Máte projekt?</h2>
-        <p className="mt-2 max-w-xl text-white/65">Napište mi pár vět o tom, co potřebujete vytvořit nebo upravit.</p>
+        <p className="mt-2 max-w-xl text-white/60">Napište mi pár vět o tom, co potřebujete vytvořit nebo upravit.</p>
         <Link href="/kontakt" className="mt-5 inline-block rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-primary/90">Kontakt</Link>
       </section>
     </div>

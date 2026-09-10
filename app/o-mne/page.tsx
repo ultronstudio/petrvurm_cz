@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function OMne() {
   return (
-    <section className="py-14 md:py-18">
+    <section className="py-14 md:py-16">
       <div className="container mx-auto max-w-5xl px-4 md:px-6">
         <header className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start">
           <div className="max-w-2xl">

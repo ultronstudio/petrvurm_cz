@@ -48,7 +48,7 @@ const projects = [
 
 export default function Projekty() {
   return (
-    <section className="py-14 md:py-18">
+    <section className="py-14 md:py-16">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Projekty</h1>
@@ -70,8 +70,8 @@ export default function Projekty() {
                 />
               </Link>
               <h2 className="mt-4 text-xl font-bold">{project.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">{project.description}</p>
-              <p className="mt-3 text-sm text-white/45"><span className="text-white/65">Technologie:</span> {project.technologies}</p>
+              <p className="mt-2 text-sm leading-6 text-white/60">{project.description}</p>
+              <p className="mt-3 text-sm text-white/50"><span className="text-white/70">Technologie:</span> {project.technologies}</p>
               <Link href={`/projekty/${project.slug}`} className="mt-3 inline-block text-sm text-primary hover:underline">Detail projektu</Link>
             </article>
           ))}

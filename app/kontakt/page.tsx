@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Kontakt() {
   return (
-    <section className="py-14 md:py-18">
+    <section className="py-14 md:py-16">
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Kontakt</h1>

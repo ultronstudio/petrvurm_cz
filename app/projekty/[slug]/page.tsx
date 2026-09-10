@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <section className="py-12 md:py-16">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <nav className="mb-6 text-sm text-white/55" aria-label="Drobečková navigace">
+        <nav className="mb-6 text-sm text-white/50" aria-label="Drobečková navigace">
           <Link href="/projekty" className="hover:text-primary">Projekty</Link>
           <span className="px-2" aria-hidden="true">/</span>
           <span className="text-white/80">{post.data.title}</span>
@@ -91,10 +91,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{post.data.title}</h1>
             {post.data.description && <p className="mt-4 leading-7 text-white/70">{post.data.description}</p>}
             <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/10 pt-5 text-sm">
-              {post.data.created && <div><dt className="text-white/45">Vytvořeno</dt><dd className="mt-1 text-white/80">{post.data.created}</dd></div>}
-              {post.data.updated && <div><dt className="text-white/45">Aktualizováno</dt><dd className="mt-1 text-white/80">{post.data.updated}</dd></div>}
-              {post.data.status && <div><dt className="text-white/45">Stav</dt><dd className="mt-1 text-white/80">{post.data.status}</dd></div>}
-              {post.data.licence && <div><dt className="text-white/45">Licence</dt><dd className="mt-1 text-white/80">{post.data.licence}</dd></div>}
+              {post.data.created && <div><dt className="text-white/50">Vytvořeno</dt><dd className="mt-1 text-white/80">{post.data.created}</dd></div>}
+              {post.data.updated && <div><dt className="text-white/50">Aktualizováno</dt><dd className="mt-1 text-white/80">{post.data.updated}</dd></div>}
+              {post.data.status && <div><dt className="text-white/50">Stav</dt><dd className="mt-1 text-white/80">{post.data.status}</dd></div>}
+              {post.data.licence && <div><dt className="text-white/50">Licence</dt><dd className="mt-1 text-white/80">{post.data.licence}</dd></div>}
             </dl>
           </header>
         </div>

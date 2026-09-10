@@ -52,7 +52,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Petr Vurm</p>
           <Link href="/sitemap.xml" className="hover:text-white">Mapa webu</Link>
         </div>
