@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     template: '%s | Petr Vurm',
   },
   description: 'Navrhuji a vyvíjím firemní weby, webové aplikace a software na míru pro firmy, živnostníky a startupy.',
-  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'cs_CZ',

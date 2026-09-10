@@ -1,19 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Projekty – Petr Vurm",
-  description: "Přehled mých realizovaných projektů: webové aplikace, sociální sítě, desktopové aplikace a open-source projekty.",
-  openGraph: {
-    title: "Projekty – Petr Vurm",
-    description: "Přehled mých realizovaných projektů: webové aplikace, sociální sítě, desktopové aplikace a open-source projekty.",
-    type: "website"
-  }
+  title: 'Projekty a případové ukázky',
+  description: 'Vybrané webové aplikace, software a vlastní projekty s vysvětlením cíle, řešení a technických dovedností.',
+  alternates: { canonical: '/projekty' },
+  openGraph: { title: 'Projekty – Petr Vurm', description: 'Ukázky řešení od webových aplikací po browser extensions a zakázkový software.', url: '/projekty', type: 'website' },
 };
-
-export default function ProjektyLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
-}
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }

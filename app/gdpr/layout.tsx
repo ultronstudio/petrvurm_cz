@@ -1,19 +1,3 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "GDPR – Zásady ochrany dat – Petr Vurm",
-  description: "Zásady ochrany osobních údajů a GDPR na webu Petra Vurma. Jak se nakládá s vašimi daty.",
-  openGraph: {
-    title: "GDPR – Zásady ochrany dat – Petr Vurm",
-    description: "Zásady ochrany osobních údajů a GDPR na webu Petra Vurma. Jak se nakládá s vašimi daty.",
-    type: "website"
-  }
-};
-
-export default function GDPRLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return children;
-}
+import type { Metadata } from 'next';
+export const metadata: Metadata = { title: 'Zásady ochrany osobních údajů', description: 'Informace o zpracování osobních údajů na webu petrvurm.cz.', alternates: { canonical: '/gdpr' } };
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }
