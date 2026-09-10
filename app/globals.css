@@ -4,28 +4,10 @@
 
 @import '@radix-ui/themes/styles.css';
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #111113;
+  color: #fff;
 }
 
 @layer utilities {
@@ -74,7 +56,6 @@ body {
   @apply text-[#00b7ef] hover:underline;
 }
 
-
 .markdown-body ul {
   @apply list-disc pl-6 mb-4 text-gray-400;
 }
@@ -108,9 +89,8 @@ body {
 }
 
 .markdown-body code:not(pre > code) {
-  @apply bg-black p-2 rounded-sm
+  @apply bg-black p-2 rounded-sm;
 }
-
 
 pre:has(code) {
   position: relative;
@@ -139,7 +119,7 @@ pre button.copy {
 
   & .success {
     display: none;
-    background-image: url(/icons/check.svg); 
+    background-image: url(/icons/check.svg);
   }
 
   &.copied {

@@ -54,7 +54,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: post.data.title,
     description: post.data.description || 'Projekt Petra Vurma',
     alternates: { canonical: url },
-    openGraph: { title: `${post.data.title} – Petr Vurm`, description: post.data.description, url, type: 'article', images: post.data.previewImage ? [{ url: post.data.previewImage, alt: `Náhled projektu ${post.data.title}` }] : [] },
+    openGraph: {
+      title: `${post.data.title} – Petr Vurm`,
+      description: post.data.description,
+      url,
+      type: 'article',
+      images: post.data.previewImage ? [{ url: post.data.previewImage, alt: `Náhled projektu ${post.data.title}` }] : [],
+    },
   };
 }
 
@@ -64,26 +70,38 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!post) notFound();
 
   return (
-    <section className="relative py-12">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
+    <section className="py-12 md:py-16">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <nav className="mb-5 text-sm text-white/60" aria-label="Drobečková navigace"><Link href="/projekty" className="hover:text-primary">Projekty</Link> <span aria-hidden="true">/</span> <span className="text-white">{post.data.title}</span></nav>
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-            {post.data.previewImage ? <Image src={post.data.previewImage} alt={`Náhled projektu ${post.data.title}`} width={800} height={500} className="aspect-video h-full w-full object-cover" priority sizes="(min-width: 768px) 50vw, 100vw" /> : <div className="flex aspect-video items-center justify-center text-white/50">Bez náhledu</div>}
+        <nav className="mb-6 text-sm text-white/55" aria-label="Drobečková navigace">
+          <Link href="/projekty" className="hover:text-primary">Projekty</Link>
+          <span className="px-2" aria-hidden="true">/</span>
+          <span className="text-white/80">{post.data.title}</span>
+        </nav>
+
+        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
+          <div>
+            {post.data.previewImage ? (
+              <Image src={post.data.previewImage} alt={`Náhled projektu ${post.data.title}`} width={1000} height={625} className="aspect-video w-full rounded-lg border border-white/10 object-cover" priority sizes="(min-width: 768px) 60vw, 100vw" />
+            ) : (
+              <div className="flex aspect-video items-center justify-center border border-white/10 text-white/50">Bez náhledu</div>
+            )}
           </div>
-          <header className="rounded-2xl border border-white/10 bg-white/5 p-7">
+
+          <header>
             <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{post.data.title}</h1>
-            {post.data.description && <p className="mt-4 leading-7 text-white/75">{post.data.description}</p>}
-            <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2">
-              {post.data.created && <div className="rounded-xl border border-white/10 p-3"><dt className="text-white/55">Vytvořeno</dt><dd className="mt-1 font-semibold">{post.data.created}</dd></div>}
-              {post.data.updated && <div className="rounded-xl border border-white/10 p-3"><dt className="text-white/55">Aktualizováno</dt><dd className="mt-1 font-semibold">{post.data.updated}</dd></div>}
-              {post.data.status && <div className="rounded-xl border border-white/10 p-3"><dt className="text-white/55">Stav</dt><dd className="mt-1 font-semibold">{post.data.status}</dd></div>}
-              {post.data.licence && <div className="rounded-xl border border-white/10 p-3"><dt className="text-white/55">Licence</dt><dd className="mt-1 font-semibold">{post.data.licence}</dd></div>}
+            {post.data.description && <p className="mt-4 leading-7 text-white/70">{post.data.description}</p>}
+            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/10 pt-5 text-sm">
+              {post.data.created && <div><dt className="text-white/45">Vytvořeno</dt><dd className="mt-1 text-white/80">{post.data.created}</dd></div>}
+              {post.data.updated && <div><dt className="text-white/45">Aktualizováno</dt><dd className="mt-1 text-white/80">{post.data.updated}</dd></div>}
+              {post.data.status && <div><dt className="text-white/45">Stav</dt><dd className="mt-1 text-white/80">{post.data.status}</dd></div>}
+              {post.data.licence && <div><dt className="text-white/45">Licence</dt><dd className="mt-1 text-white/80">{post.data.licence}</dd></div>}
             </dl>
           </header>
         </div>
-        <article className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8"><MarkdownComponent content={post.content} /></article>
+
+        <article className="mt-10 max-w-3xl border-t border-white/10 pt-8">
+          <MarkdownComponent content={post.content} />
+        </article>
       </div>
     </section>
   );
