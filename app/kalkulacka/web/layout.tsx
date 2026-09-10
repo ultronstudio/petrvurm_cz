@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Orientační cena webu',
-  description: 'Startovní ceny webů a webových aplikací a vysvětlení faktorů, které ovlivňují výslednou cenu projektu.',
+  title: 'Cena webu',
+  description: 'Orientační ceny webových stránek a webových aplikací.',
   robots: { index: false, follow: true },
 };
 
