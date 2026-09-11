@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import type { CityConfig, Service } from '@/site.config';
+import { SITE_URL, type CityConfig, type Service } from '@/site.config';
 import { calculateLocalServicePrice, formatPrice } from '@/lib/pricing';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
 interface CityServicesProps {
   city: string;
@@ -15,9 +16,91 @@ function getDisplayPrice(service: Service, coefficient: number): string {
   return service.basePriceText.startsWith('od ') ? `od ${price}` : price;
 }
 
+function getPriceSpecification(service: Service, coefficient: number) {
+  const price = calculateLocalServicePrice(service.basePrice, coefficient);
+
+  if (service.basePriceText.startsWith('od ')) {
+    return {
+      '@type': 'PriceSpecification',
+      minPrice: price,
+      priceCurrency: 'CZK',
+    };
+  }
+
+  if (service.basePriceText.includes('/ h')) {
+    return {
+      '@type': 'UnitPriceSpecification',
+      price,
+      priceCurrency: 'CZK',
+      unitText: 'hodina',
+    };
+  }
+
+  return {
+    '@type': 'PriceSpecification',
+    price,
+    priceCurrency: 'CZK',
+  };
+}
+
 export default function CityServicesClient({ city, services, cityConfig }: CityServicesProps) {
+  const url = `${SITE_URL}/it-servis/${cityConfig.slug}`;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const serviceId = `${url}#service`;
+  const cityServiceJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#page`,
+        url,
+        name: `IT servis ${city} – Petr Vurm`,
+        description: `Lokální IT servis v lokalitě ${city}: domácí síť, Mesh Wi-Fi, tiskárny, chytré TV a technologická konzultace.`,
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': serviceId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: `IT servis – ${city}`,
+        serviceType: 'Lokální IT servis',
+        url,
+        provider: { '@id': PERSON_ID },
+        areaServed: {
+          '@type': 'Place',
+          name: city,
+        },
+        offers: services.map((service) => ({
+          '@type': 'Offer',
+          seller: { '@id': PERSON_ID },
+          itemOffered: {
+            '@type': 'Service',
+            name: service.title,
+            description: service.description,
+            serviceType: service.category,
+            provider: { '@id': PERSON_ID },
+            areaServed: { '@type': 'Place', name: city },
+          },
+          priceSpecification: getPriceSpecification(service, cityConfig.priceCoefficient),
+        })),
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Lokální IT servis', path: '/it-servis' },
+          { name: city, path: `/it-servis/${cityConfig.slug}` },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
+
   return (
     <div className="text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(cityServiceJsonLd) }} />
       <header className="mx-auto max-w-4xl px-4 py-14 md:px-6 md:py-16">
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">IT servis – {city}</h1>
         <p className="mt-4 max-w-2xl leading-7 text-white/70">Pomoc s domácí sítí, připojením zařízení a běžným nastavením techniky.</p>
