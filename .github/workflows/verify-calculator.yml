@@ -95,16 +95,24 @@ jobs:
               await context.close();
             }
 
-            const legacy = await browser.newPage({ viewport: { width: 390, height: 844 } });
+            const legacyContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+            const legacy = await legacyContext.newPage();
             const legacyResponse = await legacy.goto('http://127.0.0.1:8001/kalkulacka/web', { waitUntil: 'networkidle' });
             const legacyOverflow = await legacy.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
             report.push({ route: '/kalkulacka/web', status: legacyResponse?.status() ?? null, overflow: legacyOverflow });
-            await legacy.close();
+            await legacyContext.close();
 
             await browser.close();
             fs.writeFileSync('calculator-artifacts/report.json', JSON.stringify(report, null, 2));
 
-            const failures = report.filter(item => item.status !== 200 || item.initial?.h1Count !== undefined && item.initial.h1Count !== 1 || item.initial?.overflow || item.overflow || item.consoleErrors?.length || item.pageErrors?.length);
+            const failures = report.filter(item =>
+              item.status !== 200 ||
+              (item.initial?.h1Count !== undefined && item.initial.h1Count !== 1) ||
+              item.initial?.overflow ||
+              item.overflow ||
+              item.consoleErrors?.length ||
+              item.pageErrors?.length
+            );
             console.log(JSON.stringify({ checked: report.length, failures }, null, 2));
             if (failures.length) process.exit(1);
           })().catch(error => {
