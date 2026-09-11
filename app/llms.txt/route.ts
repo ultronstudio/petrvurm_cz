@@ -1,4 +1,5 @@
 import { BASE_HOURLY_RATE, BASE_PROJECT_RATES } from '@/lib/pricing';
+import { TEACHING_MIN_PRICE } from '@/lib/teaching';
 import { WEB_ADDONS } from '@/lib/web-pricing';
 import { SITE_URL } from '@/site.config';
 
@@ -14,7 +15,7 @@ export function GET() {
 
 Petr Vurm je samostatný vývojář, nikoli agentura. Veřejný kontakt je kontakt@petrvurm.cz. IČ: 21180164. Web je v češtině.
 
-Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web od ${BASE_PROJECT_RATES.businessWeb} Kč, web s CMS od ${BASE_PROJECT_RATES.cmsWeb} Kč, e-shop od ${BASE_PROJECT_RATES.shop} Kč, webová aplikace od ${BASE_PROJECT_RATES.webApp} Kč. Hodinová sazba je ${BASE_HOURLY_RATE} Kč/h.${monthlyCare ? ` Měsíční správa webu od ${monthlyCare.price} Kč/měsíc.` : ''}${aiDebloat ? ` Revize a debloat AI webu od ${aiDebloat.price} Kč.` : ''}
+Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web od ${BASE_PROJECT_RATES.businessWeb} Kč, web s CMS od ${BASE_PROJECT_RATES.cmsWeb} Kč, e-shop od ${BASE_PROJECT_RATES.shop} Kč, webová aplikace od ${BASE_PROJECT_RATES.webApp} Kč. Hodinová sazba je ${BASE_HOURLY_RATE} Kč/h.${monthlyCare ? ` Měsíční správa webu od ${monthlyCare.price} Kč/měsíc.` : ''}${aiDebloat ? ` Revize a debloat AI webu od ${aiDebloat.price} Kč.` : ''} Individuální výuka programování začíná na ${TEACHING_MIN_PRICE} Kč za 60 minut.
 
 ## Hlavní stránky
 
@@ -22,9 +23,16 @@ Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web
 - [O mně](${SITE_URL}/o-mne): zkušenosti, zaměření, studium a certifikáty.
 - [Projekty](${SITE_URL}/projekty): výběr webů, aplikací a dalších projektů.
 - [Ceník a kalkulátor](${SITE_URL}/cenik): interaktivní výběr základního balíčku a doplňkových služeb včetně správy, integrací, technického SEO, bezpečnostní revize a debloatu AI webu.
+- [Výuka, workshopy a přednášky](${SITE_URL}/vyuka): individuální výuka programování a webového vývoje, mentoring, workshopy, webináře a přednášky pro jednotlivce, školy, knihovny, firmy a další organizace.
 - [Jak pracuji](${SITE_URL}/jak-pracuji): postup od zadání po nasazení a předání.
 - [Kontakt](${SITE_URL}/kontakt): e-mail, telefon a informace vhodné pro první poptávku.
 - [Lokální IT servis](${SITE_URL}/it-servis): doplňkový IT servis ve vybraných lokalitách.
+
+## Výuka a skupinové akce
+
+Individuální výuka zahrnuje HTML/CSS/JavaScript, C#, Git/GitHub, databáze, PHP/Laravel, moderní webové aplikace a mentoring nebo debugging vlastního projektu.
+
+Skupinové workshopy a přednášky mohou být připravené například na témata vzniku moderního webu, cesty od localhostu k produkci, vývoje s AI bez nekontrolovaného generovaného kódu, Git/GitHub nebo praktické digitální bezpečnosti pro mladé, veřejnost a seniory. U skupinových akcí se cena stanovuje podle rozsahu a cílové skupiny.
 
 ## Vybrané doplňkové služby
 

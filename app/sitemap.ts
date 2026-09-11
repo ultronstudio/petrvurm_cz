@@ -27,7 +27,7 @@ function getSitemapMeta(route: string): Pick<MetadataRoute.Sitemap[number], 'cha
   if (route === '/') return { changeFrequency: 'weekly', priority: 1 };
   if (route === '/projekty') return { changeFrequency: 'monthly', priority: 0.9 };
   if (route.startsWith('/projekty/')) return { changeFrequency: 'monthly', priority: 0.8 };
-  if (route === '/cenik' || route === '/kontakt' || route === '/o-mne') return { changeFrequency: 'monthly', priority: 0.8 };
+  if (route === '/cenik' || route === '/vyuka' || route === '/kontakt' || route === '/o-mne') return { changeFrequency: 'monthly', priority: 0.8 };
   if (route === '/gdpr' || route === '/obchodni-podminky') return { changeFrequency: 'yearly', priority: 0.3 };
   if (route.startsWith('/it-servis/')) return { changeFrequency: 'monthly', priority: 0.5 };
   return { changeFrequency: 'monthly', priority: 0.7 };

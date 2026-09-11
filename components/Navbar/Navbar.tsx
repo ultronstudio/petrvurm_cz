@@ -15,6 +15,7 @@ export interface NavLink {
 const links: NavLink[] = [
   { name: "Služby", href: "/#sluzby" },
   { name: "Projekty", href: "/projekty" },
+  { name: "Výuka", href: "/vyuka" },
   { name: "Jak pracuji", href: "/jak-pracuji" },
   { name: "Ceník", href: "/cenik" },
   { name: "O mně", href: "/o-mne" },
