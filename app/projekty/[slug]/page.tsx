@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MarkdownComponent from '@/app/projekty/[slug]/MarkdownComponent';
 import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
 const postsDirectory = path.join(process.cwd(), 'projekty');
 
@@ -44,22 +45,43 @@ function getPostData(slug: string): PostData | null {
   }
 }
 
+export function generateStaticParams() {
+  try {
+    return fs
+      .readdirSync(postsDirectory)
+      .filter((file) => file.endsWith('.md'))
+      .map((file) => ({ slug: file.replace(/\.md$/, '') }));
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostData(slug);
   if (!post) return { title: 'Projekt nenalezen', robots: { index: false, follow: false } };
 
   const url = `${SITE_URL}/projekty/${slug}`;
+  const image = post.data.previewImage ? absoluteUrl(post.data.previewImage) : undefined;
+
   return {
     title: post.data.title,
     description: post.data.description || 'Projekt Petra Vurma',
+    authors: [{ name: 'Petr Vurm', url: `${SITE_URL}/o-mne` }],
+    creator: 'Petr Vurm',
     alternates: { canonical: url },
     openGraph: {
       title: `${post.data.title} – Petr Vurm`,
       description: post.data.description,
       url,
       type: 'article',
-      images: post.data.previewImage ? [{ url: post.data.previewImage, alt: `Náhled projektu ${post.data.title}` }] : [],
+      images: image ? [{ url: image, alt: `Náhled projektu ${post.data.title}` }] : [],
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title: `${post.data.title} – Petr Vurm`,
+      description: post.data.description,
+      images: image ? [image] : undefined,
     },
   };
 }
@@ -69,8 +91,51 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const post = getPostData(slug);
   if (!post) notFound();
 
+  const url = `${SITE_URL}/projekty/${slug}`;
+  const projectId = `${url}#project`;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const projectJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#page`,
+        url,
+        name: `${post.data.title} – Petr Vurm`,
+        description: post.data.description,
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': projectId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'CreativeWork',
+        '@id': projectId,
+        url,
+        name: post.data.title,
+        description: post.data.description,
+        image: post.data.previewImage ? absoluteUrl(post.data.previewImage) : undefined,
+        inLanguage: 'cs-CZ',
+        creator: { '@id': PERSON_ID },
+        author: { '@id': PERSON_ID },
+        copyrightHolder: { '@id': PERSON_ID },
+        mainEntityOfPage: { '@id': `${url}#page` },
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Projekty', path: '/projekty' },
+          { name: post.data.title, path: `/projekty/${slug}` },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
+
   return (
     <section className="py-12 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <nav className="mb-6 text-sm text-white/50" aria-label="Drobečková navigace">
           <Link href="/projekty" className="hover:text-primary">Projekty</Link>
