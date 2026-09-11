@@ -1,26 +1,40 @@
 import { BASE_HOURLY_RATE, BASE_PROJECT_RATES } from '@/lib/pricing';
+import { WEB_ADDONS } from '@/lib/web-pricing';
 import { SITE_URL } from '@/site.config';
 
 export const dynamic = 'force-static';
 
 export function GET() {
+  const monthlyCare = WEB_ADDONS.find((item) => item.id === 'monthly-care');
+  const aiDebloat = WEB_ADDONS.find((item) => item.id === 'ai-debloat');
+
   const content = `# Petr Vurm
 
 > Osobní web Petra Vurma, českého webového vývojáře a software developera. Webům a programování se věnuje od roku 2017 a pracuje na webových stránkách, webových aplikacích, softwaru na míru, API integracích a vlastních projektech.
 
 Petr Vurm je samostatný vývojář, nikoli agentura. Veřejný kontakt je kontakt@petrvurm.cz. IČ: 21180164. Web je v češtině.
 
-Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web od ${BASE_PROJECT_RATES.businessWeb} Kč, web s CMS od ${BASE_PROJECT_RATES.cmsWeb} Kč, e-shop od ${BASE_PROJECT_RATES.shop} Kč, webová aplikace od ${BASE_PROJECT_RATES.webApp} Kč. Hodinová sazba je ${BASE_HOURLY_RATE} Kč/h.
+Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web od ${BASE_PROJECT_RATES.businessWeb} Kč, web s CMS od ${BASE_PROJECT_RATES.cmsWeb} Kč, e-shop od ${BASE_PROJECT_RATES.shop} Kč, webová aplikace od ${BASE_PROJECT_RATES.webApp} Kč. Hodinová sazba je ${BASE_HOURLY_RATE} Kč/h.${monthlyCare ? ` Měsíční správa webu od ${monthlyCare.price} Kč/měsíc.` : ''}${aiDebloat ? ` Revize a debloat AI webu od ${aiDebloat.price} Kč.` : ''}
 
 ## Hlavní stránky
 
 - [Domů](${SITE_URL}/): stručné představení, služby a vybrané projekty.
 - [O mně](${SITE_URL}/o-mne): zkušenosti, zaměření, studium a certifikáty.
 - [Projekty](${SITE_URL}/projekty): výběr webů, aplikací a dalších projektů.
-- [Ceník](${SITE_URL}/cenik): veřejné orientační ceny webů, aplikací a hodinové práce.
+- [Ceník a kalkulátor](${SITE_URL}/cenik): interaktivní výběr základního balíčku a doplňkových služeb včetně správy, integrací, technického SEO, bezpečnostní revize a debloatu AI webu.
 - [Jak pracuji](${SITE_URL}/jak-pracuji): postup od zadání po nasazení a předání.
 - [Kontakt](${SITE_URL}/kontakt): e-mail, telefon a informace vhodné pro první poptávku.
 - [Lokální IT servis](${SITE_URL}/it-servis): doplňkový IT servis ve vybraných lokalitách.
+
+## Vybrané doplňkové služby
+
+- integrace platební brány,
+- integrace CRM, fakturace a dalších API,
+- měsíční správa webu,
+- technické SEO a strukturovaná data,
+- bezpečnostní audit a hardening,
+- testování a kontrola přístupnosti,
+- revize a debloat webu vzniklého s výraznou pomocí generátorů kódu.
 
 ## Vybrané projekty
 
