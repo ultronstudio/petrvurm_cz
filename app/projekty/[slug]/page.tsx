@@ -20,6 +20,7 @@ type PostData = {
     updated: string;
     status: string;
     licence: string;
+    index: boolean;
   };
   content: string;
 };
@@ -37,6 +38,7 @@ function getPostData(slug: string): PostData | null {
         updated: String(data.updated ?? ''),
         status: String(data.status ?? ''),
         licence: String(data.licence ?? ''),
+        index: data.index !== false,
       },
       content,
     };
@@ -70,6 +72,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     authors: [{ name: 'Petr Vurm', url: `${SITE_URL}/o-mne` }],
     creator: 'Petr Vurm',
     alternates: { canonical: url },
+    robots: post.data.index ? undefined : { index: false, follow: true },
     openGraph: {
       title: `${post.data.title} – Petr Vurm`,
       description: post.data.description,
