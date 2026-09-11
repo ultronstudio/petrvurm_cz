@@ -1,8 +1,36 @@
 import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
+
+const breadcrumbId = `${SITE_URL}/kontakt#breadcrumb`;
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': `${SITE_URL}/kontakt#page`,
+      url: `${SITE_URL}/kontakt`,
+      name: 'Kontakt – Petr Vurm',
+      description: 'Kontaktní údaje Petra Vurma pro poptávky webů, aplikací a softwaru.',
+      inLanguage: 'cs-CZ',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: { '@id': PERSON_ID },
+      breadcrumb: { '@id': breadcrumbId },
+    },
+    {
+      ...breadcrumbJsonLd([
+        { name: 'Petr Vurm', path: '/' },
+        { name: 'Kontakt', path: '/kontakt' },
+      ]),
+      '@id': breadcrumbId,
+    },
+  ],
+};
 
 export default function Kontakt() {
   return (
     <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(contactJsonLd) }} />
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Kontakt</h1>
