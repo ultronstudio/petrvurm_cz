@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, serializeJsonLd } from '@/lib/seo';
 
 const services = [
   ['Webové stránky', 'Firemní weby, landing pages a menší prezentace na míru.'],
@@ -24,9 +26,38 @@ const featuredProjects = [
   },
 ] as const;
 
+const homepageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE_URL}/#homepage`,
+  url: SITE_URL,
+  name: 'Petr Vurm – webový vývojář a software developer',
+  description: 'Webové stránky, webové aplikace, software na míru, integrace a vybrané projekty Petra Vurma.',
+  inLanguage: 'cs-CZ',
+  isPartOf: { '@id': WEBSITE_ID },
+  author: { '@id': PERSON_ID },
+  about: { '@id': PERSON_ID },
+  mainEntity: { '@id': PERSON_ID },
+  mentions: [
+    ...services.map(([name, description]) => ({
+      '@type': 'Service',
+      name,
+      description,
+      provider: { '@id': PERSON_ID },
+    })),
+    ...featuredProjects.map((project) => ({
+      '@type': 'CreativeWork',
+      '@id': `${SITE_URL}${project.href}#project`,
+      name: project.title,
+      url: `${SITE_URL}${project.href}`,
+    })),
+  ],
+};
+
 export default function Home() {
   return (
     <div className="py-10 md:py-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(homepageJsonLd) }} />
       <section className="container mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
         <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">Petr Vurm</h1>
         <p className="mt-4 text-xl font-medium text-white/90 md:text-2xl">Webový vývojář a software developer.</p>
