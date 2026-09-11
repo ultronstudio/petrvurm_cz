@@ -118,7 +118,7 @@ export default function WebPriceCalculator() {
                     <span className={`block font-semibold ${selected ? 'text-primary' : 'text-white'}`}>{item.name}</span>
                     <span className="mt-1 block text-sm leading-6 text-white/60">{item.description}</span>
                     {item.details && (
-                      <span className="mt-2 block text-xs leading-5 text-white/45">{item.details.join(' · ')}</span>
+                      <span className="mt-2 block text-xs leading-5 text-white/50">{item.details.join(' · ')}</span>
                     )}
                   </span>
                   <span className="font-semibold text-primary sm:text-right">{priceLabel(item)}</span>
@@ -155,7 +155,7 @@ export default function WebPriceCalculator() {
                             <span className={`block font-semibold ${selected ? 'text-primary' : 'text-white'}`}>{item.name}</span>
                             <span className="mt-1 block text-sm leading-6 text-white/60">{item.description}</span>
                             {item.details && (
-                              <span className="mt-2 block text-xs leading-5 text-white/45">{item.details.join(' · ')}</span>
+                              <span className="mt-2 block text-xs leading-5 text-white/50">{item.details.join(' · ')}</span>
                             )}
                           </span>
                           <span className="font-semibold text-primary sm:text-right">{priceLabel(item)}</span>
@@ -178,7 +178,7 @@ export default function WebPriceCalculator() {
         ) : (
           <ul className="mt-4 space-y-3 text-sm">
             {selectedItems.map((item) => (
-              <li key={item.id} className="flex gap-3 justify-between">
+              <li key={item.id} className="flex justify-between gap-3">
                 <span className="text-white/70">{item.name}</span>
                 <span className="shrink-0 text-white/90">{priceLabel(item)}</span>
               </li>
@@ -208,7 +208,7 @@ export default function WebPriceCalculator() {
           {selectedItems.length === 0 && <strong className="text-xl text-white/40">—</strong>}
         </div>
 
-        <p className="mt-5 text-xs leading-5 text-white/45">
+        <p className="mt-5 text-xs leading-5 text-white/50">
           Jde o orientační minimální cenu. Finální nabídka závisí na konkrétním zadání a stavu existujícího projektu. Hodinová sazba pro práce mimo domluvený rozsah je {WEB_PRICING_HOURLY_RATE} Kč/h.
         </p>
 
