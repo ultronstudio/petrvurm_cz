@@ -43,7 +43,7 @@ const pricingJsonLd = {
               }
             : {
                 '@type': 'UnitPriceSpecification',
-                price: item.price,
+                minPrice: item.price,
                 priceCurrency: 'CZK',
                 unitText: item.billing === 'monthly' ? 'měsíc' : 'rok',
               },
