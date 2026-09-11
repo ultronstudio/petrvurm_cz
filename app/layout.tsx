@@ -20,11 +20,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Petr Vurm', url: '/o-mne' }],
   creator: 'Petr Vurm',
   publisher: 'Petr Vurm',
-  alternates: {
-    types: {
-      'text/plain': '/llms.txt',
-    },
-  },
   robots: {
     index: true,
     follow: true,
@@ -59,6 +54,9 @@ const globalJsonLd = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="cs">
+      <head>
+        <link rel="describedby" href="/llms.txt" />
+      </head>
       <body className="bg-[#111113] p-[0.01px]">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(globalJsonLd) }} />
         <Theme appearance="dark" accentColor="indigo" grayColor="slate" hasBackground panelBackground="translucent" radius="small" scaling="100%">
