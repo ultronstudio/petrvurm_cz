@@ -1,19 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Ceník & Služby – Petr Vurm",
-  description: "Přehled všech služeb a cen. Web, IT služby, školení a poradenství. Transparentní cenování bez skrytých nákladů.",
+  title: 'Ceník a kalkulátor',
+  description: 'Interaktivní kalkulátor webů, aplikací, správy, integrací a revizí existujících webů. Hodinová sazba 800 Kč.',
+  alternates: { canonical: '/cenik' },
   openGraph: {
-    title: "Ceník & Služby – Petr Vurm",
-    description: "Přehled všech služeb a cen. Web, IT služby, školení a poradenství. Transparentní cenování bez skrytých nákladů.",
-    type: "website"
-  }
+    title: 'Ceník a kalkulátor – Petr Vurm',
+    description: 'Vyberte základ projektu a doplňkové služby a získejte orientační cenu.',
+    url: '/cenik',
+    type: 'website',
+  },
 };
 
-export default function CenikLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return children;
 }

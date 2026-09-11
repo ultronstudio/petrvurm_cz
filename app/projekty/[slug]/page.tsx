@@ -1,16 +1,17 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import Image from "next/image";
-import MarkdownComponent from "@/app/projekty/[slug]/MarkdownComponent";
-import Link from "next/link";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import MarkdownComponent from '@/app/projekty/[slug]/MarkdownComponent';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
-const postsDirectory = path.join(process.cwd(), "projekty");
+const postsDirectory = path.join(process.cwd(), 'projekty');
 
-export interface PostData {
-  filename: string;
+type PostData = {
   data: {
     title: string;
     description: string;
@@ -19,164 +20,156 @@ export interface PostData {
     updated: string;
     status: string;
     licence: string;
+    index: boolean;
   };
   content: string;
-}
+};
 
-function readTimeMinutes(text: string, wpm = 200) {
-  const words = text.trim().split(/\s+/).length;
-  return Math.max(1, Math.round(words / wpm));
-}
-
-async function getPostData(slug: string) {
-  const filePath = path.join(postsDirectory, `${slug}.md`);
+function getPostData(slug: string): PostData | null {
   try {
-    const fileContents = fs.readFileSync(filePath, "utf8");
+    const fileContents = fs.readFileSync(path.join(postsDirectory, `${slug}.md`), 'utf8');
     const { data, content } = matter(fileContents);
-
     return {
-      filename: `${slug}.md`,
       data: {
-        title: data.title || "",
-        description: data.description || "",
-        previewImage: data.previewImage || "",
-        created: data.created || "",
-        updated: data.updated || "",
-        status: data.status || "",
-        licence: data.licence || "",
+        title: String(data.title ?? ''),
+        description: String(data.description ?? ''),
+        previewImage: String(data.previewImage ?? ''),
+        created: String(data.created ?? ''),
+        updated: String(data.updated ?? ''),
+        status: String(data.status ?? ''),
+        licence: String(data.licence ?? ''),
+        index: data.index !== false,
       },
       content,
-    } as PostData;
-  } catch (e) {
-    console.log(e);
+    };
+  } catch {
     return null;
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const slug = (await params).slug;
-  const post = await getPostData(slug);
-
-  if (!post) {
-    return {
-      title: "Projekt nenalezen – Petr Vurm",
-      description: "Projekt, který hledáte, nebyl nalezen.",
-    };
+export function generateStaticParams() {
+  try {
+    return fs
+      .readdirSync(postsDirectory)
+      .filter((file) => file.endsWith('.md'))
+      .map((file) => ({ slug: file.replace(/\.md$/, '') }));
+  } catch {
+    return [];
   }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostData(slug);
+  if (!post) return { title: 'Projekt nenalezen', robots: { index: false, follow: false } };
+
+  const url = `${SITE_URL}/projekty/${slug}`;
+  const image = post.data.previewImage ? absoluteUrl(post.data.previewImage) : undefined;
 
   return {
-    title: `${post.data.title} – Petr Vurm`,
-    description: post.data.description || "Projekt od Petra Vurma",
+    title: post.data.title,
+    description: post.data.description || 'Projekt Petra Vurma',
+    authors: [{ name: 'Petr Vurm', url: `${SITE_URL}/o-mne` }],
+    creator: 'Petr Vurm',
+    alternates: { canonical: url },
+    robots: post.data.index ? undefined : { index: false, follow: true },
     openGraph: {
       title: `${post.data.title} – Petr Vurm`,
-      description: post.data.description || "Projekt od Petra Vurma",
-      type: "website",
-      images: post.data.previewImage ? [{ url: post.data.previewImage }] : [],
+      description: post.data.description,
+      url,
+      type: 'article',
+      images: image ? [{ url: image, alt: `Náhled projektu ${post.data.title}` }] : [],
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title: `${post.data.title} – Petr Vurm`,
+      description: post.data.description,
+      images: image ? [image] : undefined,
     },
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const slug = (await params).slug;
-  const post = await getPostData(slug);
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPostData(slug);
+  if (!post) notFound();
 
-  if (!post) return notFound();
-
-  const rt = readTimeMinutes(post.content);
+  const url = `${SITE_URL}/projekty/${slug}`;
+  const projectId = `${url}#project`;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const projectJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#page`,
+        url,
+        name: `${post.data.title} – Petr Vurm`,
+        description: post.data.description,
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': projectId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'CreativeWork',
+        '@id': projectId,
+        url,
+        name: post.data.title,
+        description: post.data.description,
+        image: post.data.previewImage ? absoluteUrl(post.data.previewImage) : undefined,
+        inLanguage: 'cs-CZ',
+        creator: { '@id': PERSON_ID },
+        author: { '@id': PERSON_ID },
+        copyrightHolder: { '@id': PERSON_ID },
+        mainEntityOfPage: { '@id': `${url}#page` },
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Projekty', path: '/projekty' },
+          { name: post.data.title, path: `/projekty/${slug}` },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
 
   return (
-    <section className="relative py-12">
-      {/* soft gradient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%),linear-gradient(180deg,#0B0C0E_0%,#0A0A0C_100%)]" />
-
+    <section className="py-12 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        {/* breadcrumb */}
-        <div className="mb-4 text-sm text-white/60">
-          <Link href="/projekty" prefetch={false} className="hover:text-white">
-            Projekty
-          </Link>{" "}
-          / <span className="text-white">{post.data.title}</span>
-        </div>
+        <nav className="mb-6 text-sm text-white/50" aria-label="Drobečková navigace">
+          <Link href="/projekty" className="hover:text-primary">Projekty</Link>
+          <span className="px-2" aria-hidden="true">/</span>
+          <span className="text-white/80">{post.data.title}</span>
+        </nav>
 
-        {/* hero */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
+          <div>
             {post.data.previewImage ? (
-              <Image
-                src={post.data.previewImage}
-                alt={post.data.title}
-                width={600}
-                height={400}
-                className="h-full w-full aspect-video object-cover"
-                priority={true}
-              />
+              <Image src={post.data.previewImage} alt={`Náhled projektu ${post.data.title}`} width={1000} height={625} className="aspect-video w-full rounded-lg border border-white/10 object-cover" priority sizes="(min-width: 768px) 60vw, 100vw" />
             ) : (
-              <div className="flex aspect-video items-center justify-center text-white/50">
-                Bez náhledu
-              </div>
+              <div className="flex aspect-video items-center justify-center border border-white/10 text-white/50">Bez náhledu</div>
             )}
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-              {post.data.title}
-            </h1>
-            {/* popis může obsahovat HTML */}
-            {post.data.description && (
-              <p
-                className="mt-3 text-white/80"
-                dangerouslySetInnerHTML={{ __html: post.data.description }}
-              />
-            )}
-
-            {/* meta chips */}
-            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                <div className="text-xs text-white/60">Projekt vytvořen</div>
-                <div className="text-sm font-semibold">{post.data.created}</div>
-              </div>
-
-              {post.data.updated && (
-                <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                  <div className="text-xs text-white/60">Naposledy upraven</div>
-                  <div className="text-sm font-semibold">{post.data.updated}</div>
-                </div>
-              )}
-
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                <div className="text-xs text-white/60">Stav vývoje</div>
-                <div
-                  className="text-sm font-semibold"
-                  dangerouslySetInnerHTML={{ __html: post.data.status }}
-                />
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                <div className="text-xs text-white/60">Licence</div>
-                <div className="text-sm font-semibold">{post.data.licence || "—"}</div>
-              </div>
-            </div>
-
-            {/* reading time */}
-            <div className="mt-4 text-xs text-white/60">
-              Odhad doby čtení: <span className="text-white">{rt} min</span>
-            </div>
-          </div>
+          <header>
+            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{post.data.title}</h1>
+            {post.data.description && <p className="mt-4 leading-7 text-white/70">{post.data.description}</p>}
+            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/10 pt-5 text-sm">
+              {post.data.created && <div><dt className="text-white/50">Vytvořeno</dt><dd className="mt-1 text-white/80">{post.data.created}</dd></div>}
+              {post.data.updated && <div><dt className="text-white/50">Aktualizováno</dt><dd className="mt-1 text-white/80">{post.data.updated}</dd></div>}
+              {post.data.status && <div><dt className="text-white/50">Stav</dt><dd className="mt-1 text-white/80">{post.data.status}</dd></div>}
+              {post.data.licence && <div><dt className="text-white/50">Licence</dt><dd className="mt-1 text-white/80">{post.data.licence}</dd></div>}
+            </dl>
+          </header>
         </div>
 
-        {/* content */}
-        <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-          <h2 className="text-2xl font-semibold mb-3">O projektu</h2>
+        <article className="mt-10 max-w-3xl border-t border-white/10 pt-8">
           <MarkdownComponent content={post.content} />
-        </div>
+        </article>
       </div>
     </section>
   );

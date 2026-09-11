@@ -1,211 +1,92 @@
-"use client";
+import WebPriceCalculator from '@/components/WebPriceCalculator/WebPriceCalculator';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
+import { WEB_PRICING_HOURLY_RATE, WEB_PRICING_ITEMS } from '@/lib/web-pricing';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card } from "@radix-ui/themes";
-import { ArrowRight, Check, Code, Lightbulb, Headphones, Monitor } from "lucide-react";
-import { BASE_HOURLY_RATE, BASE_PROJECT_RATES, calculatePrice, formatPrice } from "@/lib/pricing";
+const breadcrumbId = `${SITE_URL}/cenik#breadcrumb`;
+const catalogId = `${SITE_URL}/cenik#offer-catalog`;
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
+const pricingJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/cenik#page`,
+      url: `${SITE_URL}/cenik`,
+      name: 'Ceník a kalkulátor – Petr Vurm',
+      description: 'Interaktivní orientační kalkulátor webů, aplikací, správy, integrací a revizí existujících webů.',
+      inLanguage: 'cs-CZ',
+      isPartOf: { '@id': WEBSITE_ID },
+      author: { '@id': PERSON_ID },
+      mainEntity: { '@id': catalogId },
+      breadcrumb: { '@id': breadcrumbId },
+    },
+    {
+      '@type': 'OfferCatalog',
+      '@id': catalogId,
+      name: 'Tvorba, rozvoj a správa webů',
+      itemListElement: WEB_PRICING_ITEMS.map((item) => ({
+        '@type': 'Offer',
+        seller: { '@id': PERSON_ID },
+        itemOffered: {
+          '@type': 'Service',
+          name: item.name,
+          description: item.description,
+          provider: { '@id': PERSON_ID },
+        },
+        priceSpecification:
+          item.billing === 'one-time'
+            ? {
+                '@type': 'PriceSpecification',
+                minPrice: item.price,
+                priceCurrency: 'CZK',
+              }
+            : {
+                '@type': 'UnitPriceSpecification',
+                minPrice: item.price,
+                priceCurrency: 'CZK',
+                unitText: item.billing === 'monthly' ? 'měsíc' : 'rok',
+              },
+      })),
+    },
+    {
+      '@type': 'Offer',
+      seller: { '@id': PERSON_ID },
+      itemOffered: {
+        '@type': 'Service',
+        name: 'Hodinová práce mimo domluvený rozsah',
+        provider: { '@id': PERSON_ID },
+      },
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: WEB_PRICING_HOURLY_RATE,
+        priceCurrency: 'CZK',
+        unitText: 'hodina',
+      },
+    },
+    {
+      ...breadcrumbJsonLd([
+        { name: 'Petr Vurm', path: '/' },
+        { name: 'Ceník', path: '/cenik' },
+      ]),
+      '@id': breadcrumbId,
+    },
+  ],
 };
 
 export default function Cenik() {
-  const services = [
-    {
-      category: "Webové služby",
-      icon: Monitor,
-      items: [
-        { name: "Jednoduchý web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.simpleWeb)), description: "Jednostránkový web, prezentace" },
-        { name: "Standardní web", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.standardWeb)), description: "5-10 stran, CMS, SEO" },
-        { name: "E-shop", price: formatPrice(calculatePrice(BASE_PROJECT_RATES.shop)) + "+", description: "Online obchod s katalogem, platby" },
-        { name: "Webová aplikace", price: `od ${formatPrice(calculatePrice(BASE_PROJECT_RATES.webApp))}`, description: "Komplexní řešení, databáze, API" },
-      ]
-    },
-    {
-      category: "IT Služby",
-      icon: Headphones,
-      items: [
-        { name: "Mesh Wi-Fi", price: formatPrice(calculatePrice(1500)) + "+", description: "Instalace, bez vrtání" },
-        { name: "Tiskárny & TV", price: formatPrice(calculatePrice(800)), description: "Připojení, konfigurace" },
-        { name: "IT Konzultace", price: `${formatPrice(calculatePrice(BASE_HOURLY_RATE))} / h`, description: "Online nebo osobně" },
-        { name: "Správa serveru", price: `${formatPrice(calculatePrice(2000))} / m`, description: "Monitoring, zálohy, bezpečnost" },
-      ]
-    },
-    {
-      category: "Školení & Kurzy",
-      icon: Code,
-      items: [
-        { name: "Doučování", price: "300 Kč/h", description: "Programování, IT" },
-        { name: "Skupina 3-5 osob", price: "250 Kč/h", description: "Zajímavější cena" },
-        { name: "Firemní školení", price: "na výzvu", description: "Customizované" },
-      ]
-    },
-    {
-      category: "Poradenství",
-      icon: Lightbulb,
-      items: [
-        { name: "Konzultace", price: "zdarma", description: "Jednorázová, bez závazku" },
-        { name: "Analýza & Návrh", price: "5 000 Kč", description: "Audit, doporučení" },
-        { name: "Dlouhodobá podpora", price: "5 000 Kč/m", description: "Prioritní podpora, vývoj" },
-      ]
-    }
-  ];
-
   return (
-    <section className="relative py-12">
-      {/* gradient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
-
+    <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(pricingJsonLd) }} />
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        {/* HERO */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Ceník & Služby</h1>
-          <p className="mt-4 max-w-3xl text-white/80 text-lg">
-            Transparentní ceny bez skrytých nákladů. Vyberi si službu, kterou potřebuješ – nebo si nech navrhnout kombinaci.
+        <header className="max-w-3xl">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Ceník a kalkulátor</h1>
+          <p className="mt-4 leading-7 text-white/70">
+            Vyberte základ projektu a služby navíc. Kalkulátor průběžně odděluje jednorázové práce od měsíční nebo roční správy.
           </p>
-        </motion.div>
+        </header>
 
-        {/* SERVICES GRID */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {services.map(({ category, icon: Icon, items }, categoryIdx) => (
-            <motion.div
-              key={category}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-80px" }}
-              custom={categoryIdx}
-            >
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur overflow-hidden">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="rounded-lg bg-primary/20 p-2 text-primary">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white">{category}</h2>
-                </div>
-
-                <div className="space-y-4">
-                  {items.map((item, i) => (
-                    <div
-                      key={item.name}
-                      className="border-b border-white/10 pb-4 last:border-0"
-                    >
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className="font-semibold text-white">{item.name}</h3>
-                        <span className="text-primary font-bold whitespace-nowrap">{item.price}</span>
-                      </div>
-                      <p className="text-sm text-white/60">{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Aktualizovaná cena</h2>
-          <p className="text-white/80">
-            Ceny jsou vypočtené s globálním koeficientem ceny a hodinovou sazbou. Pokud se změní inflace nebo sazba, upraví se centrálně v konfiguraci.
-          </p>
-        </motion.section>
-
-        {/* FEATURES */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Co je součástí každého projektu?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[
-              "Konzultace a plánování",
-              "Responsive design (mobil, tablet, PC)",
-              "SEO optimalizace",
-              "Testování & QA",
-              "Nasazení na produkci",
-              "1 měsíc bezplatné opravy",
-              "Dokumentace kódu",
-              "Instrukce pro správu"
-            ].map((feature, i) => (
-              <div key={feature} className="flex gap-3">
-                <span className="text-primary flex-shrink-0">•</span>
-                <span className="text-white/90">{feature}</span>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* CALCULATORS */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">Interaktivní kalkulačky</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Link
-              href="/kalkulacka/web"
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur hover:border-primary/50 hover:bg-white/10 transition"
-              prefetch={true}
-            >
-              <h3 className="text-xl font-bold text-white mb-2">Kalkulačka Webů</h3>
-              <p className="text-white/70 mb-4">Vyberi si služby a vidíš cenu v reálném čase s DPH.</p>
-              <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition">
-                Otevřít <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
-
-            <Link
-              href="/kalkulacka/uceni"
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur hover:border-primary/50 hover:bg-white/10 transition"
-              prefetch={true}
-            >
-              <h3 className="text-xl font-bold text-white mb-2">Kalkulačka Kurzů</h3>
-              <p className="text-white/70 mb-4">Spočítej si cenu školení, doučování či skupinového kurzu.</p>
-              <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition">
-                Otevřít <ArrowRight className="h-4 w-4" />
-              </div>
-            </Link>
-          </div>
-        </motion.section>
-
-        {/* CTA */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-16 text-center"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Nevíš, kde začít?</h2>
-          <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Domluvme si konzultaci. Pomohu ti vybrat správnou službu pro tvé potřeby.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-black transition hover:bg-primary/90"
-            prefetch={true}
-          >
-            Nezávazná konzultace <ArrowRight className="h-5 w-5" />
-          </Link>
-        </motion.section>
+        <WebPriceCalculator />
       </div>
     </section>
   );

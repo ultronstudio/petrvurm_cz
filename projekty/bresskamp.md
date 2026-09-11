@@ -1,13 +1,20 @@
 ---
 title: "BressKamp"
-description: "Portfolio německé společnosti BressKamp"
+description: "One-page firemní web pro německou společnost BressKamp"
 previewImage: "/images/projekty/bresskamp.jpg"
 created: "20. prosince 2020"
-status: "<span style=\"color: #bfc000;\">dokončeno</span>"
+status: "Dokončeno"
 licence: "Všechna práva vyhrazena"
 ---
-Jednoduchý one page web pro německou společnost BressKamp. Web je vytvořen s použitím volně dostupné placené šablony, upraven podle představ klienta a je optimalizován pro rychlost a SEO. Web je plně responzivní a je optimalizován pro všechny zařízení.
+
+BressKamp je one-page web pro německou společnost. Základem byla placená šablona, kterou jsem upravil podle dodaného obsahu a požadavků klienta.
+
+Řešil jsem úpravy vzhledu, responzivní zobrazení, rychlost stránky a základní SEO.
+
+## Technologie
+
+HTML, CSS, JavaScript a PHP.
 
 ## Odkazy
 
-- [BressKamp](https://behaelterbau.cz "Navštívit BressKamp")
+- [BressKamp](https://behaelterbau.cz)

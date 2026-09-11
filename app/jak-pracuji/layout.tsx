@@ -1,19 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Jak pracuji – Petr Vurm",
-  description: "Můj pracovní proces od prvotní konzultace přes vývoj až po spuštění a dlouhodobou podporu. Transparentní a spolehlivý přístup.",
+  title: 'Jak pracuji',
+  description: 'Jak probíhá práce na webu nebo aplikaci od zadání po nasazení a předání.',
+  alternates: { canonical: '/jak-pracuji' },
   openGraph: {
-    title: "Jak pracuji – Petr Vurm",
-    description: "Můj pracovní proces od prvotní konzultace přes vývoj až po spuštění a dlouhodobou podporu. Transparentní a spolehlivý přístup.",
-    type: "website"
-  }
+    title: 'Jak pracuji – Petr Vurm',
+    description: 'Jak probíhá práce na webu nebo aplikaci od zadání po nasazení a předání.',
+    url: '/jak-pracuji',
+    type: 'website',
+  },
 };
 
-export default function JakPracujiLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return children;
 }

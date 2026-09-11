@@ -1,4 +1,5 @@
-// ===== SERVICES DEFINITION =====
+import { BASE_HOURLY_RATE } from './pricing';
+
 export type Service = {
   id: string;
   title: string;
@@ -11,29 +12,28 @@ export type Service = {
 export const ALL_SERVICES: Record<string, Service> = {
   mesh_wifi: {
     id: 'mesh_wifi',
-    title: 'Chytrá Wi-Fi bez sekání (Mesh)',
-    description: 'Konec mrtvých zón v patře nebo na zahradě. Zprovoznění moderní sítě bez tahání kabelů a vrtání.',
+    title: 'Nastavení Mesh Wi-Fi',
+    description: 'Návrh a zprovoznění bezdrátové sítě pro lepší pokrytí domu nebo menší provozovny.',
     basePrice: 1500,
     basePriceText: 'od 1 500 Kč + hardware',
-    category: 'Domácnosti',
+    category: 'Lokální IT servis',
   },
   tiskarny_tv: {
     id: 'tiskarny_tv',
-    title: 'Zprovoznění tiskáren a chytré TV',
-    description: 'Připojení k síti, nastavení tisku z mobilu, naladění a instalace aplikací (Netflix, IPTV).',
+    title: 'Tiskárny a chytré TV',
+    description: 'Připojení zařízení k síti, nastavení tisku, aplikací a základní konfigurace.',
     basePrice: 800,
     basePriceText: '800 Kč',
-    category: 'Domácnosti',
+    category: 'Lokální IT servis',
   },
   it_konzultace: {
     id: 'it_konzultace',
-    title: 'Online IT a technologické konzultace',
-    description: 'Pomoc s výběrem podnikového softwaru, návrh architektury nebo zrychlení stávajících procesů.',
-    basePrice: 500,
-    basePriceText: '500 Kč / h',
-    category: 'Online služby',
-  }
+    title: 'IT a technologická konzultace',
+    description: 'Konzultace výběru technologií, softwaru, architektury nebo dalšího rozvoje řešení.',
+    basePrice: BASE_HOURLY_RATE,
+    basePriceText: `${BASE_HOURLY_RATE} Kč / h`,
+    category: 'Konzultace',
+  },
 };
 
-// Všechny služby dostupné v jakémkoliv městě
 export const DEFAULT_CITY_SERVICES = Object.keys(ALL_SERVICES);

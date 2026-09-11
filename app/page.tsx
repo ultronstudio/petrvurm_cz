@@ -1,272 +1,143 @@
-"use client";
+import Image from 'next/image';
+import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, serializeJsonLd } from '@/lib/seo';
 
-import { getAge, getFakeTubeAge } from "@/lib/ages";
-import Image from "next/image";
-import { Card } from "@radix-ui/themes";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Code, Cog, Link2, Layout, Lightbulb, ShieldCheck, ArrowRight } from "lucide-react";
+const services = [
+  ['Webové stránky', 'Firemní weby, landing pages a menší prezentace na míru.'],
+  ['Webové aplikace', 'Aplikace s databází, přihlášením, administrací nebo API.'],
+  ['Software na míru', 'Vyvíjím také interní nástroje a menší aplikace podle konkrétního zadání.'],
+  ['Integrace a automatizace', 'Propojuji aplikace přes API a automatizuji opakované úlohy.'],
+  ['Správa a další vývoj', 'Mohu převzít údržbu existujícího projektu nebo pokračovat na webu po spuštění.'],
+] as const;
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.06 } }),
+const featuredProjects = [
+  {
+    href: '/projekty/faketube',
+    image: '/images/projekty/faketube.jpg',
+    title: 'FakeTube',
+    text: 'Vlastní video platforma s uživatelskými účty, nahráváním a přehráváním videí.',
+  },
+  {
+    href: '/projekty/bresskamp',
+    image: '/images/projekty/bresskamp.jpg',
+    title: 'BressKamp',
+    text: 'One-page firemní web pro německou společnost, upravený podle dodaného obsahu a požadavků.',
+  },
+] as const;
+
+const homepageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE_URL}/#homepage`,
+  url: SITE_URL,
+  name: 'Petr Vurm – webový vývojář a software developer',
+  description: 'Webové stránky, webové aplikace, software na míru, integrace a vybrané projekty Petra Vurma.',
+  inLanguage: 'cs-CZ',
+  isPartOf: { '@id': WEBSITE_ID },
+  author: { '@id': PERSON_ID },
+  about: { '@id': PERSON_ID },
+  mainEntity: { '@id': PERSON_ID },
+  mentions: [
+    ...services.map(([name, description]) => ({
+      '@type': 'Service',
+      name,
+      description,
+      provider: { '@id': PERSON_ID },
+    })),
+    ...featuredProjects.map((project) => ({
+      '@type': 'CreativeWork',
+      '@id': `${SITE_URL}${project.href}#project`,
+      name: project.title,
+      url: `${SITE_URL}${project.href}`,
+    })),
+  ],
 };
 
 export default function Home() {
   return (
-    <section className="relative py-12">
-      {/* gradient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
-
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6 py-16 md:py-24 text-center">
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="text-4xl md:text-6xl font-extrabold tracking-tight text-white"
-          >
-            Petr Vurm
-          </motion.h1>
-          <motion.p
-            variants={fadeUp}
-            custom={1}
-            initial="hidden"
-            animate="show"
-            className="mx-auto mt-5 max-w-3xl text-lg md:text-xl text-white/80"
-          >
-            Pomáhám firmám, startupům i jednotlivcům převádět záměry do funkčních digitálních řešení.
-            Doručuji měřitelný užitek: zrychlení procesů, snížení nákladů a stabilní provoz.
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            custom={2}
-            initial="hidden"
-            animate="show"
-            className="mt-10 flex flex-wrap items-center justify-center gap-3"
-          >
-            <Link
-              href="/projekty"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-black transition hover:translate-y-[-1px] hover:bg-primary/90 focus:outline-none focus:ring-2"
-              prefetch={true}
-              aria-label="Zobrazit moje projekty"
-            >
-              Moje projekty <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/kontakt"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-[1px] hover:border-white/30 focus:outline-none focus:ring-2"
-              prefetch={true}
-              aria-label="Objednat nezávaznou konzultaci"
-            >
-              Nezávazná konzultace
-            </Link>
-          </motion.div>
+    <div className="py-10 md:py-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(homepageJsonLd) }} />
+      <section className="container mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+        <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">Petr Vurm</h1>
+        <p className="mt-4 text-xl font-medium text-white/90 md:text-2xl">Webový vývojář a software developer.</p>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-white/70 md:text-lg">
+          Tvořím webové stránky, webové aplikace a software na míru. Pracuji s firmami, živnostníky i na vlastních projektech.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/projekty" className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            Projekty
+          </Link>
+          <Link href="/kontakt" className="rounded-lg border border-white/20 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-white/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            Kontakt
+          </Link>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="services" className="py-14 md:py-18">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6">
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            className="mb-6 flex items-end justify-between"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Služby, na které se můžete spolehnout</h2>
-            <Link href="/cenik" className="hidden md:inline-flex items-center gap-2 text-primary hover:underline" prefetch={true} aria-label="Přejít na ceník">
-              Ceník a kalkulace <ArrowRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Vývoj webových aplikací",
-                text: "Návrh a realizace moderních webových platforem a prezentací s důrazem na výkon a udržitelnost.",
-                Icon: Code,
-              },
-              {
-                title: "Zakázkový software",
-                text: "Řešení vytvářená na míru – od interních nástrojů po desktopové aplikace, zaměřená na efektivitu procesů.",
-                Icon: Cog,
-              },
-              {
-                title: "Integrace a automatizace",
-                text: "Propojování systémů, API a automatizace rutinních činností s cílem snížit chybovost i náklady.",
-                Icon: Link2,
-              },
-              {
-                title: "UX & UI design",
-                text: "Srozumitelná a estetická rozhraní, která podporují obchodní cíle a přinášejí kvalitní uživatelskou zkušenost.",
-                Icon: Layout,
-              },
-              {
-                title: "Technologické poradenství",
-                text: "Volba technologií, návrh architektury a posouzení záměrů před investicí do vývoje.",
-                Icon: Lightbulb,
-              },
-              {
-                title: "Správa a podpora",
-                text: "Dlouhodobý dohled nad projekty, aktualizace a péče o bezproblémový provoz.",
-                Icon: ShieldCheck,
-              },
-            ].map(({ title, text, Icon }, i) => (
-              <motion.div
-                key={title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-80px" }}
-                custom={i}
-              >
-                <Card className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition will-change-transform">
-                  <div className="absolute inset-x-0 -top-24 h-40 bg-gradient-to-b from-primary/20 to-transparent opacity-0 transition group-hover:opacity-100" />
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-lg bg-primary/20 p-2 text-primary">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white tracking-tight">{title}</h3>
-                      <p className="mt-3 text-sm leading-6 text-white/80">{text}</p>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+      <section id="sluzby" className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6" aria-labelledby="sluzby-title">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <h2 id="sluzby-title" className="text-3xl font-bold tracking-tight">Co dělám</h2>
+          <Link href="/cenik" className="text-sm text-primary hover:underline">Ceník</Link>
         </div>
-      </section>
-
-      {/* PROJECTS */}
-      <section id="projects" className="py-6 md:py-5">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6">
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            className="text-3xl md:text-4xl font-bold tracking-tight"
-          >
-            Vybrané projekty
-          </motion.h2>
-          <motion.p
-            variants={fadeUp}
-            custom={1}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            className="mt-4 max-w-3xl text-white/70"
-          >
-            Níže uvedené ukázky představují realizace s důrazem na spolehlivý provoz, bezpečnost a přehlednou správu obsahu.
-          </motion.p>
-
-          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
-            {[
-              {
-                href: "/projekty/faketube",
-                img: "/images/projekty/faketube.jpg",
-                title: "FakeTube",
-                text: "Česká video platforma s vlastním přehrávačem, správou obsahu a podporou živého vysílání.",
-              },
-              {
-                href: "/projekty/hophub",
-                img: "/images/projekty/hophub.png",
-                title: "HopHub",
-                text: "Rozšíření pro prohlížeč s rychlým přístupem k pracovním nástrojům a automatizacím.",
-              },
-            ].map((p, i) => (
-              <motion.article
-                key={p.title}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-80px" }}
-                custom={i}
-                className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
-              >
-                <div className="relative">
-                  <Image
-                    src={p.img}
-                    alt={p.title}
-                    width={600}
-                    height={400}
-                    className="aspect-video w-full object-cover"
-                    priority={i === 0}
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-xl font-bold tracking-tight text-white">{p.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/80">{p.text}</p>
-                  <div className="mt-4">
-                    <Link
-                      href={p.href}
-                      className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
-                      prefetch={true}
-                      aria-label={`Zobrazit detaily projektu ${p.title}`}
-                    >
-                      Zobrazit detaily <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="py-14 md:py-18">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {[
-              { value: "40+", label: "Dokončených projektů" },
-              { value: `${getFakeTubeAge().years + (getFakeTubeAge().months > 0 ? 1 : 0)}+`, label: "Let zkušeností" },
-              { value: "100%", label: "Spokojení klienti" },
-              { value: "24h", label: "Odpověď na zprávu" }
-            ].map(({ value, label }, i) => (
-              <motion.div
-                key={label}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-80px" }}
-                custom={i}
-                className="rounded-xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur"
-              >
-                <div className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                  {value}
-                </div>
-                <p className="mt-2 text-sm text-white/70">{label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA STRIP */}
-      <section className="relative py-6 md:py-5">
-        <div className="pointer-events-none absolute inset-x-0 -top-16 -z-10 h-32" />
-        <div className="container mx-auto max-w-6xl px-4 md:px-6">
-          <div className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur md:flex-row md:text-left">
-            <div>
-              <h3 className="text-xl font-semibold">Potřebujete spolehlivého partnera pro vývoj?</h3>
-              <p className="mt-1 text-sm text-white/80">Krátká úvodní konzultace pomůže přesně vymezit rozsah a časový plán.</p>
+        <div className="mt-7 grid gap-x-10 md:grid-cols-2">
+          {services.map(([title, text]) => (
+            <div key={title} className="border-t border-white/10 py-5">
+              <h3 className="text-lg font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-white/60">{text}</p>
             </div>
-            <Link
-              href="/kontakt"
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
-              prefetch={true}
-            >
-              Domluvit konzultaci <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          ))}
         </div>
       </section>
-    </section>
+
+      <section className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6" aria-labelledby="projekty-title">
+        <div className="flex items-end justify-between gap-4">
+          <h2 id="projekty-title" className="text-3xl font-bold tracking-tight">Vybrané projekty</h2>
+          <Link href="/projekty" className="hidden text-sm text-primary hover:underline sm:inline">Všechny projekty</Link>
+        </div>
+        <div className="mt-8 grid gap-10 md:grid-cols-2">
+          {featuredProjects.map((project, index) => (
+            <article key={project.title}>
+              <Link href={project.href} className="block">
+                <Image
+                  src={project.image}
+                  alt={`Náhled projektu ${project.title}`}
+                  width={900}
+                  height={560}
+                  className="aspect-video w-full rounded-lg border border-white/10 object-cover"
+                  priority={index === 0}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                />
+              </Link>
+              <h3 className="mt-4 text-xl font-bold">{project.title}</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">{project.text}</p>
+              <Link href={project.href} className="mt-3 inline-block text-sm text-primary hover:underline">Detail projektu</Link>
+            </article>
+          ))}
+        </div>
+        <Link href="/projekty" className="mt-7 inline-block text-sm text-primary hover:underline sm:hidden">Všechny projekty</Link>
+      </section>
+
+      <section className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6" aria-labelledby="o-mne-title">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="max-w-2xl">
+            <h2 id="o-mne-title" className="text-3xl font-bold tracking-tight">Krátce o mně</h2>
+            <p className="mt-4 leading-7 text-white/70">
+              Webům a programování se věnuji od roku 2017. Začínal jsem jednoduchými stránkami a vlastními projekty, postupně jsem přešel k backendu, databázím a celým webovým aplikacím.
+            </p>
+            <p className="mt-3 leading-7 text-white/70">
+              Zakázku mohu řešit od návrhu přes vývoj až po nasazení a předání zdrojového kódu.
+            </p>
+            <Link href="/o-mne" className="mt-4 inline-block text-sm text-primary hover:underline">Více o mně</Link>
+          </div>
+          <Image src="/images/me/cro_interview.webp" alt="Petr Vurm" width={180} height={240} className="hidden aspect-[3/4] w-36 rounded-lg border border-white/10 object-cover md:block" sizes="144px" />
+        </div>
+      </section>
+
+      <section className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6">
+        <h2 className="text-2xl font-bold">Máte projekt?</h2>
+        <p className="mt-2 max-w-xl text-white/60">Napište mi pár vět o tom, co potřebujete vytvořit nebo upravit.</p>
+        <Link href="/kontakt" className="mt-5 inline-block rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-primary/90">Kontakt</Link>
+      </section>
+    </div>
   );
 }

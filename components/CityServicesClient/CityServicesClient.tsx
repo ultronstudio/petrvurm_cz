@@ -1,127 +1,133 @@
-'use client';
+import Link from 'next/link';
+import { SITE_URL, type CityConfig, type Service } from '@/site.config';
+import { calculateLocalServicePrice, formatPrice } from '@/lib/pricing';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
-import React from 'react';
-import {
-  Wifi,
-  Monitor,
-  Code,
-  Mail,
-  Phone,
-  House,
-  Zap,
-} from 'lucide-react';
-import { Service, CityConfig } from '@/site.config';
-import { calculatePrice, formatPrice } from '@/lib/pricing';
-
-interface CityServicesClientProps {
+interface CityServicesProps {
   city: string;
   services: Service[];
-  cityConfig?: CityConfig | null;
+  cityConfig: CityConfig;
 }
 
-// Mapování ikon na základě ID služby (mnohem spolehlivější než text stringu)
-const iconMap: Record<string, React.ReactNode> = {
-  'mesh_wifi': <Wifi className="h-6 w-6 text-[#00B7EF]" />,
-  'tiskarny_tv': <Monitor className="h-6 w-6 text-[#00B7EF]" />,
-  'weby_zivnostnici': <Code className="h-6 w-6 text-[#00B7EF]" />,
-  'it_konzultace': <Zap className="h-6 w-6 text-[#00B7EF]" />,
-  default: <House className="h-6 w-6 text-[#00B7EF]" />,
-};
+function getDisplayPrice(service: Service, coefficient: number): string {
+  if (coefficient === 1) return service.basePriceText;
 
-// Počítání ceny s koeficientem vzdálenosti a globálním inflačním koeficientem
-function getPriceWithCoefficient(basePrice: number, coefficient: number): string {
-  return formatPrice(calculatePrice(basePrice, coefficient));
+  const price = formatPrice(calculateLocalServicePrice(service.basePrice, coefficient));
+  return service.basePriceText.startsWith('od ') ? `od ${price}` : price;
 }
 
-export const CityServicesClient: React.FC<CityServicesClientProps> = ({
-  city,
-  services,
-  cityConfig,
-}) => {
+function getPriceSpecification(service: Service, coefficient: number) {
+  const price = calculateLocalServicePrice(service.basePrice, coefficient);
+
+  if (service.basePriceText.startsWith('od ')) {
+    return {
+      '@type': 'PriceSpecification',
+      minPrice: price,
+      priceCurrency: 'CZK',
+    };
+  }
+
+  if (service.basePriceText.includes('/ h')) {
+    return {
+      '@type': 'UnitPriceSpecification',
+      price,
+      priceCurrency: 'CZK',
+      unitText: 'hodina',
+    };
+  }
+
+  return {
+    '@type': 'PriceSpecification',
+    price,
+    priceCurrency: 'CZK',
+  };
+}
+
+export default function CityServicesClient({ city, services, cityConfig }: CityServicesProps) {
+  const url = `${SITE_URL}/it-servis/${cityConfig.slug}`;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const serviceId = `${url}#service`;
+  const cityServiceJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#page`,
+        url,
+        name: `IT servis ${city} – Petr Vurm`,
+        description: `Lokální IT servis v lokalitě ${city}: domácí síť, Mesh Wi-Fi, tiskárny, chytré TV a technologická konzultace.`,
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': serviceId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: `IT servis – ${city}`,
+        serviceType: 'Lokální IT servis',
+        url,
+        provider: { '@id': PERSON_ID },
+        areaServed: {
+          '@type': 'Place',
+          name: city,
+        },
+        offers: services.map((service) => ({
+          '@type': 'Offer',
+          seller: { '@id': PERSON_ID },
+          itemOffered: {
+            '@type': 'Service',
+            name: service.title,
+            description: service.description,
+            serviceType: service.category,
+            provider: { '@id': PERSON_ID },
+            areaServed: { '@type': 'Place', name: city },
+          },
+          priceSpecification: getPriceSpecification(service, cityConfig.priceCoefficient),
+        })),
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Lokální IT servis', path: '/it-servis' },
+          { name: city, path: `/it-servis/${cityConfig.slug}` },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
+
   return (
-    <div className="bg-[#0a0a0a] text-white">
-      {/* Hero Sekce */}
-      <header className="pt-20 pb-10 px-4 text-center">
-        <div className="container mx-auto max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-            Čisté IT služby pro <span className="text-[#00B7EF]">{city}</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-            Rychle, bez zednického nepořádku a s jasnou cenou. Jsem váš místní IT
-            soused a vyřeším vaše potíže ještě dnes.
-          </p>
-          {cityConfig && cityConfig.priceCoefficient === 1.0 && (
-            <p className="text-sm text-gray-400 mb-4">
-              *Základní cena pro sousední obce jako Tůně, Nechanice a blízké okolí.
-            </p>
-          )}
-          {cityConfig && cityConfig.priceCoefficient > 1.0 && (
-            <p className="text-sm text-gray-400 mb-4">
-              *Ceny zahrnují příplatek za vzdálenost ({Math.round((cityConfig.priceCoefficient - 1) * 100)} %).
-            </p>
-          )}
-        </div>
+    <div className="text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(cityServiceJsonLd) }} />
+      <header className="mx-auto max-w-4xl px-4 py-14 md:px-6 md:py-16">
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">IT servis – {city}</h1>
+        <p className="mt-4 max-w-2xl leading-7 text-white/70">Pomoc s domácí sítí, připojením zařízení a běžným nastavením techniky.</p>
+        {cityConfig.priceCoefficient > 1 && <p className="mt-3 text-sm text-white/50">U této lokality se cena výjezdu upravuje podle vzdálenosti.</p>}
       </header>
 
-      {/* Služby */}
-      <section className="px-4 pb-20">
-        <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">S čím vám pomohu</h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((svc: { basePrice: number; basePriceText: string | string[]; id: React.Key | null | undefined; category: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; description: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => {
-              const displayPrice = cityConfig
-                ? getPriceWithCoefficient(svc.basePrice, cityConfig.priceCoefficient)
-                : typeof svc.basePriceText === 'string'
-                ? svc.basePriceText
-                : Array.isArray(svc.basePriceText)
-                ? svc.basePriceText.join(' ')
-                : '';
-              const priceUnit = typeof svc.basePriceText === 'string' && svc.basePriceText.includes('/ h')
-                ? 'hodinu'
-                : typeof svc.basePriceText === 'string' && svc.basePriceText.includes('/ m')
-                ? 'měsíc'
-                : 'službu';
-              
-              return (
-                <div
-                  key={svc.id}
-                  className="flex flex-col p-8 bg-[#1a1a1a] rounded-2xl border border-[#333333] hover:-translate-y-1 transition-all duration-300"
-                >
-                  <span className="text-xs font-semibold text-[#00B7EF] uppercase tracking-wider mb-2">
-                    {svc.category}
-                  </span>
-                  <h3 className="text-xl font-bold text-white mb-3">{svc.title}</h3>
-                  <p className="text-gray-300 flex-grow mb-6 leading-relaxed">
-                    {svc.description}
-                  </p>
-                  <div className="pt-4 border-t border-gray-700">
-                    <span className="font-bold text-white">{displayPrice}</span>&nbsp;/&nbsp;{priceUnit}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <section className="mx-auto max-w-4xl border-t border-white/10 px-4 py-10 md:px-6" aria-labelledby="lokalni-sluzby">
+        <h2 id="lokalni-sluzby" className="text-2xl font-bold">Služby</h2>
+        <div className="mt-6 border-b border-white/10">
+          {services.map((service) => (
+            <article key={service.id} className="grid gap-3 border-t border-white/10 py-5 sm:grid-cols-[1fr_auto] sm:gap-8">
+              <div>
+                <h3 className="text-lg font-semibold">{service.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/60">{service.description}</p>
+                <p className="mt-2 text-xs text-white/50">{service.category}</p>
+              </div>
+              <p className="font-semibold text-primary sm:text-right">{getDisplayPrice(service, cityConfig.priceCoefficient)}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Kontakt */}
-      <section id="kontakt" className="py-20 px-4 max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-6 text-white">Pojďme to vyřešit</h2>
-        <p className="text-lg text-gray-300 mb-10">
-          Napište mi, co přesně vás trápí, nebo rovnou zavolejte. Rád s vámi proberu možnosti.
-        </p>
-        <div className="flex justify-center">
-          <a
-            href="/kontakt"
-            className="flex items-center justify-center gap-3 bg-[#1a1a1a] border-2 border-[#00B7EF] text-[#00B7EF] px-8 py-4 rounded-lg font-semibold hover:bg-[#2a2a2a] transition-colors"
-          >
-            <Mail className="h-5 w-5" />
-            <span>Kontaktovat mě</span>
-          </a>
-        </div>
+      <section className="mx-auto max-w-4xl border-t border-white/10 px-4 py-10 md:px-6">
+        <h2 className="text-2xl font-bold">Potřebujete něco jiného?</h2>
+        <p className="mt-3 max-w-xl text-white/60">Napište mi, co potřebujete vyřešit a kde.</p>
+        <Link href="/kontakt" className="mt-4 inline-block text-primary hover:underline">Kontakt</Link>
       </section>
     </div>
   );
-};
-
-export default CityServicesClient;
+}

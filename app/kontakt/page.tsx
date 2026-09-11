@@ -1,176 +1,73 @@
-"use client";
+import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
-import { Card } from "@radix-ui/themes";
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, Clock, Calculator, ExternalLink } from "lucide-react";
-
-type Ad = { title: string; url: string };
+const breadcrumbId = `${SITE_URL}/kontakt#breadcrumb`;
+const contactJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': `${SITE_URL}/kontakt#page`,
+      url: `${SITE_URL}/kontakt`,
+      name: 'Kontakt – Petr Vurm',
+      description: 'Kontaktní údaje Petra Vurma pro poptávky webů, aplikací a softwaru.',
+      inLanguage: 'cs-CZ',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: { '@id': PERSON_ID },
+      breadcrumb: { '@id': breadcrumbId },
+    },
+    {
+      ...breadcrumbJsonLd([
+        { name: 'Petr Vurm', path: '/' },
+        { name: 'Kontakt', path: '/kontakt' },
+      ]),
+      '@id': breadcrumbId,
+    },
+  ],
+};
 
 export default function Kontakt() {
-  const reklamy: Ad[] = useMemo(
-    () => [
-      { title: "WEDOS", url: "https://www.vedos.cz/?ap=Er80JB" },
-      { title: "WEDOS webhosting", url: "https://www.vedos.cz/webhosting/?ap=Er80JB" },
-      { title: "WEDOS Webhosting Managed Server (WMS)", url: "https://www.vedos.cz/wms/?ap=Er80JB" },
-      { title: "WEDOS WebSite", url: "https://www.vedos.cz/website/?ap=Er80JB" },
-      { title: "WEDOS mailhosting", url: "https://www.vedos.cz/mailhosting/?ap=Er80JB" },
-      { title: "WEDOS domény", url: "https://www.vedos.cz/domeny/?ap=Er80JB" },
-      { title: "WEDOS Cloud", url: "https://www.vedos.cz/cloud/?ap=Er80JB" },
-      { title: "WEDOS virtuální servery", url: "https://www.vedos.cz/vps-on/?ap=Er80JB" },
-      { title: "WEDOS dedikované servery", url: "https://www.vedos.cz/dedikovane-servery/?ap=Er80JB" }
-    ],
-    []
-  );
-
-  const [randomAd, setRandomAd] = useState<Ad | null>(null);
-
-  useEffect(() => {
-    setRandomAd(reklamy[Math.floor(Math.random() * reklamy.length)]);
-  }, [reklamy]);
-
   return (
-    <section className="relative py-12">
-      {/* gradient background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_50%_-10%,rgba(0,183,239,0.18),transparent_60%)]" />
+    <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(contactJsonLd) }} />
+      <div className="container mx-auto max-w-4xl px-4 md:px-6">
+        <header className="max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Kontakt</h1>
+          <p className="mt-4 leading-7 text-white/70">Stačí pár vět o tom, co potřebujete. Pokud už existuje web, aplikace nebo zadání, přidejte odkaz.</p>
+        </header>
 
-      <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        {/* HERO */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Kontaktujte mě</h1>
-          <p className="mt-2 max-w-3xl text-white/80">
-            Preferujete e-mail nebo krátký telefonát. Na zprávy reaguji zpravidla do 24 hodin.
-          </p>
-        </motion.div>
-
-        {/* CONTACT ACTIONS */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold">E-mail</h3>
+        <div className="mt-10 border-b border-white/10">
+          <section className="grid gap-3 border-t border-white/10 py-6 sm:grid-cols-[9rem_1fr]">
+            <h2 className="font-semibold">E-mail</h2>
+            <div>
+              <a href="mailto:kontakt@petrvurm.cz?subject=Poptávka%20projektu" className="text-lg text-primary hover:underline">kontakt@petrvurm.cz</a>
+              <p className="mt-2 text-sm leading-6 text-white/60">Nejlepší pro první zprávu, odkazy a podklady.</p>
             </div>
-            <p className="mt-2 text-white/80">Nejlepší kanál pro prvotní poptávku a sdílení podkladů.</p>
-            <a
-              href="mailto:kontakt@petrvurm.cz?subject=Poptávka&body=Dobrý%20den%2C%20rád%20bych..."
-              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
-            >
-              Napsat e-mail
-            </a>
-          </Card>
-
-          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <Phone className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold">Telefon</h3>
+          </section>
+          <section className="grid gap-3 border-t border-white/10 py-6 sm:grid-cols-[9rem_1fr]">
+            <h2 className="font-semibold">Telefon</h2>
+            <div>
+              <a href="tel:+420777416611" className="text-lg text-white hover:text-primary">+420 777 416 611</a>
+              <p className="mt-2 text-sm leading-6 text-white/60">Pro krátkou domluvu nebo navazující hovor.</p>
             </div>
-            <p className="mt-2 text-white/80">
-              Krátké dotazy a domluva termínu hovoru.
-            </p>
-            <a
-              href="tel:+420777416611"
-              className="mt-4 inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary/90"
-            >
-              Zavolat mi
-            </a>
-          </Card>
+          </section>
         </div>
 
-        {/* INFO ROWS */}
-        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold">Kalkulačka</h3>
-            </div>
-            <p className="mt-2 text-white/80">
-              Pro orientační rozpočet využijte kalkulačku služeb nebo výuky.
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Link
-                href="/kalkulacka/web"
-                className="inline-flex items-center rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-black transition hover:bg-primary/90"
-                prefetch={false}
-              >
-                Web – kalkulačka
-              </Link>
-              <Link
-                href="/kalkulacka/uceni"
-                className="inline-flex items-center rounded-lg border border-white/20 bg-white/5 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-white/10"
-                prefetch={false}
-              >
-                Doučování – kalkulačka
-              </Link>
-            </div>
-          </Card>
+        <section className="mt-9 max-w-2xl">
+          <h2 className="text-2xl font-bold">Co se hodí napsat</h2>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-6 text-white/70">
+            <li>co má web nebo aplikace dělat,</li>
+            <li>pro koho je určená,</li>
+            <li>co je pro první verzi nejdůležitější,</li>
+            <li>případný termín nebo rozpočet, pokud ho už znáte.</li>
+          </ul>
+        </section>
 
-          <Card className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold">Další informace</h3>
-            </div>
-            <dl className="mt-2 grid grid-cols-1 gap-2 text-white/80 text-sm">
-              <div>
-                <dt className="font-medium text-white">IČ</dt>
-                <dd>21180164</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-white">Číslo účtu</dt>
-                <dd>7030514389/0800</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-white">IBAN</dt>
-                <dd>CZ46&nbsp;0800&nbsp;0000&nbsp;0070&nbsp;3051&nbsp;4389</dd>
-              </div>
-              <div>
-                <dt className="font-medium text-white">E-mail</dt>
-                <dd>
-                  <a href="mailto:kontakt@petrvurm.cz" className="text-primary hover:underline">
-                    kontakt@petrvurm.cz
-                  </a>
-                </dd>
-              </div>
-            </dl>
-          </Card>
+        <div className="mt-10 border-t border-white/10 pt-7 text-sm text-white/60">
+          <p><strong className="text-white/80">Petr Vurm</strong> · IČ: 21180164 · neplátce DPH</p>
+          <Link href="/jak-pracuji" className="mt-3 inline-block text-primary hover:underline">Jak pracuji</Link>
         </div>
-
-        {/* PARTNER BANNER */}
-        {randomAd && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-6"
-          >
-            <Card className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/60 to-white/10 p-0">
-              <Link
-                href={randomAd.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block p-5"
-                prefetch={false}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-sm font-semibold tracking-wide text-black/90 dark:text-white">
-                      Reklamní partnerství
-                    </h3>
-                    <p className="mt-1 text-white/90">
-                      {randomAd.title !== "WEDOS"
-                        ? `${randomAd.title} se slevou – více informací po kliknutí.`
-                        : "WEDOS – webhosting, domény a servery se slevou. Klikněte pro detaily."}
-                    </p>
-                  </div>
-                  <ExternalLink className="h-5 w-5 text-white/90" />
-                </div>
-              </Link>
-            </Card>
-          </motion.div>
-        )}
       </div>
     </section>
   );

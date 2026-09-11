@@ -1,98 +1,86 @@
-'use client';
-
-import React from 'react';
-import { Check } from 'lucide-react';
 import Link from 'next/link';
-import { STATIC_TOWNS } from '@/lib/towns';
+import { getAllCities, SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
-function slugify(input: string) {
-  return input
-    .trim()
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
+const services = [
+  'Nastavení a optimalizace domácí Wi-Fi',
+  'Zprovoznění Mesh Wi-Fi',
+  'Připojení tiskáren a chytrých TV',
+  'Základní technologická konzultace',
+] as const;
 
-export default function ServiceChecker() {
-  const towns = STATIC_TOWNS.map((name) => ({
-    name,
-    slug: slugify(name),
-  }));
+export default function ItServis() {
+  const cities = getAllCities();
+  const breadcrumbId = `${SITE_URL}/it-servis#breadcrumb`;
+  const serviceId = `${SITE_URL}/it-servis#service`;
+  const localServiceJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${SITE_URL}/it-servis#page`,
+        url: `${SITE_URL}/it-servis`,
+        name: 'Lokální IT servis – Petr Vurm',
+        description: 'Pomoc s domácí sítí, Mesh Wi-Fi, tiskárnami, chytrými TV a základní technologickou konfigurací v okolí Nechanic.',
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': serviceId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: 'Lokální IT servis',
+        serviceType: services,
+        provider: { '@id': PERSON_ID },
+        url: `${SITE_URL}/it-servis`,
+        areaServed: cities.map((city) => ({
+          '@type': 'Place',
+          name: city.name,
+          url: `${SITE_URL}/it-servis/${city.slug}`,
+        })),
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Lokální IT servis', path: '/it-servis' },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
 
   return (
-    <div className="bg-[#0a0a0a] text-white">
-      {/* Hero section */}
-      <section className="relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6 py-24 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl mx-auto">
-            IT služby, které poskytuji
-          </h1>
-        </div>
-      </section>
+    <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(localServiceJsonLd) }} />
+      <div className="container mx-auto max-w-4xl px-4 md:px-6">
+        <header className="max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Lokální IT servis</h1>
+          <p className="mt-4 leading-7 text-white/70">V okolí Nechanic pomáhám také s domácí sítí a běžným nastavením zařízení.</p>
+        </header>
 
-      {/* Benefits */}
-      <section className="bg-[#1a1a1a] py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Proč IT servis od Petra Vurma?
-          </h2>
-          <ul className="max-w-2xl mx-auto space-y-4 text-lg">
-            {[
-              'Žádné vrtání do zdí, vše bez kabelového chaosu',
-              'Spolehlivá Wi-Fi po celém domě i na zahradě',
-              'Přijedu do 24 hodin – jsem od vás ze stejné vesnice',
-              'Jasná cena předem, žádné skryté poplatky',
-              'Řád a čistota, po sobě uklidím – neumím být v nepořádku',
-            ].map((text) => (
-              <li key={text} className="flex items-start">
-                <Check className="h-6 w-6 text-[#00B7EF] flex-shrink-0 mr-3" />
-                <span>{text}</span>
-              </li>
-            ))}
+        <section className="mt-10 border-t border-white/10 pt-7" aria-labelledby="it-servis-sluzby">
+          <h2 id="it-servis-sluzby" className="text-2xl font-bold">S čím pomohu</h2>
+          <ul className="mt-5 divide-y divide-white/10 border-b border-white/10">
+            {services.map((item) => <li key={item} className="py-3 text-white/75">{item}</li>)}
           </ul>
-        </div>
-      </section>
+        </section>
 
-      {/* City lists */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            IT služby momentálně poskytuji v těchto lokalitách
-          </h2>
-          <div className="columns-2 sm:columns-3 md:columns-4 gap-4">
-            {towns.map((city) => (
-              <Link
-                key={city.slug}
-                href={`/it-servis/${city.slug}`}
-                className="block break-inside-avoid mb-1 text-[#00B7EF] hover:underline"
-              >
-                {city.name}
-              </Link>
-            ))}
+        <section className="mt-10 border-t border-white/10 pt-7" aria-labelledby="obsluhovane-lokality">
+          <h2 id="obsluhovane-lokality" className="text-2xl font-bold">Lokality</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">Samostatné stránky mám jen pro oblasti, které běžně obsluhuji. U jiné obce se můžeme domluvit individuálně.</p>
+          <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
+            {cities.map((city) => <Link key={city.slug} href={`/it-servis/${city.slug}`} className="text-sm text-primary hover:underline">{city.name}</Link>)}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="bg-[#1a1a1a] py-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            Nenašli jste svoji obec?
-          </h2>
-          <p className="text-lg text-gray-300 mb-6">
-            Pokud vaše obec není na seznamu, neznámená to, že vám nemohu pomoci. Kontaktujte mě a podíváme se na to společně.
-          </p>
-          <Link
-            href="/kontakt"
-            className="inline-block px-8 py-3 bg-[#00B7EF] hover:bg-[#009edb] rounded-md font-semibold transition text-black"
-          >
-            Napsat mi zprávu
-          </Link>
-        </div>
-      </section>
-    </div>
+        <section className="mt-10 border-t border-white/10 pt-7">
+          <h2 className="text-2xl font-bold">Jiná obec nebo jiný problém?</h2>
+          <p className="mt-3 max-w-xl text-white/60">Napište mi, co potřebujete vyřešit a kde.</p>
+          <Link href="/kontakt" className="mt-4 inline-block text-primary hover:underline">Kontakt</Link>
+        </section>
+      </div>
+    </section>
   );
 }
-

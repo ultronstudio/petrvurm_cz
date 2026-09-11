@@ -1,19 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Kalkulačka kurzů – Petr Vurm",
-  description: "Interaktivní kalkulačka ceny kurzů, školení a doučování. Vyberte si typ a počet lekcí, ihned vidíte cenu.",
-  openGraph: {
-    title: "Kalkulačka kurzů – Petr Vurm",
-    description: "Interaktivní kalkulačka ceny kurzů, školení a doučování. Vyberte si typ a počet lekcí, ihned vidíte cenu.",
-    type: "website"
-  }
+  title: 'Školení a konzultace IT',
+  description: 'Individuální výuka programování a IT konzultace jako doplňková služba.',
+  robots: { index: false, follow: true },
 };
 
-export default function UceniLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function UceniLayout({ children }: { children: React.ReactNode }) {
   return children;
 }
