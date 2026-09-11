@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getAllCities } from '@/site.config';
+import { getAllCities, SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
 const services = [
   'Nastavení a optimalizace domácí Wi-Fi',
@@ -10,9 +11,49 @@ const services = [
 
 export default function ItServis() {
   const cities = getAllCities();
+  const breadcrumbId = `${SITE_URL}/it-servis#breadcrumb`;
+  const serviceId = `${SITE_URL}/it-servis#service`;
+  const localServiceJsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${SITE_URL}/it-servis#page`,
+        url: `${SITE_URL}/it-servis`,
+        name: 'Lokální IT servis – Petr Vurm',
+        description: 'Pomoc s domácí sítí, Mesh Wi-Fi, tiskárnami, chytrými TV a základní technologickou konfigurací v okolí Nechanic.',
+        inLanguage: 'cs-CZ',
+        isPartOf: { '@id': WEBSITE_ID },
+        author: { '@id': PERSON_ID },
+        mainEntity: { '@id': serviceId },
+        breadcrumb: { '@id': breadcrumbId },
+      },
+      {
+        '@type': 'Service',
+        '@id': serviceId,
+        name: 'Lokální IT servis',
+        serviceType: services,
+        provider: { '@id': PERSON_ID },
+        url: `${SITE_URL}/it-servis`,
+        areaServed: cities.map((city) => ({
+          '@type': 'Place',
+          name: city.name,
+          url: `${SITE_URL}/it-servis/${city.slug}`,
+        })),
+      },
+      {
+        ...breadcrumbJsonLd([
+          { name: 'Petr Vurm', path: '/' },
+          { name: 'Lokální IT servis', path: '/it-servis' },
+        ]),
+        '@id': breadcrumbId,
+      },
+    ],
+  };
 
   return (
     <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(localServiceJsonLd) }} />
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Lokální IT servis</h1>
