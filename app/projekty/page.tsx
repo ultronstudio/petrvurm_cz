@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
 const projects = [
   {
@@ -46,9 +48,58 @@ const projects = [
   },
 ] as const;
 
+const itemListId = `${SITE_URL}/projekty#projects`;
+const breadcrumbId = `${SITE_URL}/projekty#breadcrumb`;
+
+const projectsJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${SITE_URL}/projekty#page`,
+      url: `${SITE_URL}/projekty`,
+      name: 'Projekty – Petr Vurm',
+      description: 'Výběr webů, aplikací a dalších projektů Petra Vurma.',
+      inLanguage: 'cs-CZ',
+      isPartOf: { '@id': WEBSITE_ID },
+      author: { '@id': PERSON_ID },
+      mainEntity: { '@id': itemListId },
+      breadcrumb: { '@id': breadcrumbId },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': itemListId,
+      numberOfItems: projects.length,
+      itemListElement: projects.map((project, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${SITE_URL}/projekty/${project.slug}`,
+        item: {
+          '@type': 'CreativeWork',
+          '@id': `${SITE_URL}/projekty/${project.slug}#project`,
+          url: `${SITE_URL}/projekty/${project.slug}`,
+          name: project.title,
+          description: project.description,
+          image: absoluteUrl(project.image),
+          creator: { '@id': PERSON_ID },
+          keywords: project.technologies.replaceAll(' · ', ', '),
+        },
+      })),
+    },
+    {
+      ...breadcrumbJsonLd([
+        { name: 'Petr Vurm', path: '/' },
+        { name: 'Projekty', path: '/projekty' },
+      ]),
+      '@id': breadcrumbId,
+    },
+  ],
+};
+
 export default function Projekty() {
   return (
     <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectsJsonLd) }} />
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <header className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Projekty</h1>
