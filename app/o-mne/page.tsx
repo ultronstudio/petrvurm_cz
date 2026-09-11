@@ -1,9 +1,36 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SITE_URL } from '@/site.config';
+import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
+
+const profileJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE_URL}/o-mne#profile`,
+      url: `${SITE_URL}/o-mne`,
+      name: 'O mně – Petr Vurm',
+      description: 'Profil Petra Vurma, webového vývojáře a software developera.',
+      inLanguage: 'cs-CZ',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: { '@id': PERSON_ID },
+      breadcrumb: { '@id': `${SITE_URL}/o-mne#breadcrumb` },
+    },
+    {
+      ...breadcrumbJsonLd([
+        { name: 'Petr Vurm', path: '/' },
+        { name: 'O mně', path: '/o-mne' },
+      ]),
+      '@id': `${SITE_URL}/o-mne#breadcrumb`,
+    },
+  ],
+};
 
 export default function OMne() {
   return (
     <section className="py-14 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(profileJsonLd) }} />
       <div className="container mx-auto max-w-5xl px-4 md:px-6">
         <header className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start">
           <div className="max-w-2xl">
