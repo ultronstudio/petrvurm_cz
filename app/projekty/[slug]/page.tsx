@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import MarkdownComponent from '@/app/projekty/[slug]/MarkdownComponent';
+import MarkdownContent from '@/components/Markdown/MarkdownContent';
 import { SITE_URL } from '@/site.config';
 import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
@@ -168,7 +168,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
 
         <article className="mt-10 max-w-3xl border-t border-white/10 pt-8">
-          <MarkdownComponent content={post.content} />
+          <MarkdownContent content={post.content} />
         </article>
       </div>
     </section>

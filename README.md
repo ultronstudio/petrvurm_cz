@@ -11,6 +11,7 @@ Osobní a profesní web Petra Vurma zaměřený na firemní weby, webové aplika
 - Radix UI
 - Framer Motion pouze tam, kde má animace skutečný přínos
 - Markdown pro obsah detailů projektů
+- Markdown pro blogové články
 
 ## Lokální spuštění
 
@@ -60,8 +61,32 @@ Citlivé hodnoty se spravují ve Vercel Environment Variables, nikoli v GitHub r
 - `components/` – sdílené UI komponenty
 - `lib/` – konfigurace služeb, cen a lokalit
 - `projekty/` – Markdown obsah případových ukázek
+- `blog/` – Markdown články; soubory začínající podtržítkem slouží jako šablony a nepublikují se
 - `public/` – statické obrázky a dokumenty
 - `site.config.ts` – sdílená konfigurace URL, rout a lokálních služeb
+
+## Přidání článku na blog
+
+Vytvořte nový `.md` soubor přímo ve složce `blog/`. Název souboru může být libovolný; výslednou URL určuje povinné pole `slug`. Kompletní vzor je v `blog/_template.md`.
+
+```md
+---
+slug: "prvni-blog-prispevek"
+title: "První blogový příspěvek"
+excerpt: "Perex použitý také jako meta a Open Graph description."
+image: "/images/blog/prvni-blog-prispevek.jpg"
+publishedAt: "2026-09-15"
+updatedAt: ""
+topics: ["Webový vývoj", "Next.js"]
+keywords: ["web", "Next.js"]
+draft: false
+index: true
+---
+
+Obsah článku v Markdownu.
+```
+
+Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Datum používejte ve formátu `YYYY-MM-DD`. Prázdné `updatedAt` se nezobrazuje. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
 
 ## Bezpečnost
 

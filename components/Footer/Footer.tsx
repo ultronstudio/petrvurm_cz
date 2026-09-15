@@ -4,6 +4,7 @@ import { GitHubIcon, FacebookIcon, LinkedInIcon, InstagramIcon } from "@/Icons/I
 const nav = [
   { name: "O mně", href: "/o-mne" },
   { name: "Projekty", href: "/projekty" },
+  { name: "Blog", href: "/blog" },
   { name: "Výuka", href: "/vyuka" },
   { name: "Ceník", href: "/cenik" },
   { name: "Lokální IT servis", href: "/it-servis" },

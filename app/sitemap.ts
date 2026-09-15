@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import type { MetadataRoute } from 'next';
+import { getPublishedBlogPosts } from '@/lib/blog';
 import { getAllCities, SITE_URL, STATIC_ROUTES } from '@/site.config';
 
 async function getIndexableProjectSlugs(): Promise<string[]> {
@@ -27,6 +28,8 @@ function getSitemapMeta(route: string): Pick<MetadataRoute.Sitemap[number], 'cha
   if (route === '/') return { changeFrequency: 'weekly', priority: 1 };
   if (route === '/projekty') return { changeFrequency: 'monthly', priority: 0.9 };
   if (route.startsWith('/projekty/')) return { changeFrequency: 'monthly', priority: 0.8 };
+  if (route === '/blog') return { changeFrequency: 'weekly', priority: 0.9 };
+  if (route.startsWith('/blog/')) return { changeFrequency: 'monthly', priority: 0.8 };
   if (route === '/cenik' || route === '/vyuka' || route === '/kontakt' || route === '/o-mne') return { changeFrequency: 'monthly', priority: 0.8 };
   if (route === '/gdpr' || route === '/obchodni-podminky') return { changeFrequency: 'yearly', priority: 0.3 };
   if (route.startsWith('/it-servis/')) return { changeFrequency: 'monthly', priority: 0.5 };
@@ -35,14 +38,23 @@ function getSitemapMeta(route: string): Pick<MetadataRoute.Sitemap[number], 'cha
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projectSlugs = await getIndexableProjectSlugs();
+  const blogPosts = getPublishedBlogPosts().filter((post) => post.index);
   const routes = [
     ...STATIC_ROUTES,
     ...projectSlugs.map((slug) => `/projekty/${slug}`),
     ...getAllCities().map((city) => `/it-servis/${city.slug}`),
   ];
 
-  return [...new Set(routes)].map((route) => ({
+  const standardRoutes = [...new Set(routes)].map((route) => ({
     url: `${SITE_URL}${route}`,
     ...getSitemapMeta(route),
   }));
+
+  const blogRoutes = blogPosts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: post.updatedAt ?? post.publishedAt,
+    ...getSitemapMeta(`/blog/${post.slug}`),
+  }));
+
+  return [...standardRoutes, ...blogRoutes];
 }

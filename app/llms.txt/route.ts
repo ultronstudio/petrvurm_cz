@@ -22,6 +22,7 @@ Orientační ceny: Web Start od ${BASE_PROJECT_RATES.webStart} Kč, firemní web
 - [Domů](${SITE_URL}/): stručné představení, služby a vybrané projekty.
 - [O mně](${SITE_URL}/o-mne): zkušenosti, zaměření, studium a certifikáty.
 - [Projekty](${SITE_URL}/projekty): výběr webů, aplikací a dalších projektů.
+- [Blog](${SITE_URL}/blog): články o webovém vývoji, programování a technologiích.
 - [Ceník a kalkulátor](${SITE_URL}/cenik): interaktivní výběr základního balíčku a doplňkových služeb včetně správy, integrací, technického SEO, bezpečnostní revize a debloatu AI webu.
 - [Výuka, workshopy a přednášky](${SITE_URL}/vyuka): individuální výuka programování a webového vývoje, mentoring, workshopy, webináře a přednášky pro jednotlivce, školy, knihovny, firmy a další organizace.
 - [Jak pracuji](${SITE_URL}/jak-pracuji): postup od zadání po nasazení a předání.
