@@ -1,7 +1,12 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SITE_URL } from '@/site.config';
 import { PERSON_ID, WEBSITE_ID, serializeJsonLd } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  alternates: { canonical: SITE_URL },
+};
 
 const services = [
   ['Webové stránky', 'Firemní weby, landing pages a menší prezentace na míru.'],
