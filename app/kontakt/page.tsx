@@ -48,7 +48,7 @@ export default function Kontakt() {
           <section className="grid gap-3 border-t border-white/10 py-6 sm:grid-cols-[9rem_1fr]">
             <h2 className="font-semibold">Telefon</h2>
             <div>
-              <a href="tel:+420777416611" className="text-lg text-white hover:text-primary">+420 777 416 611</a>
+              <a href="tel:+420732361259" className="text-lg text-white hover:text-primary">+420 732 361 259</a>
               <p className="mt-2 text-sm leading-6 text-white/60">Pro krátkou domluvu nebo navazující hovor.</p>
             </div>
           </section>
