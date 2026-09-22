@@ -31,7 +31,7 @@ export const personJsonLd = {
   jobTitle: 'Webový vývojář a software developer',
   description: 'Webový vývojář a software developer. Webům a programování se věnuje od roku 2017.',
   email: 'mailto:kontakt@petrvurm.cz',
-  telephone: '+420777416611',
+  telephone: '+420732361259',
   identifier: {
     '@type': 'PropertyValue',
     propertyID: 'IČ',
@@ -53,7 +53,7 @@ export const personJsonLd = {
     '@type': 'ContactPoint',
     contactType: 'business inquiries',
     email: 'kontakt@petrvurm.cz',
-    telephone: '+420777416611',
+    telephone: '+420732361259',
     availableLanguage: 'cs',
   },
 } as const;
