@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 const merchLinks: Record<string, string> = {
   zkorodujes: 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/kdyz-te-pochciju-zkorodujes',
+  'pozor-ajtak': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/pozor-ajtak',
+  'bacha-jede-turek': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/bacha-jede-turek',
 };
 
 export async function GET(
