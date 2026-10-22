@@ -1,26 +1,67 @@
 import { NextResponse } from 'next/server';
 
-const merchLinks: Record<string, string> = {
-  'zkorodujes': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/kdyz-te-pochciju-zkorodujes-tricko-cerna',
-  'pozor-ajtak': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/pozor-ajtak-tricko-cerna',
-  'bacha-jede-turek': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/bacha-jede-turek-tricko-cerna',
-  'rip': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/rest-in-peace-tricko-cerna',
-  'rest': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/rest-in-peace-tricko-cerna',
-  'mam-paletu-problemu': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/mam-paletu-problemu-tricko-cerna',
-  'mam-pole-pusobnosti': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/mam-pole-pusobnosti-tricko-cerna',
-  'kdo-nepije-ridi-domu': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/kdo-nepije-ridi-domu-tricko-cerna',
-  'je-to-rebel': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/je-to-rebel-tricko-cerna',
-  'jsem-buzna-svetly': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/jsem-buzna-a-jsem-na-to-hrdej-tricko-cerna',
-  'jsem-buzna-tmavy': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/jsem-buzna-a-jsem-na-to-hrdej-tricko-bile',
-  'jsem-buzna': 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/jsem-buzna-a-jsem-na-to-hrdej-tricko-cerna',
-};
+const TSHOCK_BASE = 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/';
+
+const products = [
+  {
+    target: 'kdyz-te-pochciju-zkorodujes-tricko-cerna',
+    aliases: ['zkorodujes', '2WOwqCFT'],
+  },
+  {
+    target: 'pozor-ajtak-tricko-cerna',
+    aliases: ['pozor-ajtak', 'XeegfXG2'],
+  },
+  {
+    target: 'bacha-jede-turek-tricko-cerna',
+    aliases: ['bacha-jede-turek', 'utSzu5bJ'],
+  },
+  {
+    target: 'rest-in-peace-tricko-cerna',
+    aliases: ['rip', 'rest', 'BrorML4V'],
+  },
+  {
+    target: 'mam-paletu-problemu-tricko-cerna',
+    aliases: ['mam-paletu-problemu', '5tMFtxnC'],
+  },
+  {
+    target: 'mam-pole-pusobnosti-tricko-cerna',
+    aliases: ['mam-pole-pusobnosti', 'KHfZYZn2'],
+  },
+  {
+    target: 'kdo-nepije-ridi-domu-tricko-cerna',
+    aliases: ['kdo-nepije-ridi-domu', 'PqEG2qpy'],
+  },
+  {
+    target: 'je-to-rebel-tricko-cerna',
+    aliases: ['je-to-rebel', 'KuE82pak'],
+  },
+  {
+    // světlý potisk = černé tričko
+    target: 'jsem-buzna-a-jsem-na-to-hrdej-tricko-cerna',
+    aliases: ['jsem-buzna', 'jsem-buzna-svetly', 'deuTeZSx'],
+  },
+  {
+    // tmavý potisk = bílé tričko
+    target: 'jsem-buzna-a-jsem-na-to-hrdej-tricko-bile',
+    aliases: ['jsem-buzna-tmavy', 'bJmFmywq'],
+  },
+] as const;
+
+const merchLinks = new Map<string, string>(
+  products.flatMap(({ target, aliases }) =>
+    aliases.map(alias => [
+      alias.toLowerCase(),
+      `${TSHOCK_BASE}${target}`,
+    ] as const),
+  ),
+);
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const target = merchLinks[slug.toLowerCase()];
+  const target = merchLinks.get(slug.toLowerCase());
 
   if (!target) {
     return NextResponse.json(
