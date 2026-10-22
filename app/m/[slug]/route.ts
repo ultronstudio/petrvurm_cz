@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const TSHOCK_BASE = 'https://petrvurm.t-shock.eu/cs/tricko-s-potiskem/';
+const TSHOCK_BASE = 'https://petrvurm.t-shock.eu';
 
 const products = [
   {
