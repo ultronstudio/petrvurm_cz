@@ -1,7 +1,7 @@
 import { createElement, type CSSProperties, type ReactNode } from 'react';
 import Image from 'next/image';
 import { Marked } from 'marked';
-import { createHighlighter } from 'shiki';
+import { createHighlighter, type BundledLanguage } from 'shiki';
 import { getHeadingId } from '@/lib/blog-headings';
 
 type MarkdownToken = {
@@ -191,7 +191,7 @@ function renderCode(token: MarkdownToken, highlighter: Highlighter, key: string)
   if (!highlighter.getLoadedLanguages().includes(lang)) {
     return <pre key={key}><code>{code}</code></pre>;
   }
-  const lines = highlighter.codeToTokens(code, { lang, theme: 'github-dark-dimmed' }).tokens;
+  const lines = highlighter.codeToTokens(code, { lang: lang as BundledLanguage, theme: 'github-dark-dimmed' }).tokens;
   return (
     <pre key={key}><code className={'language-' + lang}>
       {lines.map((line, row) => (
