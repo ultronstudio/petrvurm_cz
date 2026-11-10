@@ -13,6 +13,7 @@ export type BlogPost = {
   imageCaption: string;
   imageCredit: string;
   imageCreditUrl: string;
+  newsArticle: boolean;
   publishedAt: string;
   updatedAt: string | null;
   topics: string[];
@@ -133,6 +134,7 @@ function parseBlogFile(fileName: string): BlogPost {
     imageCaption: optionalString(frontmatter, ['imageCaption', 'popisekObrazku']),
     imageCredit: optionalString(frontmatter, ['imageCredit', 'autorObrazku']),
     imageCreditUrl: optionalHttpUrl(frontmatter, ['imageCreditUrl', 'zdrojObrazku'], 'imageCreditUrl', fileName),
+    newsArticle: booleanValue(frontmatter, ['newsArticle'], false),
     publishedAt: dateValue(frontmatter, ['publishedAt', 'date', 'datum', 'datumNapsani', 'datumNapsání'], 'publishedAt', fileName, true),
     updatedAt: dateValue(frontmatter, ['updatedAt', 'updated', 'datumUpravy', 'datumÚpravy'], 'updatedAt', fileName, false),
     topics: stringList(frontmatter, ['topics', 'temata', 'témata']),
