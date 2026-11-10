@@ -40,9 +40,9 @@ Neznamená to, že každá malá firma potřebuje revoluční design za statisí
 
 ## IT podnikatelů přibývá. Ale kolik z nich skutečně rozumí své práci?
 
-Že se technologický trh rozšiřuje, ukazují také statistiky. Podle analýzy společnosti Dun & Bradstreet vzniklo v České republice během roku 2024 celkem **1 561 nových firem a 3 168 nových OSVČ** v oblasti informačních technologií. Za první polovinu roku 2025 následovalo dalších **612 firem a 1 551 OSVČ**. Ke konci června 2025 v tomto odvětví působilo již 16 636 právnických osob a 50 025 OSVČ. Jde přitom o širší skupinu IT činností vedených pod klasifikací CZ-NACE 62, nikoli pouze o tvůrce webových stránek.
+Že se technologický trh rozšiřuje, ukazují také statistiky. Podle analýzy společnosti Dun & Bradstreet vzniklo v České republice během roku 2024 celkem **1 561 nových firem a 3 168 nových OSVČ** v oblasti informačních technologií. Za první polovinu roku 2025 následovalo dalších **612 firem a 1 551 OSVČ**. Ke konci června 2025 v tomto odvětví působilo již 16 636 právnických osob a 50 025 OSVČ. Jde přitom o širší skupinu IT činností vedených pod klasifikací CZ-NACE 62, nikoli pouze o tvůrce webových stránek.[^dnb]
 
-Zajímavá jsou také novější data z roku 2026. Podle portálu Česko přehledně vzniklo v širší kategorii IT a telekomunikací během srpna **547 nových podnikatelských subjektů**, v září dalších **632** a v říjnu **467**. Jen během těchto tří měsíců tedy přibylo 1 646 subjektů. Zářijový počet byl o 28 procent vyšší než ve stejném měsíci předchozího roku. Tato statistika používá širší oborové vymezení než předchozí analýza, a proto nelze jejich absolutní počty přímo srovnávat.
+Zajímavá jsou také novější data z roku 2026. Podle portálu Česko přehledně vzniklo v širší kategorii IT a telekomunikací během srpna **547 nových podnikatelských subjektů**, v září dalších **632** a v říjnu **467**. Jen během těchto tří měsíců tedy přibylo 1 646 subjektů. Zářijový počet byl o 28 procent vyšší než ve stejném měsíci předchozího roku. Tato statistika používá širší oborové vymezení než předchozí analýza, a proto nelze jejich absolutní počty přímo srovnávat.[^it-srpen][^it-zari][^it-rijen]
 
 Samotná čísla samozřejmě nedokazují, že za růstem stojí vibe coding. IT sektor zahrnuje mnoho specializací a zvýšený zájem o podnikání může souviset s poptávkou po softwaru, kybernetické bezpečnosti, digitalizaci nebo IT poradenství. Stejně tak by bylo nesmyslné tvrdit, že nově založená živnost automaticky znamená nezkušeného vývojáře. Člověk může mít za sebou deset nebo třicet let praxe v zaměstnání a teprve následně začít podnikat.
 
@@ -74,7 +74,7 @@ Aby nedošlo k nedorozumění, netvrdím, že každá oprava vytvořená pomocí
 
 Aby bylo jasné, že nemluvím jen o hypotetických problémech, při jednom z předchozích bezpečnostních testů jsem narazil na závažnou chybu v systému prodávajícím přístup k digitálnímu obsahu. Při kontrolovaném testu bylo možné získat přístup k placenému obsahu, přestože platba nebyla dokončena a objednávka zůstávala v neuhrazeném stavu. Systém tedy nedostatečně odděloval vytvoření objednávky od skutečného oprávnění zpřístupnit zakoupený obsah.
 
-To už není problém několika špatně napsaných CSS pravidel. Jde o chybu v samotné obchodní logice aplikace, která může provozovateli způsobovat přímé finanční ztráty. A podobně závažný problém představují platební integrace, které důvěřují údajům přicházejícím z uživatelova prohlížeče. Pokud například frontend dokáže odeslat informaci, že platba byla úspěšně ověřena, a server tuto informaci přijme bez nezávislého potvrzení od platební brány, vzniká zásadní bezpečnostní riziko. Údaj pocházející ze zařízení zákazníka totiž sám o sobě není důkazem, že skutečně došlo k úhradě.
+To už není problém několika špatně napsaných CSS pravidel. Jde o chybu v samotné obchodní logice aplikace, která může provozovateli způsobovat přímé finanční ztráty. A podobně závažný problém představují platební integrace, které důvěřují údajům přicházejícím z uživatelova prohlížeče. Pokud například frontend dokáže odeslat informaci, že platba byla úspěšně ověřena, a server tuto informaci přijme bez nezávislého potvrzení od platební brány, vzniká zásadní bezpečnostní riziko. Údaj pocházející ze zařízení zákazníka totiž sám o sobě není důkazem, že skutečně došlo k úhradě.[^owasp]
 
 U podobných chyb už skutečně nejde o to, zda programátor používá ChatGPT, Claude nebo jiný nástroj. Jde o základní principy bezpečného návrhu aplikací. Stav platby, oprávnění k přístupu nebo cena objednávky nemohou být považovány za důvěryhodné jen proto, že je takto označil frontend. Pokud dodavatel takové principy nezná, může snadno vytvořit systém, který při běžném používání působí naprosto funkčně, ale při sebemenší odchylce od očekávaného postupu selhává.
 
@@ -120,16 +120,11 @@ A nebude volat ChatGPT.
 
 **Bude volat člověku, kterému za ten software zaplatil.**
 
----
+*Ilustrační fotografie:* [^fotografie]
 
-### Zdroje
-
-- [Dun & Bradstreet – V IT podniká 16 600 firem a přes 50 000 OSVČ](https://www.dnb.com/cs-cz/blog/v-it-podnika-16600-firem.html)
-- [Česko přehledně – Nové IT subjekty v srpnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-08/)
-- [Česko přehledně – Nové IT subjekty v září 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-09/)
-- [Česko přehledně – Nové IT subjekty v říjnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-10/)
-- [OWASP – Third Party Payment Gateway Integration Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html)
-
-- [Ilustrační fotografie: Negative Space, Wikimedia Commons (CC0 1.0)](https://commons.wikimedia.org/wiki/File:Laptop_Programmcode.jpg)
-
-*Petr Vurm – webový a softwarový vývojář, OSVČ. Při své práci aktivně využívám umělou inteligenci, ale zastávám názor, že za kvalitu výsledného produktu musí vždy odpovídat jeho dodavatel.*
+[^dnb]: [Dun & Bradstreet – V IT podniká 16 600 firem a přes 50 000 OSVČ](https://www.dnb.com/cs-cz/blog/v-it-podnika-16600-firem.html)
+[^it-srpen]: [Česko přehledně – Nové IT subjekty v srpnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-08/)
+[^it-zari]: [Česko přehledně – Nové IT subjekty v září 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-09/)
+[^it-rijen]: [Česko přehledně – Nové IT subjekty v říjnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-10/)
+[^owasp]: [OWASP – Third Party Payment Gateway Integration Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html)
+[^fotografie]: [Ilustrační fotografie: Negative Space, Wikimedia Commons (CC0 1.0)](https://commons.wikimedia.org/wiki/File:Laptop_Programmcode.jpg)
