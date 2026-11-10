@@ -83,17 +83,22 @@ function booleanValue(data: Frontmatter, keys: string[], fallback: boolean): boo
 const BLOG_DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 const BLOG_DATE_TIME = /^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,3})?(?:Z|[+-](?:0\d|1[0-4]):[0-5]\d)$/;
 
-function isValidBlogDate(value: string): boolean {
-  if (!BLOG_DATE_ONLY.test(value) && !BLOG_DATE_TIME.test(value)) return false;
+function isValidCalendarDate(value: string): boolean {
   const datePart = value.slice(0, 10);
   const midnight = new Date(`${datePart}T00:00:00.000Z`);
-  if (Number.isNaN(midnight.getTime()) || midnight.toISOString().slice(0, 10) !== datePart) return false;
-  if (BLOG_DATE_ONLY.test(value)) return true;
+  return !Number.isNaN(midnight.getTime()) && midnight.toISOString().slice(0, 10) === datePart;
+}
 
-  // Maximální platný posun ISO 8601 je 14:00.
+function isValidOffset(value: string): boolean {
   const offset = value.match(/([+-])(\d{2}):(\d{2})$/);
-  if (offset && offset[2] === '14' && offset[3] !== '00') return false;
-  return !Number.isNaN(Date.parse(value));
+  return !offset || offset[2] !== '14' || offset[3] === '00';
+}
+
+function isValidBlogDate(value: string): boolean {
+  if (!BLOG_DATE_ONLY.test(value) && !BLOG_DATE_TIME.test(value)) return false;
+  if (!isValidCalendarDate(value)) return false;
+  if (BLOG_DATE_ONLY.test(value)) return true;
+  return isValidOffset(value) && !Number.isNaN(Date.parse(value));
 }
 
 function dateValue(data: Frontmatter, keys: string[], label: string, file: string, required: true): string;
