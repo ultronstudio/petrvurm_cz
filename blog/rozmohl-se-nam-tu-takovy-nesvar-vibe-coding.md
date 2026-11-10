@@ -4,6 +4,9 @@ title: "Rozmohl se nám tu takový nešvar. Říká se mu vibe coding."
 excerpt: "Dnes si může téměř každý nechat AI vytvořit web nebo aplikaci. Kde končí užitečný nástroj a začíná prodej odbornosti, kterou dodavatel nemusí mít?"
 image: "https://upload.wikimedia.org/wikipedia/commons/1/17/Laptop_Programmcode.jpg"
 imageAlt: "Detail notebooku s otevřeným zdrojovým kódem na obrazovce"
+imageCaption: "Ilustrační fotografie zdrojového kódu na obrazovce notebooku."
+imageCredit: "Negative Space / Wikimedia Commons"
+imageCreditUrl: "https://commons.wikimedia.org/wiki/File:Laptop_Programmcode.jpg"
 publishedAt: "2026-11-10"
 updatedAt: ""
 topics:
@@ -120,11 +123,8 @@ A nebude volat ChatGPT.
 
 **Bude volat člověku, kterému za ten software zaplatil.**
 
-*Ilustrační fotografie:* [^fotografie]
-
 [^dnb]: [Dun & Bradstreet – V IT podniká 16 600 firem a přes 50 000 OSVČ](https://www.dnb.com/cs-cz/blog/v-it-podnika-16600-firem.html)
 [^it-srpen]: [Česko přehledně – Nové IT subjekty v srpnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-08/)
 [^it-zari]: [Česko přehledně – Nové IT subjekty v září 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-09/)
 [^it-rijen]: [Česko přehledně – Nové IT subjekty v říjnu 2026](https://www.cesko.mynexus.cz/nove-firmy/obor/it-a-telekomunikace/2026-10/)
 [^owasp]: [OWASP – Third Party Payment Gateway Integration Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Payment_Gateway_Integration_Cheat_Sheet.html)
-[^fotografie]: [Ilustrační fotografie: Negative Space, Wikimedia Commons (CC0 1.0)](https://commons.wikimedia.org/wiki/File:Laptop_Programmcode.jpg)
