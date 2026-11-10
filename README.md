@@ -81,6 +81,7 @@ imageCredit: "Autor fotografie / Wikimedia Commons"
 imageCreditUrl: "https://commons.wikimedia.org/wiki/File:Priklad.jpg"
 publishedAt: "2026-09-15T09:30:00+02:00"
 updatedAt: ""
+newsArticle: false
 topics: ["Webový vývoj", "Next.js"]
 keywords: ["web", "Next.js"]
 draft: false
@@ -89,6 +90,8 @@ index: true
 
 Obsah článku v Markdownu. Případné citace jsou značky `[^nazev]` u tvrzení, s definicemi zdrojů kdekoliv v Markdownu, např. `[^nazev]: [Název zdroje](https://example.com/)`. Číslované reference se vytvoří automaticky pod článkem, ve pořadí prvního použití. Opakované odkazy na stejné zdroje sdílí číslo. Není potřeba ručně psát nadpis „Zdroje“ ani seznam odkazů.
 ```
+
+Nepovinné `newsArticle: true` doplní ke strukturovaným datům `BlogPosting` také `NewsArticle` u skutečně zpravodajských textů. U běžných blogových komentářů zůstává výchozí `BlogPosting`. Samotné označení `NewsArticle` nezaručuje zobrazení v Google Zprávách.
 
 Nepovinná pole `imageCaption`, `imageCredit` a `imageCreditUrl` popisují titulní fotografii a zobrazí se automaticky přímo pod ní (nikoli mezi referencemi). `imageCreditUrl` musí být úplná http(s) adresa. Autor článku je vždy Petr Vurm a určuje se v metadatech webu; není třeba přidávat podpis na konec článku.
 
