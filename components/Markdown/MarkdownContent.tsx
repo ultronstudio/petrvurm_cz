@@ -225,7 +225,6 @@ function renderBlockBasic(token: MarkdownToken, ctx: RenderContext, highlighter:
     case 'text': return <span key={key}>{tokenInline(token, ctx)}</span>;
     case 'code': return renderCode(token, highlighter, key);
     case 'list': return renderList(token, ctx, highlighter, key);
-    case 'table': return renderTable(token, ctx, key);
     default: return undefined;
   }
 }
@@ -234,6 +233,7 @@ function renderBlock(token: MarkdownToken, ctx: RenderContext, highlighter: High
   const basic = renderBlockBasic(token, ctx, highlighter, key);
   if (basic !== undefined) return basic;
   switch (token.type) {
+    case 'table': return renderTable(token, ctx, key);
     case 'blockquote': return <blockquote key={key}>{renderBlocks(token.tokens ?? [], ctx, highlighter)}</blockquote>;
     case 'hr': return <hr key={key} />;
     case 'html': return <p key={key}>{token.text}</p>;
