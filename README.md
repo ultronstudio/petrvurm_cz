@@ -75,7 +75,7 @@ slug: "prvni-blog-prispevek"
 title: "První blogový příspěvek"
 excerpt: "Perex použitý také jako meta a Open Graph description."
 image: "/images/blog/prvni-blog-prispevek.jpg"
-publishedAt: "2026-09-15"
+publishedAt: "2026-09-15T09:30:00+02:00"
 updatedAt: ""
 topics: ["Webový vývoj", "Next.js"]
 keywords: ["web", "Next.js"]
@@ -86,7 +86,7 @@ index: true
 Obsah článku v Markdownu.
 ```
 
-Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Datum používejte ve formátu `YYYY-MM-DD`. Prázdné `updatedAt` se nezobrazuje. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
+Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Pro přesné datum a čas publikace použijte ISO 8601 s časovým pásmem, např. `2026-11-10T07:30:00+01:00` (zimní čas) nebo `2026-07-10T07:30:00+02:00` (letní čas). Datum musí odpovídat skutečnému prvnímu zveřejnění článku; čas zveřejnění předem neodhadujte. Starší články s pouhým `YYYY-MM-DD` zůstávají podporované. Detail článku zobrazí čas, pokud je dostupný; perex výpisu zůstává u dne. Prázdné `updatedAt` se nezobrazuje. `updatedAt` doplňujte pouze při podstatné úpravě obsahu. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
 
 ## Bezpečnost
 
