@@ -127,7 +127,7 @@ function renderImage(token: MarkdownToken, key: string): ReactNode {
     width={1000} height={563} unoptimized className="h-auto max-w-full" />;
 }
 
-function renderInlineToken(token: MarkdownToken, ctx: RenderContext, key: string): ReactNode {
+function renderInlineFormatting(token: MarkdownToken, ctx: RenderContext, key: string): ReactNode | null {
   const children = () => inlineChildren(token, ctx, key);
   switch (token.type) {
     case 'text': return <span key={key}>{children()}</span>;
@@ -136,11 +136,19 @@ function renderInlineToken(token: MarkdownToken, ctx: RenderContext, key: string
     case 'em': return <em key={key}>{children()}</em>;
     case 'del': return <del key={key}>{children()}</del>;
     case 'codespan': return <code key={key}>{token.text}</code>;
+    default: return null;
+  }
+}
+
+function renderInlineToken(token: MarkdownToken, ctx: RenderContext, key: string): ReactNode {
+  const formatted = renderInlineFormatting(token, ctx, key);
+  if (formatted !== null) return formatted;
+  switch (token.type) {
     case 'br': return <br key={key} />;
     case 'link': return renderLink(token, ctx, key);
     case 'image': return renderImage(token, key);
     case 'html': return <span key={key}>{token.text}</span>;
-    default: return <span key={key}>{children()}</span>;
+    default: return <span key={key}>{inlineChildren(token, ctx, key)}</span>;
   }
 }
 
@@ -206,7 +214,7 @@ function renderCode(token: MarkdownToken, highlighter: Highlighter, key: string)
   );
 }
 
-function renderBlock(token: MarkdownToken, ctx: RenderContext, highlighter: Highlighter, key: string): ReactNode {
+function renderBlockBasic(token: MarkdownToken, ctx: RenderContext, highlighter: Highlighter, key: string): ReactNode | undefined {
   switch (token.type) {
     case 'heading': {
       const id = getHeadingId(token.text ?? '', ctx.headings);
@@ -218,6 +226,14 @@ function renderBlock(token: MarkdownToken, ctx: RenderContext, highlighter: High
     case 'code': return renderCode(token, highlighter, key);
     case 'list': return renderList(token, ctx, highlighter, key);
     case 'table': return renderTable(token, ctx, key);
+    default: return undefined;
+  }
+}
+
+function renderBlock(token: MarkdownToken, ctx: RenderContext, highlighter: Highlighter, key: string): ReactNode {
+  const basic = renderBlockBasic(token, ctx, highlighter, key);
+  if (basic !== undefined) return basic;
+  switch (token.type) {
     case 'blockquote': return <blockquote key={key}>{renderBlocks(token.tokens ?? [], ctx, highlighter)}</blockquote>;
     case 'hr': return <hr key={key} />;
     case 'html': return <p key={key}>{token.text}</p>;
