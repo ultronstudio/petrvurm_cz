@@ -83,7 +83,7 @@ draft: false
 index: true
 ---
 
-Obsah článku v Markdownu.
+Obsah článku v Markdownu. Případné citace jsou značky `[^nazev]` u tvrzení, s definicemi zdrojů kdekoliv v Markdownu, např. `[^nazev]: [Název zdroje](https://example.com/)`. Číslované reference se vytvoří automaticky pod článkem, ve pořadí prvního použití. Opakované odkazy na stejné zdroje sdílí číslo. Není potřeba ručně psát nadpis „Zdroje“ ani seznam odkazů.
 ```
 
 Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Pro přesné datum a čas publikace použijte ISO 8601 s časovým pásmem, např. `2026-11-10T07:30:00+01:00` (zimní čas) nebo `2026-07-10T07:30:00+02:00` (letní čas). Datum musí odpovídat skutečnému prvnímu zveřejnění článku; čas zveřejnění předem neodhadujte. Starší články s pouhým `YYYY-MM-DD` zůstávají podporované. Detail článku zobrazí čas, pokud je dostupný; perex výpisu zůstává u dne. Prázdné `updatedAt` se nezobrazuje. `updatedAt` doplňujte pouze při podstatné úpravě obsahu. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
