@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const image = post.image ? absoluteUrl(post.image) : undefined;
 
   return {
-    title: `${post.title} | Blog`,
+    title: { absolute: `${post.title} | Blog | Petr Vurm` },
     description: post.excerpt,
     keywords: post.keywords,
     authors: [{ name: 'Petr Vurm', url: `${SITE_URL}/o-mne` }],
