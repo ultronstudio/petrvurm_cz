@@ -245,17 +245,29 @@ function renderBlocks(tokens: MarkdownToken[], ctx: RenderContext, highlighter: 
   return tokens.map((token, index) => renderBlock(token, ctx, highlighter, String(index)));
 }
 
+/** Externí reference nedostanou doporučení pro crawlery ani přenos referreru.
+ * Porovnává hostname, nikoli substring URL (např. petrvurm.cz.example.org je externí).
+ */
+function isOwnWebsite(url: string): boolean {
+  const hostname = new URL(url).hostname.toLowerCase().replace(/\.$/, '');
+  return hostname === 'petrvurm.cz' || hostname.endsWith('.petrvurm.cz');
+}
+
 function RenderedReferences({ references }: { references: Reference[] }) {
   if (!references.length) return null;
   return (
     <section className="mt-12 border-t border-white/10 pt-8" aria-labelledby="blog-reference-title">
       <h2 id="blog-reference-title">Zdroje a reference</h2>
       <ol className="mt-4 list-decimal space-y-3 pl-6">
-        {references.map((ref) => (
-          <li key={ref.id} id={'ref-' + ref.id}>
-            <a href={ref.url} target="_blank" rel="noopener noreferrer">{ref.label}</a>
-          </li>
-        ))}
+        {references.map((ref) => {
+          const external = !isOwnWebsite(ref.url);
+          return (
+            <li key={ref.id} id={'ref-' + ref.id}>
+              <a href={ref.url} target={external ? '_blank' : undefined}
+                rel={external ? 'nofollow noopener noreferrer' : undefined}>{ref.label}</a>
+            </li>
+          );
+        })}
       </ol>
     </section>
   );
