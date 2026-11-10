@@ -10,6 +10,7 @@ import {
 import { Marked, Renderer } from 'marked';
 import markedShiki from 'marked-shiki';
 import { createHighlighter } from 'shiki';
+import { getHeadingId } from '@/lib/blog-headings';
 
 type BlogReference = {
   id: string;
@@ -64,6 +65,7 @@ export default async function MarkdownContent({ content }: { content: string }) 
   const highlighter = await highlighterPromise;
   const { body, references } = extractBlogReferences(content);
   const cited: BlogReference[] = [];
+  const headingIds = new Map<string, number>();
 
   const renderer = new Renderer();
 
@@ -78,11 +80,7 @@ export default async function MarkdownContent({ content }: { content: string }) 
   };
 
   renderer.heading = function (token) {
-    const slug = token.text
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}\s-]/gu, '')
-      .trim()
-      .replace(/\s+/g, '-');
+    const slug = getHeadingId(token.text, headingIds);
     return `<h${token.depth} id="${slug}">${token.text}</h${token.depth}>`;
   };
 
@@ -148,9 +146,7 @@ export default async function MarkdownContent({ content }: { content: string }) 
       <ol class="mt-4 list-decimal space-y-3 pl-6">
       ${cited.map((ref) => `<li id="ref-${ref.id}">
         <a href="${escapeReferenceHtml(ref.url)}" target="_blank" rel="noopener noreferrer">${escapeReferenceHtml(ref.label)}</a>
-        ${Array.from({ length: ref.occurrences }, (_, index) =>
-          `<a class="ml-2 text-primary hover:underline" href="#cite-${ref.id}-${index + 1}" aria-label="Zpět na citaci ${ref.number}, výskyt ${index + 1}">Zpět</a>`
-        ).join('')}
+
       </li>`).join('')}
       </ol>
     </section>`
