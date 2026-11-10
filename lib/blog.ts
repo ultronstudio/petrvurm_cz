@@ -10,6 +10,10 @@ export type BlogPost = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  imageCaption: string;
+  imageCredit: string;
+  imageCreditUrl: string;
+  newsArticle: boolean;
   publishedAt: string;
   updatedAt: string | null;
   topics: string[];
@@ -48,6 +52,18 @@ function imageValue(data: Frontmatter, file: string): string {
   return value;
 }
 
+function optionalHttpUrl(data: Frontmatter, keys: string[], label: string, file: string): string {
+  const value = optionalString(data, keys);
+  if (!value) return '';
+  try {
+    const url = new URL(value);
+    if (url.protocol === 'https:' || url.protocol === 'http:') return url.href;
+  } catch {
+    // Zpracuje společná chyba níže.
+  }
+  throw new Error(`Blogový soubor ${file}: pole "${label}" musí obsahovat platnou http(s) URL.`);
+}
+
 function stringList(data: Frontmatter, keys: string[]): string[] {
   const value = valueFor(data, keys);
   const items = Array.isArray(value) ? value : typeof value === 'string' ? value.split(',') : [];
@@ -62,6 +78,29 @@ function booleanValue(data: Frontmatter, keys: string[], fallback: boolean): boo
   return Boolean(value);
 }
 
+// Starší články mohou obsahovat pouze datum. Přesný čas musí vždy obsahovat
+// explicitní časové pásmo, aby jej build na jiném serveru neposunul.
+const BLOG_DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+const BLOG_DATE_TIME = /^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,3})?(?:Z|[+-](?:0\d|1[0-4]):[0-5]\d)$/;
+
+function isValidCalendarDate(value: string): boolean {
+  const datePart = value.slice(0, 10);
+  const midnight = new Date(`${datePart}T00:00:00.000Z`);
+  return !Number.isNaN(midnight.getTime()) && midnight.toISOString().slice(0, 10) === datePart;
+}
+
+function isValidOffset(value: string): boolean {
+  const offset = value.match(/([+-])(\d{2}):(\d{2})$/);
+  return !offset || offset[2] !== '14' || offset[3] === '00';
+}
+
+function isValidBlogDate(value: string): boolean {
+  if (!BLOG_DATE_ONLY.test(value) && !BLOG_DATE_TIME.test(value)) return false;
+  if (!isValidCalendarDate(value)) return false;
+  if (BLOG_DATE_ONLY.test(value)) return true;
+  return isValidOffset(value) && !Number.isNaN(Date.parse(value));
+}
+
 function dateValue(data: Frontmatter, keys: string[], label: string, file: string, required: true): string;
 function dateValue(data: Frontmatter, keys: string[], label: string, file: string, required: false): string | null;
 function dateValue(data: Frontmatter, keys: string[], label: string, file: string, required: boolean): string | null {
@@ -72,8 +111,8 @@ function dateValue(data: Frontmatter, keys: string[], label: string, file: strin
   }
 
   const normalized = value instanceof Date ? value.toISOString() : String(value).trim();
-  if (Number.isNaN(Date.parse(normalized))) {
-    throw new Error(`Blogový soubor ${file}: pole \"${label}\" neobsahuje platné datum.`);
+  if (!isValidBlogDate(normalized)) {
+    throw new Error(`Blogový soubor ${file}: pole \"${label}\" musí být platné datum YYYY-MM-DD nebo datum a čas s pásmem (např. 2026-11-10T07:30:00+01:00).`);
   }
   return normalized;
 }
@@ -97,6 +136,10 @@ function parseBlogFile(fileName: string): BlogPost {
     excerpt: requiredString(frontmatter, ['excerpt', 'perex', 'description'], 'excerpt', fileName),
     image: imageValue(frontmatter, fileName),
     imageAlt: optionalString(frontmatter, ['imageAlt', 'obrazekAlt']) || `Náhled článku ${title}`,
+    imageCaption: optionalString(frontmatter, ['imageCaption', 'popisekObrazku']),
+    imageCredit: optionalString(frontmatter, ['imageCredit', 'autorObrazku']),
+    imageCreditUrl: optionalHttpUrl(frontmatter, ['imageCreditUrl', 'zdrojObrazku'], 'imageCreditUrl', fileName),
+    newsArticle: booleanValue(frontmatter, ['newsArticle'], false),
     publishedAt: dateValue(frontmatter, ['publishedAt', 'date', 'datum', 'datumNapsani', 'datumNapsání'], 'publishedAt', fileName, true),
     updatedAt: dateValue(frontmatter, ['updatedAt', 'updated', 'datumUpravy', 'datumÚpravy'], 'updatedAt', fileName, false),
     topics: stringList(frontmatter, ['topics', 'temata', 'témata']),
@@ -137,6 +180,19 @@ export function formatBlogDate(value: string): string {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
+    timeZone: 'Europe/Prague',
+  }).format(new Date(value));
+}
+
+/** Na detailu článku zobrazuje čas pouze tehdy, je-li uveden ve frontmatteru. */
+export function formatBlogDateTime(value: string): string {
+  if (!value.includes('T')) return formatBlogDate(value);
+  return new Intl.DateTimeFormat('cs-CZ', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
     timeZone: 'Europe/Prague',
   }).format(new Date(value));
 }

@@ -75,18 +75,35 @@ slug: "prvni-blog-prispevek"
 title: "První blogový příspěvek"
 excerpt: "Perex použitý také jako meta a Open Graph description."
 image: "/images/blog/prvni-blog-prispevek.jpg"
-publishedAt: "2026-09-15"
+imageAlt: "Popis obrázku"
+imageCaption: "Popisek fotografie"
+imageCredit: "Autor fotografie / Wikimedia Commons"
+imageCreditUrl: "https://commons.wikimedia.org/wiki/File:Priklad.jpg"
+publishedAt: "2026-09-15T09:30:00+02:00"
 updatedAt: ""
+newsArticle: false
 topics: ["Webový vývoj", "Next.js"]
 keywords: ["web", "Next.js"]
 draft: false
 index: true
 ---
 
-Obsah článku v Markdownu.
+Obsah článku v Markdownu. Případné citace jsou značky `[^nazev]` u tvrzení, s definicemi zdrojů kdekoliv v Markdownu, např. `[^nazev]: [Název zdroje](https://example.com/)`. Číslované reference se vytvoří automaticky pod článkem, ve pořadí prvního použití. Opakované odkazy na stejné zdroje sdílí číslo. Není potřeba ručně psát nadpis „Zdroje“ ani seznam odkazů.
 ```
 
-Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Datum používejte ve formátu `YYYY-MM-DD`. Prázdné `updatedAt` se nezobrazuje. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
+Nepovinné `newsArticle: true` doplní ke strukturovaným datům `BlogPosting` také `NewsArticle` u skutečně zpravodajských textů. U běžných blogových komentářů zůstává výchozí `BlogPosting`. Samotné označení `NewsArticle` nezaručuje zobrazení v Google Zprávách.
+
+Nepovinná pole `imageCaption`, `imageCredit` a `imageCreditUrl` popisují titulní fotografii a zobrazí se automaticky přímo pod ní (nikoli mezi referencemi). `imageCreditUrl` musí být úplná http(s) adresa. Autor článku je vždy Petr Vurm a určuje se v metadatech webu; není třeba přidávat podpis na konec článku.
+
+Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Pro přesné datum a čas publikace použijte ISO 8601 s časovým pásmem, např. `2026-11-10T07:30:00+01:00` (zimní čas) nebo `2026-07-10T07:30:00+02:00` (letní čas). Datum musí odpovídat skutečnému prvnímu zveřejnění článku; čas zveřejnění předem neodhadujte. Starší články s pouhým `YYYY-MM-DD` zůstávají podporované. Detail článku zobrazí čas, pokud je dostupný; perex výpisu zůstává u dne. Prázdné `updatedAt` se nezobrazuje. `updatedAt` doplňujte pouze při podstatné úpravě obsahu. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
+
+## Rozložení a navigace článků
+
+Nadpisy druhé a třetí úrovně (`##` a `###`) v obsahu Markdownu automaticky vytvářejí navigaci v levém sloupci. Na desktopu tvoří navigace a článek poměr **30 / 70 %**, na menších obrazovkách je navigace sbalená nad článkem. Kotvy obsahu a nadpisů generuje společná funkce, takže fungují i při opakovaném názvu nadpisu.
+
+Pokud článek žádné takové nadpisy nemá, navigace se nevykreslí a článek je vycentrovaný na **60 %** dostupné šířky (20 / 60 / 20). Na mobilu zůstává obsah přes celou šířku s odsazením.
+
+Sdílecí dialog používá značkové SVG ikony z Font Awesome Free 6.7.2 (CC BY 4.0, © Fonticons, Inc.; https://fontawesome.com/license/free), zbytek rozhraní používá ikony Lucide. Žádná emoji.
 
 ## Bezpečnost
 
