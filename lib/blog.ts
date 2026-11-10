@@ -64,8 +64,8 @@ function booleanValue(data: Frontmatter, keys: string[], fallback: boolean): boo
 
 // Starší články mohou obsahovat pouze datum. Přesný čas musí vždy obsahovat
 // explicitní časové pásmo, aby jej build na jiném serveru neposunul.
-const BLOG_DATE_ONLY = /^\\d{4}-\\d{2}-\\d{2}$/;
-const BLOG_DATE_TIME = /^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d{1,3})?(?:Z|[+-](?:0\\d|1[0-4]):[0-5]\\d)$/;
+const BLOG_DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+const BLOG_DATE_TIME = /^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,3})?(?:Z|[+-](?:0\d|1[0-4]):[0-5]\d)$/;
 
 function isValidBlogDate(value: string): boolean {
   if (!BLOG_DATE_ONLY.test(value) && !BLOG_DATE_TIME.test(value)) return false;
@@ -75,7 +75,7 @@ function isValidBlogDate(value: string): boolean {
   if (BLOG_DATE_ONLY.test(value)) return true;
 
   // Maximální platný posun ISO 8601 je 14:00.
-  const offset = value.match(/([+-])(\\d{2}):(\\d{2})$/);
+  const offset = value.match(/([+-])(\d{2}):(\d{2})$/);
   if (offset && offset[2] === '14' && offset[3] !== '00') return false;
   return !Number.isNaN(Date.parse(value));
 }
