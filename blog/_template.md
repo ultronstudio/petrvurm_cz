@@ -9,6 +9,7 @@ imageCredit: "Jméno autora / Zdroj"
 imageCreditUrl: "https://example.com/originalni-fotografie"
 publishedAt: "2026-09-15T09:30:00+02:00"
 updatedAt: ""
+newsArticle: false
 topics:
   - "Webový vývoj"
   - "Next.js"
@@ -34,3 +35,5 @@ Další obsah v běžném Markdownu.
 Citace se vloží jako `[^zdroj]` přímo za tvrzení.[^zdroj] V poznámkách lze použít stejný zdroj vícekrát a systém očísluje první výskyt. Seznam zdrojů se automaticky zobrazí na konci článku, pouze pokud byly použity citace.
 
 [^zdroj]: [Název a autor zdroje](https://example.com/)
+
+<!-- newsArticle: true zapíše v JSON-LD zároveň BlogPosting a NewsArticle; používejte jen pro články, které skutečně zpracovávají aktuální události nebo zprávy. Názorové blogové texty ponechte jako BlogPosting. -->
