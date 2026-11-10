@@ -10,6 +10,9 @@ export type BlogPost = {
   excerpt: string;
   image: string;
   imageAlt: string;
+  imageCaption: string;
+  imageCredit: string;
+  imageCreditUrl: string;
   publishedAt: string;
   updatedAt: string | null;
   topics: string[];
@@ -46,6 +49,18 @@ function imageValue(data: Frontmatter, file: string): string {
     throw new Error(`Blogový soubor ${file}: pole \"image\" musí být cesta z /public nebo úplná http(s) URL.`);
   }
   return value;
+}
+
+function optionalHttpUrl(data: Frontmatter, keys: string[], label: string, file: string): string {
+  const value = optionalString(data, keys);
+  if (!value) return '';
+  try {
+    const url = new URL(value);
+    if (url.protocol === 'https:' || url.protocol === 'http:') return url.href;
+  } catch {
+    // Zpracuje společná chyba níže.
+  }
+  throw new Error(`Blogový soubor ${file}: pole "${label}" musí obsahovat platnou http(s) URL.`);
 }
 
 function stringList(data: Frontmatter, keys: string[]): string[] {
@@ -115,6 +130,9 @@ function parseBlogFile(fileName: string): BlogPost {
     excerpt: requiredString(frontmatter, ['excerpt', 'perex', 'description'], 'excerpt', fileName),
     image: imageValue(frontmatter, fileName),
     imageAlt: optionalString(frontmatter, ['imageAlt', 'obrazekAlt']) || `Náhled článku ${title}`,
+    imageCaption: optionalString(frontmatter, ['imageCaption', 'popisekObrazku']),
+    imageCredit: optionalString(frontmatter, ['imageCredit', 'autorObrazku']),
+    imageCreditUrl: optionalHttpUrl(frontmatter, ['imageCreditUrl', 'zdrojObrazku'], 'imageCreditUrl', fileName),
     publishedAt: dateValue(frontmatter, ['publishedAt', 'date', 'datum', 'datumNapsani', 'datumNapsání'], 'publishedAt', fileName, true),
     updatedAt: dateValue(frontmatter, ['updatedAt', 'updated', 'datumUpravy', 'datumÚpravy'], 'updatedAt', fileName, false),
     topics: stringList(frontmatter, ['topics', 'temata', 'témata']),
