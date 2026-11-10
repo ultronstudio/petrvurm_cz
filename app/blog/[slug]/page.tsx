@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import MarkdownContent from '@/components/Markdown/MarkdownContent';
 import ArticleDate from '@/components/Blog/ArticleDate';
 import ShareArticle from '@/components/Blog/ShareArticle';
+import ArticleToc from '@/components/Blog/ArticleToc';
+import { getBlogTableOfContents } from '@/lib/blog-headings';
 import { formatBlogDateTime, getBlogPost, getPublishedBlogPosts, topicToSlug } from '@/lib/blog';
 import { PERSON_ID, WEBSITE_ID, absoluteUrl, serializeJsonLd } from '@/lib/seo';
 import { SITE_URL } from '@/site.config';
@@ -58,6 +60,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const url = `${SITE_URL}/blog/${post.slug}`;
   const articleId = `${url}#article`;
+  const toc = getBlogTableOfContents(post.content);
   const blogPostJsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -99,8 +102,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <section className="py-10 md:py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostJsonLd) }} />
-      <article className="container mx-auto max-w-4xl px-4 md:px-6">
-        <header className="max-w-3xl">
+      <article className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className={toc.length ? 'grid grid-cols-1 gap-x-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,7fr)]' : 'mx-auto w-full lg:w-3/5'}>
+          {toc.length > 0 && (
+            <aside className="hidden lg:block">
+              <div className="sticky top-28 max-h-[calc(100vh-9rem)] overflow-y-auto pr-3">
+                <ArticleToc items={toc} />
+              </div>
+            </aside>
+          )}
+          <div className="min-w-0 w-full">
+            {toc.length > 0 && (
+              <details className="mb-8 rounded-md border border-white/15 p-4 lg:hidden">
+                <summary className="cursor-pointer font-semibold text-white">Obsah článku</summary>
+                <div className="mt-4">
+                  <ArticleToc items={toc} showTitle={false} />
+                </div>
+              </details>
+            )}
+        <header className="w-full">
           <h1 className="text-balance text-4xl font-bold tracking-tight md:text-5xl">{post.title}</h1>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
             <Link href="/o-mne" rel="author" className="text-sm font-medium text-white/85 hover:text-primary">
@@ -111,13 +131,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {post.image && (
-          <figure className="mt-8">
+          <figure className="mt-8 w-full min-w-0">
             <Image
               src={post.image}
               alt={post.imageAlt}
               width={1200}
               height={675}
-              className="aspect-video w-full rounded-md border border-white/10 object-cover"
+              className="block aspect-video h-auto w-full max-w-full rounded-md border border-white/10 object-cover"
               priority
               sizes="(min-width: 896px) 896px, 100vw"
               unoptimized={/^https?:\/\//i.test(post.image)}
@@ -147,7 +167,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </figure>
         )}
 
-        <div className="mt-7 max-w-3xl">
+        <div className="mt-7 w-full">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/55">
             <ArticleDate value={post.publishedAt} fallback={formatBlogDateTime(post.publishedAt)} />
             {post.updatedAt && (
@@ -171,11 +191,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </div>
 
-        <div className="mt-9 max-w-3xl border-t border-white/10 pt-7">
+        <div className="mt-9 w-full border-t border-white/10 pt-7">
           <MarkdownContent content={post.content} />
         </div>
-        <div className="mt-10 max-w-3xl border-t border-white/10 pt-6">
+        <div className="mt-10 w-full border-t border-white/10 pt-6">
           <ShareArticle url={url} title={post.title} />
+        </div>
+          </div>
         </div>
       </article>
     </section>
