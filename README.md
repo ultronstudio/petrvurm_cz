@@ -97,6 +97,14 @@ Nepovinná pole `imageCaption`, `imageCredit` a `imageCreditUrl` popisují titul
 
 Obrázek může být cesta k souboru v `public/` (např. `/images/blog/obrazek.jpg`) nebo úplná `https://` URL. Pro přesné datum a čas publikace použijte ISO 8601 s časovým pásmem, např. `2026-11-10T07:30:00+01:00` (zimní čas) nebo `2026-07-10T07:30:00+02:00` (letní čas). Datum musí odpovídat skutečnému prvnímu zveřejnění článku; čas zveřejnění předem neodhadujte. Starší články s pouhým `YYYY-MM-DD` zůstávají podporované. Detail článku zobrazí čas, pokud je dostupný; perex výpisu zůstává u dne. Prázdné `updatedAt` se nezobrazuje. `updatedAt` doplňujte pouze při podstatné úpravě obsahu. `draft: true` článek z webu úplně skryje, zatímco `index: false` jej ponechá dostupný, ale vynechá jej ze sitemap a zakáže indexaci.
 
+## Rozložení a navigace článků
+
+Nadpisy druhé a třetí úrovně (`##` a `###`) v obsahu Markdownu automaticky vytvářejí navigaci v levém sloupci. Na desktopu tvoří navigace a článek poměr **30 / 70 %**, na menších obrazovkách je navigace sbalená nad článkem. Kotvy obsahu a nadpisů generuje společná funkce, takže fungují i při opakovaném názvu nadpisu.
+
+Pokud článek žádné takové nadpisy nemá, navigace se nevykreslí a článek je vycentrovaný na **60 %** dostupné šířky (20 / 60 / 20). Na mobilu zůstává obsah přes celou šířku s odsazením.
+
+Sdílecí dialog používá značkové SVG ikony z Font Awesome Free 6.7.2 (CC BY 4.0, © Fonticons, Inc.; https://fontawesome.com/license/free), zbytek rozhraní používá ikony Lucide. Žádná emoji.
+
 ## Bezpečnost
 
 Skutečné API klíče, tokeny a hesla do repozitáře nepatří. Pokud se secret někdy objevil v Git historii, samotné smazání souboru nestačí — klíč je nutné zneplatnit/rotovat u poskytovatele a aktualizovat v deployment prostředí.
