@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MarkdownContent from '@/components/Markdown/MarkdownContent';
-import { formatBlogDate, getBlogPost, getPublishedBlogPosts, topicToSlug } from '@/lib/blog';
+import { formatBlogDateTime, getBlogPost, getPublishedBlogPosts, topicToSlug } from '@/lib/blog';
 import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 import { SITE_URL } from '@/site.config';
 
@@ -110,8 +110,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         <header className="max-w-3xl">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/50">
-            <span>Publikováno <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt)}</time></span>
-            {post.updatedAt && <span>Upraveno <time dateTime={post.updatedAt}>{formatBlogDate(post.updatedAt)}</time></span>}
+            <span>Publikováno <time dateTime={post.publishedAt}>{formatBlogDateTime(post.publishedAt)}</time></span>
+            {post.updatedAt && <span>Upraveno <time dateTime={post.updatedAt}>{formatBlogDateTime(post.updatedAt)}</time></span>}
           </div>
           <h1 className="mt-4 text-balance text-4xl font-bold tracking-tight md:text-5xl">{post.title}</h1>
           <p className="mt-5 text-lg leading-8 text-white/70">{post.excerpt}</p>
