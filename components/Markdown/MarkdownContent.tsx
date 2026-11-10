@@ -140,7 +140,7 @@ export default async function MarkdownContent({ content }: { content: string }) 
       }),
     )
     .setOptions({ renderer })
-    .parse(content);
+    .parse(body);
 
   const referencesHtml = cited.length
     ? `<section class="mt-12 border-t border-white/10 pt-8" aria-labelledby="blog-reference-title">
