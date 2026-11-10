@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { Check, Copy, Mail, Share2, X } from 'lucide-react';
+import BrandIcon from '@/components/Blog/BrandIcon';
 
 type ShareArticleProps = {
   title: string;
@@ -17,13 +18,13 @@ export default function ShareArticle({ title, url }: ShareArticleProps) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
   const networks = [
-    { name: 'Facebook', href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodedUrl },
-    { name: 'X (Twitter)', href: 'https://twitter.com/intent/tweet?text=' + encodedTitle + '&url=' + encodedUrl },
-    { name: 'Bluesky', href: 'https://bsky.app/intent/compose?text=' + encodeURIComponent(title + '\n' + url) },
-    { name: 'WhatsApp', href: 'https://api.whatsapp.com/send?text=' + encodeURIComponent(title + '\n' + url) },
-    { name: 'Telegram', href: 'https://t.me/share/url?url=' + encodedUrl + '&text=' + encodedTitle },
-    { name: 'Reddit', href: 'https://www.reddit.com/submit?url=' + encodedUrl + '&title=' + encodedTitle },
+    { name: 'Facebook', icon: 'facebook' as const, href: 'https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl },
+    { name: 'LinkedIn', icon: 'linkedin' as const, href: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodedUrl },
+    { name: 'X (Twitter)', icon: 'x' as const, href: 'https://twitter.com/intent/tweet?text=' + encodedTitle + '&url=' + encodedUrl },
+    { name: 'Bluesky', icon: 'bluesky' as const, href: 'https://bsky.app/intent/compose?text=' + encodeURIComponent(title + '\n' + url) },
+    { name: 'WhatsApp', icon: 'whatsapp' as const, href: 'https://api.whatsapp.com/send?text=' + encodeURIComponent(title + '\n' + url) },
+    { name: 'Telegram', icon: 'telegram' as const, href: 'https://t.me/share/url?url=' + encodedUrl + '&text=' + encodedTitle },
+    { name: 'Reddit', icon: 'reddit' as const, href: 'https://www.reddit.com/submit?url=' + encodedUrl + '&title=' + encodedTitle },
   ];
 
   function openDialog() {
@@ -92,9 +93,10 @@ export default function ShareArticle({ title, url }: ShareArticleProps) {
                 href={network.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md border border-white/15 px-3 py-3 text-center text-sm text-white/90 transition hover:border-white/40 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/15 px-3 py-3 text-sm text-white/90 transition hover:border-white/40 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
               >
-                {network.name}
+                <BrandIcon name={network.icon} />
+                <span>{network.name}</span>
               </a>
             ))}
             <a
