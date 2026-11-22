@@ -12,6 +12,13 @@ const projects = [
     technologies: 'Laravel · Livewire · MariaDB · JavaScript',
   },
   {
+    title: 'Ráj vlny',
+    slug: 'raj-vlny',
+    image: '/images/projekty/raj-vlny.webp',
+    description: 'Údržba e-shopu s přízí a integrace platební brány Comgate.',
+    technologies: 'PHP · Comgate',
+  },
+  {
     title: 'BressKamp',
     slug: 'bresskamp',
     image: '/images/projekty/bresskamp.jpg',

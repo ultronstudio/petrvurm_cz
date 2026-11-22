@@ -117,32 +117,11 @@ export default function VyukaPage() {
           </div>
         </section>
 
-        <section className="mt-14" aria-labelledby="temata-vyuky">
-          <div className="max-w-3xl">
-            <h2 id="temata-vyuky" className="text-3xl font-bold">Individuální výuka</h2>
+        <section id="kalkulacka" className="mt-16 scroll-mt-24" aria-labelledby="temata-vyuky">
+          <div id="kalkulacka-title" className="max-w-3xl scroll-mt-24">
+            <h2 id="temata-vyuky" className="text-3xl font-bold">Kalkulátor individuální výuky</h2>
             <p className="mt-3 leading-7 text-white/65">
-              Lekce jsou určené začátečníkům i lidem, kteří už něco tvoří a potřebují vysvětlit konkrétní problém. Cena začíná na {TEACHING_MIN_PRICE} Kč za 60 minut podle tématu.
-            </p>
-          </div>
-
-          <div className="mt-7 grid gap-x-10 md:grid-cols-2">
-            {TEACHING_TOPICS.map((topic) => (
-              <div key={topic.id} className="border-t border-white/10 py-5">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-semibold text-white">{topic.name}</h3>
-                  <span className="shrink-0 text-sm font-semibold text-primary">{topic.price} Kč / 60 min</span>
-                </div>
-                <p className="mt-2 text-sm leading-6 text-white/60">{topic.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="kalkulacka" className="mt-16 scroll-mt-24" aria-labelledby="kalkulacka-title">
-          <div className="max-w-3xl">
-            <h2 id="kalkulacka-title" className="text-3xl font-bold">Kalkulátor individuální výuky</h2>
-            <p className="mt-3 leading-7 text-white/65">
-              Vyberte téma, formu a počet lekcí. Výsledek je orientační a poptávka se předvyplní do e-mailu.
+              Lekce stojí od {TEACHING_MIN_PRICE} Kč za 60 minut. Vyberte téma, formu a počet lekcí. Poptávku pak můžete odeslat e-mailem.
             </p>
           </div>
           <LearningCalculator />

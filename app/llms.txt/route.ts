@@ -19,7 +19,6 @@ Cenu webu nebo aplikace navrhne Petr podle zadání. Individuální výuka progr
 - [Projekty](${SITE_URL}/projekty): výběr webů, aplikací a dalších projektů.
 - [Blog](${SITE_URL}/blog): články o webovém vývoji, programování a technologiích.
 - [Výuka, workshopy a přednášky](${SITE_URL}/vyuka): individuální výuka programování a webového vývoje, mentoring, workshopy, webináře a přednášky pro jednotlivce, školy, knihovny, firmy a další organizace.
-- [Jak pracuji](${SITE_URL}/jak-pracuji): postup od zadání po nasazení a předání.
 - [Kontakt](${SITE_URL}/kontakt): e-mail, telefon a informace vhodné pro první poptávku.
 - [Lokální IT servis](${SITE_URL}/it-servis): doplňkový IT servis ve vybraných lokalitách.
 
@@ -42,6 +41,7 @@ Skupinové workshopy a přednášky mohou být připravené například na téma
 ## Vybrané projekty
 
 - [FakeTube](${SITE_URL}/projekty/faketube): vlastní video platforma s uživatelskými účty, nahráváním a přehráváním videí.
+- [Ráj vlny](${SITE_URL}/projekty/raj-vlny): údržba e-shopu s přízí a integrace platební brány Comgate.
 - [BressKamp](${SITE_URL}/projekty/bresskamp): one-page firemní web pro německou společnost.
 - [Ivan](${SITE_URL}/projekty/sspt-ivan): nástroj pro přípravu zasedacího pořádku matematické soutěže.
 - [MeGen](${SITE_URL}/projekty/megen): webová aplikace pro generování memů z textu a obrázků.

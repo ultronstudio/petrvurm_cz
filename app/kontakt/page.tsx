@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { SITE_URL } from '@/site.config';
 import { PERSON_ID, WEBSITE_ID, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
 
@@ -66,7 +65,6 @@ export default function Kontakt() {
 
         <div className="mt-10 border-t border-white/10 pt-7 text-sm text-white/60">
           <p><strong className="text-white/80">Petr Vurm</strong> · IČ: 21180164 · neplátce DPH</p>
-          <Link href="/jak-pracuji" className="mt-3 inline-block text-primary hover:underline">Jak pracuji</Link>
         </div>
       </div>
     </section>
