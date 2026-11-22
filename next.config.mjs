@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      { source: '/cenik', destination: '/kontakt', permanent: true },
+      { source: '/kalkulacka/web', destination: '/kontakt', permanent: true },
       {
         source: '/it-servis/:mesto(rozhovice|hrochuv-tynec|nove-mesto-nad-metuji)',
         destination: '/it-servis',

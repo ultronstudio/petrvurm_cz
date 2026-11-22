@@ -6,7 +6,6 @@ const nav = [
   { name: "Projekty", href: "/projekty" },
   { name: "Blog", href: "/blog" },
   { name: "Výuka", href: "/vyuka" },
-  { name: "Ceník", href: "/cenik" },
   { name: "Lokální IT servis", href: "/it-servis" },
   { name: "Kontakt", href: "/kontakt" },
 ];

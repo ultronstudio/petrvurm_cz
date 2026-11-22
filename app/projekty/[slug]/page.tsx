@@ -4,7 +4,6 @@ import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import MarkdownContent from '@/components/Markdown/MarkdownContent';
 import { SITE_URL } from '@/site.config';
 import { PERSON_ID, WEBSITE_ID, absoluteUrl, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo';
@@ -140,12 +139,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <section className="py-12 md:py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
-        <nav className="mb-6 text-sm text-white/50" aria-label="Drobečková navigace">
-          <Link href="/projekty" className="hover:text-primary">Projekty</Link>
-          <span className="px-2" aria-hidden="true">/</span>
-          <span className="text-white/80">{post.data.title}</span>
-        </nav>
-
         <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-start">
           <div>
             {post.data.previewImage ? (

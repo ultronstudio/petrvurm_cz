@@ -82,7 +82,7 @@ export default function Home() {
       <section id="sluzby" className="container mx-auto max-w-6xl border-t border-white/10 px-4 py-12 md:px-6" aria-labelledby="sluzby-title">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <h2 id="sluzby-title" className="text-3xl font-bold tracking-tight">Co dělám</h2>
-          <Link href="/cenik" className="text-sm text-primary hover:underline">Ceník</Link>
+          <Link href="/kontakt" className="text-sm text-primary hover:underline">Poptat projekt</Link>
         </div>
         <div className="mt-7 grid gap-x-10 md:grid-cols-2">
           {services.map(([title, text]) => (
