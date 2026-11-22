@@ -24,10 +24,10 @@ const featuredProjects = [
     text: 'Vlastní video platforma s uživatelskými účty, nahráváním a přehráváním videí.',
   },
   {
-    href: '/projekty/bresskamp',
-    image: '/images/projekty/bresskamp.jpg',
-    title: 'BressKamp',
-    text: 'One-page firemní web pro německou společnost, upravený podle dodaného obsahu a požadavků.',
+    href: '/projekty/raj-vlny',
+    image: '/images/projekty/raj-vlny.jpg',
+    title: 'Ráj vlny',
+    text: 'Převzal jsem údržbu e-shopu s přízí a propojil jeho objednávky s platební bránou Comgate.',
   },
 ] as const;
 

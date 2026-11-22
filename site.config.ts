@@ -11,7 +11,6 @@ export const STATIC_ROUTES = [
   '/kontakt',
   '/projekty',
   '/blog',
-  '/jak-pracuji',
   '/it-servis',
   '/gdpr',
   '/obchodni-podminky',
