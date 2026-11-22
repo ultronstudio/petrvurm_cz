@@ -64,7 +64,7 @@ const teachingJsonLd = {
 
 export default function VyukaPage() {
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-10 md:px-6 md:py-14">
+    <div className="container mx-auto max-w-3xl px-4 pb-6 pt-10 md:px-6 md:pb-8 md:pt-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(teachingJsonLd) }} />
       <h1 className="text-4xl font-bold tracking-tight">Výuka programování</h1>
 
