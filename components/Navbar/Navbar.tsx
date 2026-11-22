@@ -18,7 +18,6 @@ const links: NavLink[] = [
   { name: "Blog", href: "/blog" },
   { name: "Výuka", href: "/vyuka" },
   { name: "Jak pracuji", href: "/jak-pracuji" },
-  { name: "Ceník", href: "/cenik" },
   { name: "O mně", href: "/o-mne" },
 ];
 

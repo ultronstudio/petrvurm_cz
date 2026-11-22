@@ -7,7 +7,6 @@ export const SITE_URL =
 export const STATIC_ROUTES = [
   '/',
   '/o-mne',
-  '/cenik',
   '/vyuka',
   '/kontakt',
   '/projekty',
